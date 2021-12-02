@@ -4,5 +4,20 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenuScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/AtomScene.unity
+    guid: 0c940a0d583519641a6a23b0e54bb447
+  - enabled: 1
+    path: Assets/Scenes/MoleculeScene.unity
+    guid: 165860e0141ecd64f81dca7bac285670
+  - enabled: 1
+    path: Assets/Scenes/TaskMenuScene.unity
+    guid: ab47a055fa821dd45ab9931108b0d924
+  - enabled: 1
+    path: Assets/Scenes/HelpScene.unity
+    guid: a0fe9a677e9d5bc4da8a1390b5e546a2
   m_configObjects: {}
