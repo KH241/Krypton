@@ -4,6 +4,29 @@ using UnityEngine;
 
 public class Electron : MonoBehaviour
 {
-   
+    
+    
+    public Transform centre;
+    public Vector3 axis = Vector3.up;
+    public float radius = 2.0f;
+    public float radiusSpeed = 0.5f;
+    public float rotationSpeed = 40.0f;
+    
+
+    public void Start()
+    {
+        transform.position = (transform.position - centre.position).normalized * radius + centre.position;
+        Debug.Log("Electron  Spawn Position: " + transform.position);
+    }
+
+
+    public void Update()
+    {   //rotate Gameobject around a center position
+        transform.RotateAround(centre.position, transform.up, rotationSpeed * Time.deltaTime);
+        Vector3 desiredPosition = (transform.position - centre.position).normalized * radius + centre.position;
+      //  Debug.Log("Radius: " + radius);
+        transform.position = Vector3.MoveTowards(transform.position, desiredPosition, Time.deltaTime * radiusSpeed);
+    }
+    
 }
 
