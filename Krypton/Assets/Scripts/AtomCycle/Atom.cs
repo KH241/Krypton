@@ -9,6 +9,8 @@ public class Atom : MonoBehaviour
     public Material AtomShellMaterial;
     public Material electronMaterial;
 
+    
+
     //Size of atom in scene
     public float atomScale = 1f;
     
@@ -19,6 +21,7 @@ public class Atom : MonoBehaviour
     public float atomicWeight;
 
     //Protons
+    
     public int protonCount;
     public Color32 protonColor = new Color32(0, 55, 255, 255);
 
@@ -48,59 +51,58 @@ public class Atom : MonoBehaviour
         //proton and neutrons
         int pc = protonCount;
         int nc = neutronCount;
-        float scaleCount = 1f;
 
         generateProton(transform.position);
         pc -= 1;
 
-       
-
-        //Generate spheres for protons and neutrons
+        //Generate spheres for protons and neutrons in batches
         for (int i = 1; i <= nc + pc; i++)
         {
-            int nucleonsToCreate = int.Parse((Mathf.Pow(2f, i - 1f) * 5f).ToString());
-           
+            int nucleonsToCreate = 10 * i;
+            Debug.Log("nucleonsToCreate" + nucleonsToCreate);
 
             if (nc + pc >= nucleonsToCreate)
             {
-                string s = createNucleons(nucleonsToCreate, atomScale, pc, nc);
-                scaleCount += 0.2f;
-                pc -= int.Parse(s.Split(',')[0]);
-                nc -= int.Parse(s.Split(',')[1]);
+                string nucleonsCreated = createNucleons(nucleonsToCreate, atomScale, pc, nc);                
+                pc -= int.Parse(nucleonsCreated.Split(',')[0]);
+                nc -= int.Parse(nucleonsCreated.Split(',')[1]);
             }
             else
             {
-                string s = createNucleons(pc + nc, atomScale, pc, nc);
-                scaleCount += 0.2f;
-
-                pc -= int.Parse(s.Split(',')[0]);
-                nc -= int.Parse(s.Split(',')[1]);
+                string nucleonsCreated = createNucleons(pc + nc, atomScale, pc, nc);               
+                pc -= int.Parse(nucleonsCreated.Split(',')[0]);
+                nc -= int.Parse(nucleonsCreated.Split(',')[1]);
             }
-
         }
 
         //Electrons
         GameObject[] shellsGO = generateElectronShells();
         float delta = atomScale / 4;
-
+        float radius = atomScale + delta;
+        
+        //Shell Loop 
         for (int loop = 0; loop < electronConfiguration.Length; loop++)
         {
-            int numPoints = electronConfiguration[loop];
+            int numberOfElectrons = electronConfiguration[loop];
 
-            for (int pointNum = 0; pointNum < numPoints; pointNum++)
+            for (int electronNumber = 0; electronNumber < numberOfElectrons; electronNumber++)
             {
-                float i = (float)(pointNum * 1.0) / numPoints;
+                
+                float i = (float)(electronNumber) / numberOfElectrons;
                 float angle = i * Mathf.PI * 2;
-                float x = transform.position.x + (Mathf.Sin(angle) * (3 * (loop + 1)));
-                float z = transform.position.z + (Mathf.Cos(angle) * (3 * (loop + 1)));
+                float x = transform.position.x + (Mathf.Sin(angle) * ( (loop + 1)));
+                float z = transform.position.z + (Mathf.Cos(angle) * ( (loop + 1)));
+
                 Vector3 pos = new Vector3(x , transform.position.y, z);
 
-               // generateElectron(pos * atomScale, atomScale , loop + 1, shellsGO[loop]);
-                atomicNumber += 1;
+                generateElectron(pos,  radius, loop + 1, shellsGO[loop]);
+                
             }
             delta = delta + electronShellSpacing;
+            radius = radius + electronShellSpacing;
         }
 
+        //Deactivate rigidbody and colliders 
         StartCoroutine(freezePos());
     }
 
@@ -125,7 +127,7 @@ public class Atom : MonoBehaviour
 
         Vector3[] points = new Vector3[nPoints];
 
-        float inc = Mathf.PI * (3 - Mathf.Sqrt(5));
+        float inc = 4;
 
         //offset between inital instantation of Nucleods
         float off = 2 / fPoints;
@@ -146,18 +148,18 @@ public class Atom : MonoBehaviour
             //Randomly generate proton or neutron until one has been fulfilled
             if (protonsToBeCreated > 0 && neutronsToBeCreated > 0)
             {
-                int borc = Random.Range(1, 10);
-                if (borc > 5 && protonsToBeCreated > 0)
+                int norp = Random.Range(1, 10);
+                if (norp > 5 && protonsToBeCreated > 0)
                 {
-                    GameObject outerSphere = generateProton(transform.position);
-                    outerSphere.transform.position += point * scale;
+                    GameObject proton = generateProton(transform.position);
+                    proton.transform.position += point * scale;
                     npc += 1;
                     protonsToBeCreated -= 1;
                 }
-                else if (borc < 6 && neutronsToBeCreated > 0)
+                else if (norp < 6 && neutronsToBeCreated > 0)
                 {
-                    GameObject outerSphere = generateNeutron(transform.position);
-                    outerSphere.transform.position += point * scale;
+                    GameObject neutron = generateNeutron(transform.position);
+                    neutron.transform.position += point * scale;
                     nnc += 1;
                     neutronsToBeCreated -= 1;
                 }
@@ -166,8 +168,8 @@ public class Atom : MonoBehaviour
             //if neutrons fulfilled create remaining protons
             else if (protonsToBeCreated > 0 && neutronsToBeCreated == 0)
             {
-                GameObject outerSphere = generateProton(transform.position);
-                outerSphere.transform.position += point * scale;
+                GameObject proton = generateProton(transform.position);
+                proton.transform.position += point * scale;
                 npc += 1;
                 protonsToBeCreated -= 1;
             }
@@ -175,8 +177,8 @@ public class Atom : MonoBehaviour
             //if protons fulfilled create remaining neutrons
             else if (protonsToBeCreated == 0 && neutronsToBeCreated > 0)
             {
-                GameObject outerSphere = generateNeutron(transform.position);
-                outerSphere.transform.position += point * scale;
+                GameObject neutron = generateNeutron(transform.position);
+                neutron.transform.position += point * scale;
                 nnc += 1;
                 neutronsToBeCreated -= 1;
             }
@@ -189,26 +191,24 @@ public class Atom : MonoBehaviour
 
     public void Update()
     {
-        if (spinElectrons && !prevSpinElectrons)
+        if (spinElectrons)
         {
             foreach (GameObject e in FindObjectsOfType(typeof(GameObject)))
             {
                 if (e.name == "Electron")
                 {
                     e.GetComponent<Electron>().enabled = true;
-                    prevSpinElectrons = spinElectrons;
                 }
             }
         }
 
-        else if (!spinElectrons && prevSpinElectrons)
+        else if (!spinElectrons)
         {
             foreach (GameObject e in FindObjectsOfType(typeof(GameObject)))
             {
                 if (e.name == "Electron")
                 {
-                    e.GetComponent<Electron>().enabled = false;
-                    prevSpinElectrons = spinElectrons;
+                    e.GetComponent<Electron>().enabled = false;                   
                 }
             }
         }
@@ -217,7 +217,7 @@ public class Atom : MonoBehaviour
     //Draw Electron Shells
     public void drawCircle(float radius, LineRenderer lr)
     {
-        lr.positionCount = 361;
+        lr.positionCount = 360;
         lr.useWorldSpace = false;
         lr.startWidth = lr.endWidth = atomScale / 16f;
         lr.materials[0] = new Material(Shader.Find("Diffuse"));
@@ -225,7 +225,7 @@ public class Atom : MonoBehaviour
 
         float x, y = 0, z, angle = 0;
 
-        for (int i = 0; i < 361; i++)
+        for (int i = 0; i < 360; i++)
         {
             x = Mathf.Sin(Mathf.Deg2Rad * angle) * radius;
             z = Mathf.Cos(Mathf.Deg2Rad * angle) * radius;
@@ -244,7 +244,7 @@ public class Atom : MonoBehaviour
         proton.transform.position = pos;
         proton.AddComponent<Rigidbody>().useGravity = false;
         proton.GetComponent<Rigidbody>().mass = 1f;
-        proton.GetComponent<Renderer>().material.SetColor("_Color", new Color32(0, 55, 255, 255));
+        proton.GetComponent<Renderer>().material.SetColor("_Color", new Color32(229, 79, 10, 255));
         proton.AddComponent<Nucleon>();
 
         proton.transform.SetParent(nucleus);
@@ -263,7 +263,7 @@ public class Atom : MonoBehaviour
         neutron.AddComponent<Rigidbody>().useGravity = false;
         neutron.GetComponent<Rigidbody>().mass = 1f;
 
-        neutron.GetComponent<Renderer>().material.SetColor("_Color", new Color32(255, 28, 28, 255));
+        neutron.GetComponent<Renderer>().material.SetColor("_Color", new Color32(51, 46, 46, 255));
         neutron.AddComponent<Nucleon>();
 
         neutron.transform.SetParent(nucleus);
@@ -277,12 +277,14 @@ public class Atom : MonoBehaviour
     public GameObject[] generateElectronShells()
     {
         List<GameObject> shells = new List<GameObject>();
-
-        float delta = atomScale;
+        
+        //Set Distance for initial shell
+        float delta = atomScale + atomScale*.25f;
        
         //for each shell in input params draw a circle with offset  inbetween of delta 
         for (int loop = 0; loop < electronConfiguration.Length; loop++)
         {
+            //Create shell gameObject and set as child of atom
             GameObject shell = new GameObject();
             shell.name = "Shell " + (loop + 1);
             shell.transform.parent = transform;
@@ -291,6 +293,7 @@ public class Atom : MonoBehaviour
             shell.GetComponent<Renderer>().material = AtomShellMaterial;
 
             drawCircle((delta), lr);
+            //Increase shell spacing 
             delta = delta + electronShellSpacing;
 
             shells.Add(shell);
@@ -299,6 +302,23 @@ public class Atom : MonoBehaviour
         return shells.ToArray();
     }
 
-    
-    
+    //Electron Gameobject Generator
+    public void generateElectron(Vector3 pos, float r, int shell, GameObject shellGO)
+    {
+        GameObject electron = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        electron.GetComponent<Renderer>().material = electronMaterial;
+        electron.name = "Electron";
+        electron.transform.localScale = new Vector3(atomScale / 4, atomScale / 4, atomScale / 4);
+        electron.transform.position = pos;
+        electron.transform.parent = shellGO.transform;
+        Destroy(electron.GetComponent<SphereCollider>());
+        electron.GetComponent<Renderer>().material = electronMaterial;
+        Electron e = electron.AddComponent<Electron>();
+        e.radius = r;
+        e.centre = transform;
+        e.rotationSpeed = 40 + (10 * shell);
+
+    }
+
+
 }

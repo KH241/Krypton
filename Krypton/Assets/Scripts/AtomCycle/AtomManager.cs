@@ -7,6 +7,8 @@ public class AtomManager : MonoBehaviour
 
     //Atom Prefab needed to spawn Gameobjects
     public GameObject atomPrefab;
+    public GameObject atomModel;
+    
     //Center of Atom, 0,0,0 of atom
     private Vector3 atomCenter;
 
@@ -22,6 +24,8 @@ public class AtomManager : MonoBehaviour
     private string oxygenParam = "Oxygen_Sauerstoff_0_15.999_8_9_2_6";
     private string hydrogenParam = "Hydrogen_Wasserstoff_H_1.007_1_0_1";
     private string carbonParam = "Carbon_Kohlenstoff_C_12.010_6_6_2_4";
+    private string sodiumParam = "Sodium_Natrium_Na_22.989_11_12_2_8_1";
+    private string ChlorineParam = "Chlorine_Chlor_Cl_35.453_17_18_2_8_7";
 
 
     // Start is called before the first frame update
@@ -38,10 +42,53 @@ public class AtomManager : MonoBehaviour
     }
 
 
-    public void spawnAtoms()
+    public void spawnOxygenAtoms()
     {
+        if(atomModel != null)
+        {
+            Destroy(atomModel);
+        }
         createAtom(oxygenParam, new Vector3(0f,1f,0f));
     }
+
+    public void spawnCarbonAtoms()
+    {
+        if (atomModel != null)
+        {
+            Destroy(atomModel);
+        }
+        createAtom(carbonParam, new Vector3(0f, 1f, 0f));
+    }
+
+    public void spawnHydrogenAtoms()
+    {
+        if (atomModel != null)
+        {
+            Destroy(atomModel);
+        }
+        createAtom(hydrogenParam, new Vector3(0f, 1f, 0f));
+    }
+
+    public void spawnSodiumAtom()
+    {
+        if (atomModel != null)
+        {
+            Destroy(atomModel);
+        }
+        createAtom(sodiumParam, new Vector3(0f, 1f, 0f));
+    }
+
+    public void spawnChlorineAtom()
+    {
+        if (atomModel != null)
+        {
+            Destroy(atomModel);
+        }
+        createAtom(ChlorineParam, new Vector3(0f, 1f, 0f));
+    }
+
+
+
 
     public void createAtom(string atomParam, Vector3 spawn)
     {
@@ -72,9 +119,9 @@ public class AtomManager : MonoBehaviour
             int[] electronConfig = electronList.ToArray();
 
             //Instantiate the Atom 
-            atomPrefab = Instantiate(atomPrefab, atomCenter, new Quaternion());
+            atomModel = Instantiate(atomPrefab, atomCenter, new Quaternion());
             
-            Atom myAtom = atomPrefab.GetComponent<Atom>();
+            Atom myAtom = atomModel.GetComponent<Atom>();
 
             if (myAtom != null)
             {

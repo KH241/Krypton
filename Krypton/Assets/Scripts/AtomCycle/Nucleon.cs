@@ -7,18 +7,20 @@ public class Nucleon : MonoBehaviour
     public GameObject center;
     private bool stop = false;
     private Transform spawn;
+
     
     void Start()
     {
         //Find center position, GameObject AtomSpawn must be present in scene before instantiation
         center = GameObject.Find("AtomSpawn");
-        Debug.Log("Vector3: " + center);
+        
     }
 
     void Update()
     {
         if (center != null)
         {
+            //If nucleoid movement not yet ended
             if (gameObject.GetComponent<Rigidbody>() != null)
             {                            
                 //Pull GameObject to the center
@@ -38,7 +40,7 @@ public class Nucleon : MonoBehaviour
         
     }
 
-    //Turn of all gameobject movement and colliders
+    //Turn off all gameobject movement and colliders
     public void Freeze()
     {
         gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;

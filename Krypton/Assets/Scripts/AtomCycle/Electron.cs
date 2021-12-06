@@ -15,17 +15,17 @@ public class Electron : MonoBehaviour
 
     public void Start()
     {
+        //set initial spawn position 
         transform.position = (transform.position - centre.position).normalized * radius + centre.position;
         Debug.Log("Electron  Spawn Position: " + transform.position);
     }
 
 
     public void Update()
-    {   //rotate Gameobject around a center position
+    {   
+        
         transform.RotateAround(centre.position, transform.up, rotationSpeed * Time.deltaTime);
-        Vector3 desiredPosition = (transform.position - centre.position).normalized * radius + centre.position;
-      //  Debug.Log("Radius: " + radius);
-        transform.position = Vector3.MoveTowards(transform.position, desiredPosition, Time.deltaTime * radiusSpeed);
+       
     }
     
 }
