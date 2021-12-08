@@ -10,7 +10,7 @@ public class TaskMenu : MonoBehaviour
      */
 	public void OnStart()
 	{
-		//TODO Implement and start Task-Mode
+		//TODO Loading Tasks/Task Selection
 	}
 	
 	/**
@@ -42,7 +42,7 @@ public class TaskMenu : MonoBehaviour
      */
 	public void OnExitTask()
 	{
-		//TODO Implement and exit Task-Mode
+		TaskModeManger.Singleton.FinishTask();
 	}
 
 	/**
