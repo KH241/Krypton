@@ -13,7 +13,12 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	private bool done { get { return checkIfDone(); } }
 
 	private List<Task> tasks;
-
+	
+	
+	/**
+	 * Finishes the Task.
+	 * Invokes the Event TasksDone - if succes is true the task was finished, if not the task was canceled.
+	 */
 	public void FinishTask()
 	{
 		if (!active) { return; }

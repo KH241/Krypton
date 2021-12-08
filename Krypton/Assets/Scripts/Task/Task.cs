@@ -1,9 +1,11 @@
 ﻿public class Task
 {
 	public bool done;
+	public string name;
 
-	public Task()
+	public Task(string name)
 	{
-		done = false;
+		this.done = false;
+		this.name = name;
 	}
 }
