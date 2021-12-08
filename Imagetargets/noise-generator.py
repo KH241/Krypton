@@ -12,7 +12,6 @@ for i in range(imageSize):
     for j in range(imageSize):
         imageData[i][j] = pattern[i//steps][j//steps]
 
-
 dataStream = []
 for i in range(imageSize):
     for j in range(imageSize):
