@@ -32,7 +32,7 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	{
 		foreach (var task in tasks)
 		{
-			if (!task.done) { return false; }
+			if (!task.Done) { return false; }
 		}
 
 		return true;

@@ -1,11 +1,15 @@
-﻿public class Task
+﻿public class CreateAtomTask : Task
 {
-	public bool done;
-	public string name;
-
-	public Task(string name)
+	public int AtomId;
+	
+	public CreateAtomTask(int atomId)
 	{
-		this.done = false;
-		this.name = name;
+		this.Done = false;
+		this.Name = "Create " + atomId.ToString() + " TODO"; //TODO Atom daten einbinden
 	}
+}
+public class Task
+{
+	public bool Done;
+	public string Name;
 }
