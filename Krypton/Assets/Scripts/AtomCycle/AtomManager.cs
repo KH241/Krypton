@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AtomManager : MonoBehaviour
 {
@@ -21,8 +22,8 @@ public class AtomManager : MonoBehaviour
     private string elementWeight;
 
     //Test Spawn Params
-    private string oxygenParam = "Oxygen_Sauerstoff_0_15.999_8_9_2_6";
-    private string hydrogenParam = "Hydrogen_Wasserstoff_H_1.007_1_0_1";
+	public AtomSO oxygenData;
+	public AtomSO hydrogenData;
     private string carbonParam = "Carbon_Kohlenstoff_C_12.010_6_6_2_4";
     private string sodiumParam = "Sodium_Natrium_Na_22.989_11_12_2_8_1";
     private string ChlorineParam = "Chlorine_Chlor_Cl_35.453_17_18_2_8_7";
@@ -41,6 +42,13 @@ public class AtomManager : MonoBehaviour
         
     }
 
+	/**
+     * Opens the Molecule-View - called from the MainMenu-Button "Molecule"
+     */
+	public void OnMainMenu()
+	{
+		SceneManager.LoadScene(SceneList.MainMenu);
+	}
 
     public void spawnOxygenAtoms()
     {
@@ -48,7 +56,7 @@ public class AtomManager : MonoBehaviour
         {
             Destroy(atomModel);
         }
-        createAtom(oxygenParam, new Vector3(0f,1f,0f));
+        createAtom(oxygenData.ToString(), new Vector3(0f,1f,0f));
     }
 
     public void spawnCarbonAtoms()
@@ -66,7 +74,7 @@ public class AtomManager : MonoBehaviour
         {
             Destroy(atomModel);
         }
-        createAtom(hydrogenParam, new Vector3(0f, 1f, 0f));
+        createAtom(hydrogenData.ToString(), new Vector3(0f, 1f, 0f));
     }
 
     public void spawnSodiumAtom()
