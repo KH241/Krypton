@@ -7,7 +7,7 @@ public class MoleculeMenu : MonoBehaviour
 {
 	
 	/**
-     * Opens the Atom-View - called from the MainMenu-Button "Atom"
+     * Opens the Atom-View - called from the Menu-Button "Atom"
      */
 	public void OnAtom()
 	{
@@ -15,7 +15,7 @@ public class MoleculeMenu : MonoBehaviour
 	}
 	
 	/**
-     * Exits the Application - called from the MainMenu-Button "Exit"
+     * Exits the MoleculeScene - called from the Menu-Button "Exit"
      */
 	public void OnExit()
 	{
