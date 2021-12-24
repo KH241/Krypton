@@ -12,7 +12,7 @@ public class Nucleon : MonoBehaviour
     void Start()
     {
         //Find center position, GameObject AtomSpawn must be present in scene before instantiation
-        center = GameObject.Find("AtomSpawn");
+        center = GameObject.Find("CarbonTarget");
         
     }
 

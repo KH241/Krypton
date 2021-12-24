@@ -9,7 +9,11 @@ public class AtomManager : MonoBehaviour
     //Atom Prefab needed to spawn Gameobjects
     public GameObject atomPrefab;
     public GameObject atomModel;
-    
+
+    public GameObject oxygenTarget;
+    public GameObject carbonTarget;
+    public GameObject hydrogenTarget;
+
     //Center of Atom, 0,0,0 of atom
     private Vector3 atomCenter;
 
@@ -28,6 +32,7 @@ public class AtomManager : MonoBehaviour
     private string sodiumParam = "Sodium_Natrium_Na_22.989_11_12_2_8_1";
     private string ChlorineParam = "Chlorine_Chlor_Cl_35.453_17_18_2_8_7";
 
+    public ScriptableObject carbon;
 
     // Start is called before the first frame update
     void Start()
@@ -51,39 +56,29 @@ public class AtomManager : MonoBehaviour
 	}
 
     public void spawnOxygenAtoms()
-    {
-        if(atomModel != null)
-        {
-            Destroy(atomModel);
-        }
-        createAtom(oxygenData.ToString(), new Vector3(0f,1f,0f));
+    { 
+        Debug.Log("Found the oxygen imageTarget");
+
     }
 
     public void spawnCarbonAtoms()
     {
-        if (atomModel != null)
-        {
-            Destroy(atomModel);
-        }
-        createAtom(carbonParam, new Vector3(0f, 1f, 0f));
+        createAtom(carbonParam, new Vector3(0, 0, 0), carbonTarget);
+        Debug.Log("Found the carbon imageTarget");
     }
 
     public void spawnHydrogenAtoms()
     {
-        if (atomModel != null)
-        {
-            Destroy(atomModel);
-        }
-        createAtom(hydrogenData.ToString(), new Vector3(0f, 1f, 0f));
+        Debug.Log("Found the hydrogen imageTarget");
     }
 
     public void spawnSodiumAtom()
     {
-        if (atomModel != null)
+        if (atomModel != null)          
         {
             Destroy(atomModel);
         }
-        createAtom(sodiumParam, new Vector3(0f, 1f, 0f));
+        //createAtom(sodiumParam, new Vector3(0f, 1f, 0f));
     }
 
     public void spawnChlorineAtom()
@@ -92,17 +87,17 @@ public class AtomManager : MonoBehaviour
         {
             Destroy(atomModel);
         }
-        createAtom(ChlorineParam, new Vector3(0f, 1f, 0f));
+       // createAtom(ChlorineParam, new Vector3(0f, 1f, 0f));
     }
 
 
 
 
-    public void createAtom(string atomParam, Vector3 spawn)
+    public void createAtom(string atomParam, Vector3 spawn, GameObject parent)
     {
         //Process Spawm params
         string[] atomInfo =atomParam.Split('_');
-        atomCenter = spawn;
+        atomCenter = parent.transform.position;
 
         
         if (atomInfo.Length >= 6)
@@ -128,6 +123,7 @@ public class AtomManager : MonoBehaviour
 
             //Instantiate the Atom 
             atomModel = Instantiate(atomPrefab, atomCenter, new Quaternion());
+            atomModel.transform.parent = parent.transform;
             
             Atom myAtom = atomModel.GetComponent<Atom>();
 
