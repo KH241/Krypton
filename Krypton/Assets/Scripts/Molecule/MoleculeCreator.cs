@@ -29,8 +29,11 @@ public class MoleculeCreator : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		//get all image target of that are tagged in scene
 		_gameObjects =  GameObject.FindGameObjectsWithTag("ImageTarget");
 		
+		//iterate through image targets that are tagged in scene
+		//this loop is only for debugging
 		for (int i = 0; i < _gameObjects.Length; i++)
 		{
 			var trackable = _gameObjects[i].GetComponent<TrackableBehaviour>();
@@ -38,19 +41,29 @@ public class MoleculeCreator : MonoBehaviour
 			Debug.Log(_gameObjects[i].name + status);
 		}
 
+		//spawn tracked image targets
 		for (int i = 0; i < _gameObjects.Length; i++)
 		{
 			var trackable = _gameObjects[i].GetComponent<TrackableBehaviour>();
 			var status = trackable.CurrentStatus;
 			Debug.Log(_gameObjects[i].name + status);
-			if (status == Status.TRACKED)
+			GameObject atom = GameObject.Find("Atom(Clone)");
+			
+			if (status == Status.TRACKED && atom == null )
 			{
 				SpawnAtom(_gameObjects[i]);
+			} 
+			else if (status == Status.NO_POSE && atom != null)
+			{
+				atom.SetActive(false);
+				Destroy(atom);
 			}
 		}
 
 		sleep();
 		
+		///////////////////////////////////////////////
+		//       molecule Logic
 		///////////////////////////////////////////////
 		float distance12 = Vector3.Distance(atom1.transform.position, atom2.transform.position);
 		float distance13 = Vector3.Distance(atom1.transform.position, atom3.transform.position);
@@ -76,9 +89,10 @@ public class MoleculeCreator : MonoBehaviour
 		// Debug.Log("distance23" + distance23);
 	}
 
-	private void SpawnAtom(GameObject atom)
+	private void SpawnAtom(GameObject imageTargetGameObject)
 	{
-		_atomManager.createAtom(hydrogenData.ToString(), atom.transform.position);
+		imageTargetGameObject.transform.position = new Vector3(imageTargetGameObject.transform.position.x, -4, imageTargetGameObject.transform.position.z);
+		_atomManager.createAtom(hydrogenData.ToString(), imageTargetGameObject.transform.position);
 	}
 
 	public IEnumerable<WaitForSeconds> sleep()
