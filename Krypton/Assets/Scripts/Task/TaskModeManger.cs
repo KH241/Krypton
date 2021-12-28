@@ -2,20 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 {
-	public delegate void TaskModeEvent(bool success, Task[] tasks);
+	public delegate void TaskModeEvent(bool success=true);
 	public event TaskModeEvent TasksChanged;
 	public event TaskModeEvent TasksDone;
 	
 	private bool active = false;
-	private bool done { get { return checkIfDone(); } }
 
-	private List<Task> tasks;
-	
-	
+	public Task[] Tasks => tasksList.Tasks;
+	private TaskList tasksList;
+
+	private TaskList[] availableTaskLists => TaskListsSaver.LoadTaskLists();
+
 	/**
 	 * Exits TaskMode
 	 * Invokes the Event TasksDone - if succes is true,all tasks were finished, if not the task-mode was canceled.
@@ -26,17 +26,7 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 		
 		active = false;
 		
-		TasksDone?.Invoke(done, tasks.ToArray());
-	}
-	
-	private bool checkIfDone()
-	{
-		foreach (var task in tasks)
-		{
-			if (!task.Done) { return false; }
-		}
-
-		return true;
+		TasksDone?.Invoke(tasksList.Done);
 	}
 
 	#region Task Completing
@@ -47,13 +37,13 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	 */
 	public void AtomCreated(AtomSO atom)
 	{
-		foreach (CreateAtomTask task in tasks.OfType<CreateAtomTask>())
+		foreach (CreateAtomTask task in tasksList.Tasks.OfType<CreateAtomTask>())
 		{
 			if (task.Atom == atom)
 			{
 				task.Done = true;
 				
-				TasksChanged?.Invoke(true, tasks.ToArray());
+				TasksChanged?.Invoke();
 			}
 		}
 	}
@@ -64,13 +54,13 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	 */
 	public void AtomViewed(AtomSO atom)
 	{
-		foreach (ViewAtomTask task in tasks.OfType<ViewAtomTask>())
+		foreach (ViewAtomTask task in tasksList.Tasks.OfType<ViewAtomTask>())
 		{
 			if (task.Atom == atom)
 			{
 				task.Done = true;
 				
-				TasksChanged?.Invoke(true, tasks.ToArray());
+				TasksChanged?.Invoke();
 			}
 		}
 	}
@@ -81,13 +71,13 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	 */
 	public void MoleculeCreated(MoleculeSO molecule)
 	{
-		foreach (CreateMoleculeTask task in tasks.OfType<CreateMoleculeTask>())
+		foreach (CreateMoleculeTask task in tasksList.Tasks.OfType<CreateMoleculeTask>())
 		{
 			if (task.Molecule == molecule)
 			{
 				task.Done = true;
 				
-				TasksChanged?.Invoke(true, tasks.ToArray());
+				TasksChanged?.Invoke();
 			}
 		}
 	}
@@ -98,13 +88,13 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	 */
 	public void MoleculeViewed(MoleculeSO molecule)
 	{
-		foreach (ViewMoleculeTask task in tasks.OfType<ViewMoleculeTask>())
+		foreach (ViewMoleculeTask task in tasksList.Tasks.OfType<ViewMoleculeTask>())
 		{
 			if (task.Molecule == molecule)
 			{
 				task.Done = true;
 				
-				TasksChanged?.Invoke(true, tasks.ToArray());
+				TasksChanged?.Invoke();
 			}
 		}
 	}

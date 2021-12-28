@@ -2,9 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class TaskMenu : MonoBehaviour
 {
+	public GameObject Idle;
+	public GameObject TaskMode;
+	public GameObject TaskListSelection;
+	
+	public TMP_Dropdown TaskListSelectionDropdown;
+	
+	
+	
+	private void FillTaskListSelection()
+	{
+		//TODO Implement
+	}
+	
+	#region Buttons
 	/**
      * Starts the Task-Mode - called from the TaskMenu-Button "Start Task"
      */
@@ -20,7 +35,7 @@ public class TaskMenu : MonoBehaviour
 	{
 		SceneManager.LoadScene(SceneList.TaskCreate);
 	}
-	
+
 	/**
      * Opens the Atom-View - called from the TaskMenu-Button "Atom"
      */
@@ -51,5 +66,6 @@ public class TaskMenu : MonoBehaviour
 	public void OnMainMenu()
 	{
 		SceneManager.LoadScene(SceneList.MainMenu);
-	}
+	}	
+	#endregion
 }
