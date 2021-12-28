@@ -5,29 +5,35 @@ using System.Linq;
 
 public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 {
+	public TaskList Tasks => tasks;
+ 	private TaskList tasks;
+	
 	public delegate void TaskModeEvent(bool success=true);
 	public event TaskModeEvent TasksChanged;
 	public event TaskModeEvent TasksDone;
 	
 	private bool active = false;
 
-	public Task[] Tasks => tasksList.Tasks;
-	private TaskList tasksList;
+	public TaskList[] AvailableTaskLists => TaskListsSaver.LoadTaskLists();
 
-	private TaskList[] availableTaskLists => TaskListsSaver.LoadTaskLists();
-
-	/**
-	 * Exits TaskMode
-	 * Invokes the Event TasksDone - if succes is true,all tasks were finished, if not the task-mode was canceled.
-	 */
-	public void FinishTask()
+	#region Start + Finish Task Mode
+	
+	public void StartTaskMode(int id)
+	{
+		tasks = AvailableTaskLists[id];
+		active = true;
+	}	
+	
+	public void FinishTaskMode()
 	{
 		if (!active) { return; }
 		
 		active = false;
 		
-		TasksDone?.Invoke(tasksList.Done);
+		TasksDone?.Invoke(tasks.Done);
 	}
+	
+	#endregion
 
 	#region Task Completing
 	
@@ -37,7 +43,7 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	 */
 	public void AtomCreated(AtomSO atom)
 	{
-		foreach (CreateAtomTask task in tasksList.Tasks.OfType<CreateAtomTask>())
+		foreach (CreateAtomTask task in tasks.OfType<CreateAtomTask>())
 		{
 			if (task.Atom == atom)
 			{
@@ -54,7 +60,7 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	 */
 	public void AtomViewed(AtomSO atom)
 	{
-		foreach (ViewAtomTask task in tasksList.Tasks.OfType<ViewAtomTask>())
+		foreach (ViewAtomTask task in tasks.OfType<ViewAtomTask>())
 		{
 			if (task.Atom == atom)
 			{
@@ -71,7 +77,7 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	 */
 	public void MoleculeCreated(MoleculeSO molecule)
 	{
-		foreach (CreateMoleculeTask task in tasksList.Tasks.OfType<CreateMoleculeTask>())
+		foreach (CreateMoleculeTask task in tasks.OfType<CreateMoleculeTask>())
 		{
 			if (task.Molecule == molecule)
 			{
@@ -88,7 +94,7 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	 */
 	public void MoleculeViewed(MoleculeSO molecule)
 	{
-		foreach (ViewMoleculeTask task in tasksList.Tasks.OfType<ViewMoleculeTask>())
+		foreach (ViewMoleculeTask task in tasks.OfType<ViewMoleculeTask>())
 		{
 			if (task.Molecule == molecule)
 			{

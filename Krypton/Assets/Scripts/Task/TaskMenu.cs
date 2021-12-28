@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,23 +12,52 @@ public class TaskMenu : MonoBehaviour
 	public GameObject TaskListSelection;
 	
 	public TMP_Dropdown TaskListSelectionDropdown;
-	
-	
-	
+
+	private void Start()
+	{
+		FillTaskListSelection();
+	}
+
 	private void FillTaskListSelection()
 	{
-		//TODO Implement
+		TaskListSelectionDropdown.ClearOptions();
+		
+		TaskListSelectionDropdown.options.Add(new TMP_Dropdown.OptionData(""));
+		
+		foreach (TaskList taskLists in TaskModeManger.Singleton.AvailableTaskLists)
+		{
+			Debug.Log(taskLists.Name);
+			TaskListSelectionDropdown.options.Add(new TMP_Dropdown.OptionData(taskLists.Name));
+		}
 	}
 	
 	#region Buttons
 	/**
-     * Starts the Task-Mode - called from the TaskMenu-Button "Start Task"
+     * Opens the Task Selection Dropdown
      */
-	public void OnStart()
+	public void ShowTaskListSelection()
 	{
-		//TODO Loading Tasks/Task Selection
+		TaskListSelection.SetActive(true);
 	}
-	
+
+	/**
+	 * Closes the Task Selection Dropdown
+	 */
+	public void CloseTaskListSelection()
+	{
+		TaskListSelection.SetActive(false);
+	}
+
+	/**
+	 * Starts the Task Mode - started from the Task Selection Dropdown
+	 */
+	public void StartTaskMode()
+	{
+		int id = TaskListSelectionDropdown.value - 1;
+
+		TaskModeManger.Singleton.StartTaskMode(id);
+	}
+
 	/**
      * Navigates to Task-Creation - called from the TaskMenu-Button "Create Task"
      */
@@ -57,7 +87,7 @@ public class TaskMenu : MonoBehaviour
      */
 	public void OnExitTask()
 	{
-		TaskModeManger.Singleton.FinishTask();
+		TaskModeManger.Singleton.FinishTaskMode();
 	}
 
 	/**
