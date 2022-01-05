@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Vuforia;
@@ -10,12 +10,23 @@ public class MoleculeCreator : MonoBehaviour
 	public GameObject atom3;
 
 	public GameObject mole;
-	private GameObject[] _gameObjects;
+	private GameObject[] _imageTargets;
+	private GameObject[] _trackedImageTargets = new GameObject[100];
 	private AtomManager _atomManager;
 	public AtomSO oxygenData;
 	public AtomSO hydrogenData;
-	
+
 	public GameObject atomPrefab;
+
+	private GameObject oxygenAtom;
+	private GameObject oxygenAtom1;
+	private GameObject oxygenAtom2;
+	private GameObject hydrogenAtom;
+	private GameObject hydrogenAtom1;
+	private GameObject hydrogenAtom2;
+	private GameObject carbonAtom;
+	private GameObject carbonAtom1;
+	private GameObject carbonAtom2;
 
 	// Start is called before the first frame update
 	void Start()
@@ -25,34 +36,32 @@ public class MoleculeCreator : MonoBehaviour
 		_atomManager.hydrogenData = hydrogenData;
 		_atomManager.oxygenData = oxygenData;
 	}
-
+	
 	// Update is called once per frame
 	void Update()
 	{
 		//get all image target of that are tagged in scene
-		_gameObjects =  GameObject.FindGameObjectsWithTag("ImageTarget");
-		
+		_imageTargets = GameObject.FindGameObjectsWithTag("ImageTarget");
+
 		//iterate through image targets that are tagged in scene
 		//this loop is only for debugging
-		for (int i = 0; i < _gameObjects.Length; i++)
-		{
-			var trackable = _gameObjects[i].GetComponent<TrackableBehaviour>();
-			var status = trackable.CurrentStatus;
-			Debug.Log(_gameObjects[i].name + status);
-		}
-
 		//spawn tracked image targets
-		for (int i = 0; i < _gameObjects.Length; i++)
+		for (int i = 0; i < _imageTargets.Length; i++)
 		{
-			var trackable = _gameObjects[i].GetComponent<TrackableBehaviour>();
+			var trackable = _imageTargets[i].GetComponent<TrackableBehaviour>();
 			var status = trackable.CurrentStatus;
-			Debug.Log(_gameObjects[i].name + status);
+			Debug.Log(_imageTargets[i].name + status);
 			GameObject atom = GameObject.Find("Atom(Clone)");
-			
-			if (status == Status.TRACKED && atom == null )
+
+			if (status == Status.TRACKED)
 			{
-				SpawnAtom(_gameObjects[i]);
-			} 
+				_trackedImageTargets[i] = _imageTargets[i];
+			}
+
+			if (status == Status.TRACKED && atom == null)
+			{
+				SpawnAtom(_imageTargets[i]);
+			}
 			else if (status == Status.NO_POSE && atom != null)
 			{
 				atom.SetActive(false);
@@ -60,16 +69,34 @@ public class MoleculeCreator : MonoBehaviour
 			}
 		}
 
-		sleep();
-		
-		///////////////////////////////////////////////
-		//       molecule Logic
-		///////////////////////////////////////////////
+
+		////////////////////////////////////////////
+		//       molecule Logic	                  //
+		////////////////////////////////////////////
+
+
+		GameObject[] atoms = new GameObject[_trackedImageTargets.Length];
+
+		for (int i = 0; i < _trackedImageTargets.Length; i++)
+		{
+			atoms[i] = _trackedImageTargets[i].transform.GetChild(0).gameObject;
+		}
+
+		foreach (GameObject atom in atoms)
+		{
+			AssignAtom(atom);
+		}
+
+		//todo: calculate distiance
+		// checkIfH20CanBeCreated();
+		RequirementMetH2O();
+
+
 		float distance12 = Vector3.Distance(atom1.transform.position, atom2.transform.position);
-		float distance13 = Vector3.Distance(atom1.transform.position, atom3.transform.position);
+		// float distance13 = Vector3.Distance(atom1.transform.position, atom3.transform.position);
 		// float distance23 = Vector3.Distance(atom2.transform.position, atom3.transform.position);
 		float valid1 = distance12 / 10;
-		float valid2 = distance13 / 10;
+		// float valid2 = distance13 / 10;
 		// float valid3 = distance23 / 10;
 
 
@@ -79,24 +106,105 @@ public class MoleculeCreator : MonoBehaviour
 		{
 			mole.SetActive(false);
 		}
-		else if (5 > distance12 && 5 > distance13 ) //&& 5 > distance23)
+		else if (5 > distance12) // && 5 > distance13 ) //&& 5 > distance23)
 		{
 			mole.SetActive(true);
 		}
 
 		Debug.Log("distance12: " + distance12);
-		Debug.Log("distance13: " + distance13);
+		// Debug.Log("distance13: " + distance13);
 		// Debug.Log("distance23" + distance23);
 	}
 
 	private void SpawnAtom(GameObject imageTargetGameObject)
 	{
-		imageTargetGameObject.transform.position = new Vector3(imageTargetGameObject.transform.position.x, -4, imageTargetGameObject.transform.position.z);
-		_atomManager.createAtom(hydrogenData.ToString(), imageTargetGameObject.transform.position);
+		String imageTargetName = imageTargetGameObject.name;
+		Vector3 transformPosition = imageTargetGameObject.transform.position;
+		imageTargetGameObject.transform.position = new Vector3(imageTargetGameObject.transform.position.x, -4,
+			imageTargetGameObject.transform.position.z);
+
+		if (imageTargetName.Contains("Oxygen"))
+		{
+			_atomManager.createAtom(oxygenData.ToString(), imageTargetGameObject.transform.position);
+		}
+		else if (imageTargetName.Contains("Hydrogen"))
+		{
+			_atomManager.createAtom(hydrogenData.ToString(), imageTargetGameObject.transform.position);
+		}
+	}
+
+	private void AssignAtom(GameObject atom)
+	{
+		String atomName = atom.name;
+
+		switch (atomName)
+		{
+			case string a when a.Contains("Oxygen"):
+				AssignOxygenAtom(atom);
+				break;
+			case string a when a.Contains("Hydrogen"):
+				AssignHydrogenAtom(atom);
+				break;
+			case string a when a.Contains("Carbon"):
+				AssignCarbonAtom(atom);
+				break;
+		}
+	}
+
+	private void AssignCarbonAtom(GameObject atom)
+	{
+		if (carbonAtom != null)
+		{
+			carbonAtom = atom;
+		}
+		else if (carbonAtom1 != null)
+		{
+			carbonAtom1 = atom;
+		}
+		else if (carbonAtom2 != null)
+		{
+			carbonAtom2 = atom;
+		}
+	}
+
+	private void AssignHydrogenAtom(GameObject atom)
+	{
+		if (hydrogenAtom != null)
+		{
+			hydrogenAtom = atom;
+		}
+		else if (hydrogenAtom1 != null)
+		{
+			hydrogenAtom1 = atom;
+		}
+		else if (hydrogenAtom2 != null)
+		{
+			hydrogenAtom2 = atom;
+		}
+	}
+
+	private void AssignOxygenAtom(GameObject atom)
+	{
+		if (oxygenAtom != null)
+		{
+			oxygenAtom = atom;
+		}
+		else if (oxygenAtom1 != null)
+		{
+			oxygenAtom1 = atom;
+		}
+		else if (oxygenAtom2 != null)
+		{
+			oxygenAtom2 = atom;
+		}
 	}
 
 	public IEnumerable<WaitForSeconds> sleep()
 	{
 		yield return new WaitForSeconds(1);
+	}
+
+	private void RequirementMetH2O()
+	{
 	}
 }
