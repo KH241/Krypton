@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Vuforia;
 
@@ -84,7 +85,7 @@ public class MoleculeCreator : MonoBehaviour
 
 		foreach (GameObject atom in atoms)
 		{
-			AssignAtom(atom);
+				AssignAtom(atom);
 		}
 
 		//todo: calculate distiance
@@ -206,5 +207,16 @@ public class MoleculeCreator : MonoBehaviour
 
 	private void RequirementMetH2O()
 	{
+		if (oxygenAtom != null && hydrogenAtom != null && hydrogenAtom1 != null)
+		{
+			IEnumerable<GameObject> atoms = Resources.FindObjectsOfTypeAll<GameObject>().Where(obj => obj.name == "Name");
+
+			foreach (GameObject atom in atoms)
+			{
+				atom.SetActive(false);
+				Destroy(atom);
+			}
+			mole.SetActive(true);
+		} 
 	}
 }
