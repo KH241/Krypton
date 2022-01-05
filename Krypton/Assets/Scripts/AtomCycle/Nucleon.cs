@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Nucleon : MonoBehaviour
 {
-    public GameObject center;
+    public Vector3 center;
     private bool stop = false;
     private Transform spawn;
+   
+
 
     
     void Start()
     {
         //Find center position, GameObject AtomSpawn must be present in scene before instantiation
-        center = GameObject.Find("CarbonTarget");
+       
+        
         
     }
 
@@ -24,7 +27,7 @@ public class Nucleon : MonoBehaviour
             if (gameObject.GetComponent<Rigidbody>() != null)
             {                            
                 //Pull GameObject to the center
-               gameObject.GetComponent<Rigidbody>().AddForce((center.transform.position - transform.position).normalized * 1000 * Time.smoothDeltaTime);
+               gameObject.GetComponent<Rigidbody>().AddForce((center - transform.position).normalized * 1000 * Time.smoothDeltaTime);
             }
         }
 
