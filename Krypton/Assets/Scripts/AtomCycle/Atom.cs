@@ -9,6 +9,8 @@ public class Atom : MonoBehaviour
     public Material AtomShellMaterial;
     public Material electronMaterial;
 
+    private Vector3 center;
+
     
 
     //Size of atom in scene
@@ -19,6 +21,7 @@ public class Atom : MonoBehaviour
     public string elementSymbol;
     public int atomicNumber;
     public float atomicWeight;
+    
 
     //Protons
     
@@ -40,14 +43,15 @@ public class Atom : MonoBehaviour
 
     public void Start()
     {
-
+        
     }
 
-    public void createAtom()
+    public void createAtom(Vector3 center)
     {
+        this.center = center;
         //Assign Nucleus GameObject
         nucleus = transform.GetChild(0);
- 
+        
         //proton and neutrons
         int pc = protonCount;
         int nc = neutronCount;
@@ -86,8 +90,7 @@ public class Atom : MonoBehaviour
             int numberOfElectrons = electronConfiguration[loop];
 
             for (int electronNumber = 0; electronNumber < numberOfElectrons; electronNumber++)
-            {
-                
+            {                
                 float i = (float)(electronNumber) / numberOfElectrons;
                 float angle = i * Mathf.PI * 2;
                 float x = transform.position.x + (Mathf.Sin(angle) * ( (loop + 1)));
@@ -245,7 +248,8 @@ public class Atom : MonoBehaviour
         proton.AddComponent<Rigidbody>().useGravity = false;
         proton.GetComponent<Rigidbody>().mass = 1f;
         proton.GetComponent<Renderer>().material.SetColor("_Color", new Color32(229, 79, 10, 255));
-        proton.AddComponent<Nucleon>();
+        proton.AddComponent<Nucleon>().center = this.center;
+        //proton.GetComponent<Nucleon>().center = this.center;
 
         proton.transform.SetParent(nucleus);
         proton.transform.localScale = new Vector3(atomScale, atomScale, atomScale);
@@ -264,7 +268,7 @@ public class Atom : MonoBehaviour
         neutron.GetComponent<Rigidbody>().mass = 1f;
 
         neutron.GetComponent<Renderer>().material.SetColor("_Color", new Color32(51, 46, 46, 255));
-        neutron.AddComponent<Nucleon>();
+        neutron.AddComponent<Nucleon>().center = this.center;
 
         neutron.transform.SetParent(nucleus);
         neutron.transform.localScale = new Vector3(atomScale, atomScale, atomScale);
