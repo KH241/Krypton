@@ -120,17 +120,17 @@ public class MoleculeCreator : MonoBehaviour
 	private void SpawnAtom(GameObject imageTargetGameObject)
 	{
 		String imageTargetName = imageTargetGameObject.name;
-		Vector3 transformPosition = imageTargetGameObject.transform.position;
-		imageTargetGameObject.transform.position = new Vector3(imageTargetGameObject.transform.position.x, -4,
-			imageTargetGameObject.transform.position.z);
+		// Vector3 transformPosition = imageTargetGameObject.transform.position;
+		// imageTargetGameObject.transform.position = new Vector3(imageTargetGameObject.transform.position.x, -4,
+		// 	imageTargetGameObject.transform.position.z);
 
 		if (imageTargetName.Contains("Oxygen"))
 		{
-			_atomManager.createAtom(oxygenData.ToString(), imageTargetGameObject.transform.position);
+			_atomManager.createAtoms(oxygenData, imageTargetGameObject);
 		}
 		else if (imageTargetName.Contains("Hydrogen"))
 		{
-			_atomManager.createAtom(hydrogenData.ToString(), imageTargetGameObject.transform.position);
+			_atomManager.createAtoms(hydrogenData, imageTargetGameObject);
 		}
 	}
 
