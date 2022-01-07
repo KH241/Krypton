@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,6 +41,10 @@ public class AtomManager : MonoBehaviour
     public AtomSO Oxygen;
     public AtomSO Hydrogen;
     public AtomSO Carbon;
+    
+    private static int hydrogenNumber = 0;
+    private static int carbonNumber = 0;
+    private static int oxygenNumber = 0;
 
 
     // Start is called before the first frame update
@@ -135,6 +140,8 @@ public class AtomManager : MonoBehaviour
         GameObject atomModel = Instantiate(atomPrefab, atomCenter, new Quaternion());
         atomModel.transform.parent = parent.transform;
 
+        atomModel.name = assigneName(atom.ID);
+        
             Atom myAtom = atomModel.GetComponent<Atom>();
 
             if (myAtom != null)
@@ -157,6 +164,24 @@ public class AtomManager : MonoBehaviour
             }
 
         return atomModel;
+    }
+
+    private string assigneName(int atomicNumber)
+    {
+        switch (atomicNumber)
+        {
+            case 1:
+                // if (hydrogenNumber < 2)
+                // {
+                //     ++hydrogenNumber;
+                // }
+                // return "hydrogenAtom" + hydrogenNumber;
+                return "hydrogenAtom";
+            case 8:
+                return "oxygenAtom";
+            default:
+                return "ERROR";
+        }
     }
 
     void MoveToLayer(Transform root, int layer)

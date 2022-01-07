@@ -43,32 +43,47 @@ public class MoleculeCreator : MonoBehaviour
 	{
 		//get all image target of that are tagged in scene
 		_imageTargets = GameObject.FindGameObjectsWithTag("ImageTarget");
+		GameObject atom1 = null;
+		GameObject atom2 = null;
 
 		//iterate through image targets that are tagged in scene
-		//this loop is only for debugging
 		//spawn tracked image targets
 		for (int i = 0; i < _imageTargets.Length; i++)
 		{
 			var trackable = _imageTargets[i].GetComponent<TrackableBehaviour>();
 			var status = trackable.CurrentStatus;
 			Debug.Log(_imageTargets[i].name + status);
-			GameObject atom = GameObject.Find("Atom(Clone)");
-
-			if (status == Status.TRACKED)
+			// GameObject atom = GameObject.Find("Atom(Clone)");
+			atom1 = GameObject.Find("hydrogenAtom");
+			// atom3 = GameObject.Find("hydrogenAtom2");
+			atom2 = GameObject.Find("oxygenAtom");
+			
+			if (status == Status.NO_POSE && atom1 != null && _imageTargets[i].name.Contains("Hydrogen"))
 			{
-				_trackedImageTargets[i] = _imageTargets[i];
+				atom1.SetActive(false);
+				Destroy(atom1);
 			}
-
-			if (status == Status.TRACKED && atom == null)
+			if (status == Status.NO_POSE && atom2 != null && _imageTargets[i].name.Contains("Oxygen"))
+			{
+				atom2.SetActive(false);
+				Destroy(atom2);
+			}
+			if (status == Status.TRACKED && atom1 == null && _imageTargets[i].name.Contains("Hydrogen"))
 			{
 				SpawnAtom(_imageTargets[i]);
+				return;
 			}
-			else if (status == Status.NO_POSE && atom != null)
+			if (status == Status.TRACKED && atom2 == null && _imageTargets[i].name.Contains("Oxygen"))
 			{
-				atom.SetActive(false);
-				Destroy(atom);
+				SpawnAtom(_imageTargets[i]);
+				return;
 			}
 		}
+		
+		// if (status == Status.TRACKED)
+		// {
+		// 	_trackedImageTargets[i] = _imageTargets[i];
+		// }
 
 
 		////////////////////////////////////////////
