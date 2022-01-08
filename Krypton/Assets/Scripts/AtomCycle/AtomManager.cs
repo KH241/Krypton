@@ -42,10 +42,6 @@ public class AtomManager : MonoBehaviour
     public AtomSO Hydrogen;
     public AtomSO Carbon;
     
-    private static int hydrogenNumber = 0;
-    private static int carbonNumber = 0;
-    private static int oxygenNumber = 0;
-
 
     // Start is called before the first frame update
     void Start()
@@ -140,7 +136,7 @@ public class AtomManager : MonoBehaviour
         GameObject atomModel = Instantiate(atomPrefab, atomCenter, new Quaternion());
         atomModel.transform.parent = parent.transform;
 
-        atomModel.name = assigneName(atom.ID);
+        atomModel.name = assigneName(atom.ID, parent.name);
         
             Atom myAtom = atomModel.GetComponent<Atom>();
 
@@ -166,22 +162,23 @@ public class AtomManager : MonoBehaviour
         return atomModel;
     }
 
-    private string assigneName(int atomicNumber)
+    private string assigneName(int atomicNumber, string parentName)
     {
         switch (atomicNumber)
         {
             case 1:
-                // if (hydrogenNumber < 2)
-                // {
-                //     ++hydrogenNumber;
-                // }
-                // return "hydrogenAtom" + hydrogenNumber;
-                return "hydrogenAtom";
+                return giveNameToHydrogen(parentName);
             case 8:
                 return "oxygenAtom";
             default:
                 return "ERROR";
         }
+    }
+
+    private string giveNameToHydrogen(string parentName)
+    {
+        String number = parentName.Substring(19);
+        return "hydrogenAtom" + number;
     }
 
     void MoveToLayer(Transform root, int layer)

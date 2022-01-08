@@ -6,9 +6,9 @@ using Vuforia;
 
 public class MoleculeCreator : MonoBehaviour
 {
-	public GameObject atom1;
-	public GameObject atom2;
-	public GameObject atom3;
+	// public GameObject atom1;
+	// public GameObject atom2;
+	// public GameObject atom3;
 
 	public GameObject mole;
 	private GameObject[] _imageTargets;
@@ -37,7 +37,7 @@ public class MoleculeCreator : MonoBehaviour
 		_atomManager.hydrogenData = hydrogenData;
 		_atomManager.oxygenData = oxygenData;
 	}
-	
+
 	// Update is called once per frame
 	void Update()
 	{
@@ -45,6 +45,7 @@ public class MoleculeCreator : MonoBehaviour
 		_imageTargets = GameObject.FindGameObjectsWithTag("ImageTarget");
 		GameObject atom1 = null;
 		GameObject atom2 = null;
+		GameObject atom3 = null;
 
 		//iterate through image targets that are tagged in scene
 		//spawn tracked image targets
@@ -53,33 +54,50 @@ public class MoleculeCreator : MonoBehaviour
 			var trackable = _imageTargets[i].GetComponent<TrackableBehaviour>();
 			var status = trackable.CurrentStatus;
 			Debug.Log(_imageTargets[i].name + status);
-			// GameObject atom = GameObject.Find("Atom(Clone)");
-			atom1 = GameObject.Find("hydrogenAtom");
-			// atom3 = GameObject.Find("hydrogenAtom2");
-			atom2 = GameObject.Find("oxygenAtom");
 			
-			if (status == Status.NO_POSE && atom1 != null && _imageTargets[i].name.Contains("Hydrogen"))
+			atom1 = GameObject.Find("hydrogenAtom1");
+			atom2 = GameObject.Find("oxygenAtom");
+			atom3 = GameObject.Find("hydrogenAtom2");
+
+			//deactivate atoms
+			if (status == Status.NO_POSE && atom1 != null && _imageTargets[i].name.Contains("Hydrogen1"))
 			{
 				atom1.SetActive(false);
 				Destroy(atom1);
 			}
+
+			if (status == Status.NO_POSE && atom3 != null && _imageTargets[i].name.Contains("Hydrogen2"))
+			{
+				atom3.SetActive(false);
+				Destroy(atom3);
+			}
+
 			if (status == Status.NO_POSE && atom2 != null && _imageTargets[i].name.Contains("Oxygen"))
 			{
 				atom2.SetActive(false);
 				Destroy(atom2);
 			}
-			if (status == Status.TRACKED && atom1 == null && _imageTargets[i].name.Contains("Hydrogen"))
+
+			//activate atoms
+			if (status == Status.TRACKED && atom1 == null && _imageTargets[i].name.Contains("Hydrogen1"))
+			{
+					SpawnAtom(_imageTargets[i]);
+					return;
+			}
+
+			if (status == Status.TRACKED && atom3 == null && _imageTargets[i].name.Contains("Hydrogen2"))
 			{
 				SpawnAtom(_imageTargets[i]);
 				return;
 			}
+
 			if (status == Status.TRACKED && atom2 == null && _imageTargets[i].name.Contains("Oxygen"))
 			{
 				SpawnAtom(_imageTargets[i]);
 				return;
 			}
 		}
-		
+
 		// if (status == Status.TRACKED)
 		// {
 		// 	_trackedImageTargets[i] = _imageTargets[i];
@@ -100,10 +118,10 @@ public class MoleculeCreator : MonoBehaviour
 
 		foreach (GameObject atom in atoms)
 		{
-				AssignAtom(atom);
+			AssignAtom(atom);
 		}
-
-		//todo: calculate distiance
+		
+		
 		// checkIfH20CanBeCreated();
 		RequirementMetH2O();
 
@@ -224,14 +242,16 @@ public class MoleculeCreator : MonoBehaviour
 	{
 		if (oxygenAtom != null && hydrogenAtom != null && hydrogenAtom1 != null)
 		{
-			IEnumerable<GameObject> atoms = Resources.FindObjectsOfTypeAll<GameObject>().Where(obj => obj.name == "Name");
+			IEnumerable<GameObject> atoms = Resources.FindObjectsOfTypeAll<GameObject>()
+				.Where(obj => obj.name == "Name");
 
 			foreach (GameObject atom in atoms)
 			{
 				atom.SetActive(false);
 				Destroy(atom);
 			}
+
 			mole.SetActive(true);
-		} 
+		}
 	}
 }
