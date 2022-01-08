@@ -19,4 +19,4 @@ for i in range(imageSize):
 
 img = Image.new("1", (imageSize, imageSize))
 img.putdata(dataStream)
-img.save("noise.png")
+img.save("E:\\Uni\HTW\\Semester 4\\EMM\\Krypton\\Imagetargets\\noise.png")
