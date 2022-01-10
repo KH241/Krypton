@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour
 {
+	private void Start()
+	{
+		
+	}
+
+	#region Button Onclick
 	/**
      * Opens the Atom-View - called from the MainMenu-Button "Atom"
      */
@@ -43,5 +50,6 @@ public class MainMenuScript : MonoBehaviour
     public void OnExit()
     {
         Application.Quit();
-    }
+    }	
+	#endregion
 }
