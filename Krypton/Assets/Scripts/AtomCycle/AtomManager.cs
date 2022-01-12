@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class AtomManager : MonoBehaviour
 {
@@ -10,9 +12,9 @@ public class AtomManager : MonoBehaviour
     public GameObject atomPrefab;
    
 
-    public GameObject CarbonModel;
-    public GameObject HydrogenModel;
-    public GameObject OxygenModel;
+    private GameObject CarbonModel;
+    private GameObject HydrogenModel;
+    private GameObject OxygenModel;
 
 
     public GameObject oxygenTarget;
@@ -30,23 +32,27 @@ public class AtomManager : MonoBehaviour
     private int neutronCount;
     private string elementWeight;
 
-    //Test Spawn Params
-	public AtomSO oxygenData;
-	public AtomSO hydrogenData;
-    private string carbonParam = "Carbon_Kohlenstoff_C_12.010_6_6_2_4";
-    private string sodiumParam = "Sodium_Natrium_Na_22.989_11_12_2_8_1";
-    private string ChlorineParam = "Chlorine_Chlor_Cl_35.453_17_18_2_8_7";
-
     public AtomSO Oxygen;
     public AtomSO Hydrogen;
     public AtomSO Carbon;
 
+    public GameObject atomCanvas;
+    public TextMeshProUGUI atomNumber;
+    public TextMeshProUGUI atomSymbol;
+    public TextMeshProUGUI atomName;
+    public TextMeshProUGUI atomWieght;
+    public TextMeshProUGUI atomProton;
+    public TextMeshProUGUI atomNeutron;
+    public TextMeshProUGUI atomElectron;
+    public TextMeshProUGUI atomShells;
+    public Image atomColor;
 
     // Start is called before the first frame update
     void Start()
     {
 
         Physics.IgnoreLayerCollision(0, 8);
+        atomCanvas.SetActive(false);
     }
 
     // Update is called once per frame
@@ -68,18 +74,74 @@ public class AtomManager : MonoBehaviour
         Debug.Log("Found the oxygen imageTarget");
         OxygenModel = createAtoms(Oxygen, oxygenTarget);
 
-    }
+        atomCanvas.SetActive(true);
+        string number = Oxygen.ID.ToString();
+        string weight = Oxygen.Weight.ToString();
+        string neutron = Oxygen.Neutrons.ToString();
+        string shells = Oxygen.Shells.Count.ToString();
+        string valenceElectrons = Oxygen.Shells[Oxygen.Shells.Count - 1].ToString();
+
+        atomNumber.SetText(number);
+        atomSymbol.SetText(Oxygen.Symbol);
+        atomName.SetText(Oxygen.Name);
+        atomWieght.SetText(weight);
+        atomProton.SetText(number);
+        atomNeutron.SetText(neutron);
+        atomShells.SetText(shells);
+        atomElectron.SetText(valenceElectrons);
+
+        atomColor.color = Oxygen.atomColor;
+        
+
+}
 
     public void spawnCarbonAtoms()
     {
         CarbonModel = createAtoms(Carbon, carbonTarget);
         Debug.Log("Found the carbon imageTarget");
+
+        atomCanvas.SetActive(true);
+        string number = Carbon.ID.ToString();
+        string weight = Carbon.Weight.ToString();
+        string neutron = Carbon.Neutrons.ToString();
+        string shells = Carbon.Shells.Count.ToString();
+        string valenceElectrons = Carbon.Shells[Carbon.Shells.Count - 1].ToString();
+
+        atomNumber.SetText(number);
+        atomSymbol.SetText(Carbon.Symbol);
+        atomName.SetText(Carbon.Name);
+        atomWieght.SetText(weight);
+        atomProton.SetText(number);
+        atomNeutron.SetText(neutron);
+        atomShells.SetText(shells);
+        atomElectron.SetText(valenceElectrons);
+
+        atomColor.color = Carbon.atomColor;
     }
 
     public void spawnHydrogenAtoms()
     {
         Debug.Log("Found the hydrogen imageTarget");
         HydrogenModel = createAtoms(Hydrogen, hydrogenTarget);
+
+        atomCanvas.SetActive(true);
+        string number = Hydrogen.ID.ToString();
+        string weight = Hydrogen.Weight.ToString();
+        string neutron = Hydrogen.Neutrons.ToString();
+        string shells = Hydrogen.Shells.Count.ToString();
+        string valenceElectrons = Hydrogen.Shells[Hydrogen.Shells.Count - 1].ToString();
+
+        atomNumber.SetText(number);
+        atomSymbol.SetText(Hydrogen.Symbol);
+        atomName.SetText(Hydrogen.Name);
+        atomWieght.SetText(weight);
+        atomProton.SetText(number);
+        atomNeutron.SetText(neutron);
+        atomShells.SetText(shells);
+        atomElectron.SetText(valenceElectrons);
+
+        atomColor.color = Hydrogen.atomColor;
+
     }
 
     public void spawnSodiumAtom()
@@ -98,6 +160,7 @@ public class AtomManager : MonoBehaviour
         Debug.Log("Destroying Hydrogen");
         if (HydrogenModel != null)
         Destroy(HydrogenModel);
+        atomCanvas.SetActive(false);
 
     }
 
@@ -106,7 +169,7 @@ public class AtomManager : MonoBehaviour
         Debug.Log("Destroying Carbon");
         if (CarbonModel != null)
             Destroy(CarbonModel);
-
+        atomCanvas.SetActive(false);
     }
 
     public void destroyOxygen()
@@ -114,6 +177,7 @@ public class AtomManager : MonoBehaviour
         Debug.Log("Destroying Oxygen");
         if (OxygenModel != null)
             Destroy(OxygenModel);
+        atomCanvas.SetActive(false);
 
     }
 
