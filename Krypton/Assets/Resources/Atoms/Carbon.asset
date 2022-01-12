@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6091c1a8d01b3384ba4dac091934d35a, type: 3}
   m_Name: Carbon
   m_EditorClassIdentifier: 
-  ID: 8
-  Name: Oxygen
-  Symbol: O
-  Weight: 15.999
-  Neutrons: 9
-  Shells: 0200000006000000
+  ID: 6
+  Name: Carbon
+  Symbol: C
+  Weight: 12.011
+  Neutrons: 7
+  Shells: 0200000004000000
+  atomColor:
+    serializedVersion: 2
+    rgba: 4278585012
