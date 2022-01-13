@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -35,6 +36,7 @@ public class AtomManager : MonoBehaviour
     public AtomSO Oxygen;
     public AtomSO Hydrogen;
     public AtomSO Carbon;
+<<<<<<< HEAD
 
     public GameObject atomCanvas;
     public TextMeshProUGUI atomNumber;
@@ -46,6 +48,9 @@ public class AtomManager : MonoBehaviour
     public TextMeshProUGUI atomElectron;
     public TextMeshProUGUI atomShells;
     public Image atomColor;
+=======
+    
+>>>>>>> youssefaaron
 
     // Start is called before the first frame update
     void Start()
@@ -199,6 +204,8 @@ public class AtomManager : MonoBehaviour
         GameObject atomModel = Instantiate(atomPrefab, atomCenter, new Quaternion());
         atomModel.transform.parent = parent.transform;
 
+        atomModel.name = assigneName(atom.ID, parent.name);
+        
             Atom myAtom = atomModel.GetComponent<Atom>();
 
             if (myAtom != null)
@@ -221,6 +228,25 @@ public class AtomManager : MonoBehaviour
             }
 
         return atomModel;
+    }
+
+    private string assigneName(int atomicNumber, string parentName)
+    {
+        switch (atomicNumber)
+        {
+            case 1:
+                return giveNameToHydrogen(parentName);
+            case 8:
+                return "oxygenAtom";
+            default:
+                return "ERROR";
+        }
+    }
+
+    private string giveNameToHydrogen(string parentName)
+    {
+        String number = parentName.Substring(19);
+        return "hydrogenAtom" + number;
     }
 
     void MoveToLayer(Transform root, int layer)
