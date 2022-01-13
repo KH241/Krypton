@@ -6,11 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour
 {
-	private void Start()
-	{
-		
-	}
-
 	#region Button Onclick
 	/**
      * Opens the Atom-View - called from the MainMenu-Button "Atom"
@@ -37,14 +32,6 @@ public class MainMenuScript : MonoBehaviour
 	}
 
 	/**
-     * Opens the Help-Scene - called from the MainMenu-Button "Help"
-     */
-	public void OnHelp()
-	{
-		SceneManager.LoadScene(SceneList.Help);
-	}
-    
-    /**
      * Exits the Application - called from the MainMenu-Button "Exit"
      */
     public void OnExit()

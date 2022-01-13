@@ -4,8 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MoleculeSO", menuName = "ScriptableObjects/MoleculeSO", order = 1)]
 public class MoleculeSO : ScriptableObject
 {
-	public string ID => CalcHash(); //Starts at 1 - its the atomic number
-	public string Name; //Lets keep it english
+	public string ID => CalcHash(); 
+	public string Name; 
 	public List<AtomSO> Atoms;
 
 	public string CalcHash() //TODO write a proper Hash (instead of a string containing IDs
