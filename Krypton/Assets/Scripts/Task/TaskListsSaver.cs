@@ -12,10 +12,23 @@ public static class TaskListsSaver
 
 		//TODO implement task loading
 
-		TaskList temp = new TaskList("test");
-		temp.AddTask(new CreateAtomTask(SOList.AtomList[0]));
-
-		output.Add(temp);
+		foreach (AtomSO atom in SOList.AtomList)
+		{
+			TaskList temp = new TaskList("Task " + atom.Name);
+            temp.AddTask(new CreateAtomTask(atom));
+			temp.AddTask(new ViewAtomTask(atom));
+    
+            output.Add(temp);
+		}
+		
+		foreach (MoleculeSO molecule in SOList.MoleculeList)
+		{
+			TaskList temp = new TaskList("Task " + molecule.Name);
+			temp.AddTask(new CreateMoleculeTask(molecule));
+			temp.AddTask(new ViewMoleculeTask(molecule));
+    
+			output.Add(temp);
+		}
 		
 		return output.ToArray();
 	}
