@@ -15,21 +15,6 @@ MonoBehaviour:
   ID: 6
   Name: Carbon
   Symbol: C
-<<<<<<< HEAD
-<<<<<<< HEAD
   Weight: 12.01
   Neutrons: 6
   Shells: 0200000004000000
-=======
-  Weight: 12.011
-  Neutrons: 7
-  Shells: 0200000004000000
-  atomColor:
-    serializedVersion: 2
-    rgba: 4278585012
->>>>>>> atom
-=======
-  Weight: 12.0107
-  Neutrons: 9
-  Shells: 0200000004000000
->>>>>>> youssefaaron

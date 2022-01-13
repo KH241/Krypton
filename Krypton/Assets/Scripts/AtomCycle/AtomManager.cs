@@ -36,9 +36,8 @@ public class AtomManager : MonoBehaviour
     public AtomSO Oxygen;
     public AtomSO Hydrogen;
     public AtomSO Carbon;
-<<<<<<< HEAD
 
-    public GameObject atomCanvas;
+	public GameObject atomCanvas;
     public TextMeshProUGUI atomNumber;
     public TextMeshProUGUI atomSymbol;
     public TextMeshProUGUI atomName;
@@ -48,11 +47,8 @@ public class AtomManager : MonoBehaviour
     public TextMeshProUGUI atomElectron;
     public TextMeshProUGUI atomShells;
     public Image atomColor;
-=======
-    
->>>>>>> youssefaaron
 
-    // Start is called before the first frame update
+	// Start is called before the first frame update
     void Start()
     {
 

@@ -35,8 +35,8 @@ public class MoleculeCreator : MonoBehaviour
 	{
 		_atomManager = gameObject.AddComponent<AtomManager>();
 		_atomManager.atomPrefab = atomPrefab;
-		_atomManager.hydrogenData = hydrogenData;
-		_atomManager.oxygenData = oxygenData;
+		_atomManager.Hydrogen = hydrogenData;
+		_atomManager.Oxygen = oxygenData;
 	}
 
 	// Update is called once per frame
