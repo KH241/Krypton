@@ -5,10 +5,12 @@ using UnityEngine;
 public class MoleculeSO : ScriptableObject
 {
 	public string ID => CalcHash(); 
-	public string Name; 
+	public string Name;
+	public string Formula;
+
 	public List<AtomSO> Atoms;
 
-	public string CalcHash() //TODO write a proper Hash (instead of a string containing IDs
+	private string CalcHash() //TODO write a proper Hash (instead of a string containing IDs
 	{
 		string output = "";
 

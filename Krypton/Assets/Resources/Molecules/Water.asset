@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae79cd8415843a6959e220748ca02c7, type: 3}
   m_Name: Water
   m_EditorClassIdentifier: 
-  Name: H2O
+  Name: Water
   Atoms:
   - {fileID: 11400000, guid: 3306dd1132d8b1540a2cd42e96045510, type: 2}
   - {fileID: 11400000, guid: 3306dd1132d8b1540a2cd42e96045510, type: 2}
