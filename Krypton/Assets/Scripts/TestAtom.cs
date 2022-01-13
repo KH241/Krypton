@@ -8,14 +8,20 @@ public class TestAtom : MonoBehaviour
 	public AtomSO Atom;
 	public MeshRenderer mesh;
 
-	public bool Visible
+	public bool Used
 	{
-		set { OnVisible(); }
+		get { return used; }
+		set
+		{
+			used = value; 
+			OnVisible();
+		}
 	}
+	private bool used;
 
 	private void OnVisible()
 	{
-		
+		mesh.enabled = Used;
 	}
 
 	public void Spawn(AtomSO atom)
