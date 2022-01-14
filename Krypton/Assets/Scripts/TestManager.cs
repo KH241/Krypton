@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
@@ -109,6 +110,7 @@ public class TestManager : MonoBehaviour
 			//Iterate over all Atoms needed to form Molecule
 			foreach (AtomSO atom in molecule.Atoms)
 			{
+				
 				bool atomInScene = false;
 				
 				//Iterate over all tracked Imagetargets to check if the atom needed is in the scene
@@ -139,8 +141,9 @@ public class TestManager : MonoBehaviour
 			
 			if (moleculeCanBeCreated && AllTargetsInsideRange(possibleMolecule))
 			{
+				Debug.Log(possibleMolecule.First());
 				//Create the molecule + save references
-				GameObject moleculeObject = Instantiate(MoleculeObject,possibleMolecule.First().Value.transform);
+				GameObject moleculeObject = Instantiate(MoleculeObject, possibleMolecule.First().Value.transform);
 				trackedMoleculesObjects[molecule] = moleculeObject.GetComponent<TestMolecule>();
 				// trackedMoleculesObjects[molecule].Spawn(molecule);
 				moleculeObject.GetComponent<TestMolecule>().Spawn(molecule);
