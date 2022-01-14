@@ -34,6 +34,7 @@ public class AtomManager : MonoBehaviour
     //Test Spawn Params
 	public AtomSO oxygenData;
 	public AtomSO hydrogenData;
+    public AtomSO carbonData;
     private string carbonParam = "Carbon_Kohlenstoff_C_12.010_6_6_2_4";
     private string sodiumParam = "Sodium_Natrium_Na_22.989_11_12_2_8_1";
     private string ChlorineParam = "Chlorine_Chlor_Cl_35.453_17_18_2_8_7";
@@ -161,7 +162,11 @@ public class AtomManager : MonoBehaviour
 
         return atomModel;
     }
-
+    
+    
+    /**
+     * Returns the name of the Atom SO
+     */
     private string assigneName(int atomicNumber, string parentName)
     {
         switch (atomicNumber)
@@ -169,7 +174,9 @@ public class AtomManager : MonoBehaviour
             case 1:
                 return giveNameToHydrogen(parentName);
             case 8:
-                return "oxygenAtom";
+                return giveNameToOxygen(parentName);
+            case 6:
+                return giveNameToCarbon(parentName);
             default:
                 return "ERROR";
         }
@@ -179,6 +186,18 @@ public class AtomManager : MonoBehaviour
     {
         String number = parentName.Substring(19);
         return "hydrogenAtom" + number;
+    }
+    
+    private string giveNameToCarbon(string parentName)
+    {
+        String number = parentName.Substring(17);
+        return "carbonAtom" + number;
+    }
+    
+    private string giveNameToOxygen(string parentName)
+    {
+        String number = parentName.Substring(17);
+        return "oxygenAtom" + number;
     }
 
     void MoveToLayer(Transform root, int layer)

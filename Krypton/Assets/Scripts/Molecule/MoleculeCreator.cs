@@ -8,13 +8,19 @@ public class MoleculeCreator : MonoBehaviour
 	public GameObject atom1 = null;
 	public GameObject atom2 = null;
 	public GameObject atom3 = null;
+	public GameObject atom4 = null;
+	public GameObject atom5 = null;
+	public GameObject atom6 = null;
+	
 
 	public GameObject waterMolecule;
+	public GameObject methanMolecule;
 	private GameObject[] _imageTargets;
 	private List<GameObject> _trackedImageTargets;
 	private AtomManager _atomManager;
 	public AtomSO oxygenData;
 	public AtomSO hydrogenData;
+	public AtomSO carbonData;
 
 	public GameObject atomPrefab;
 
@@ -37,6 +43,8 @@ public class MoleculeCreator : MonoBehaviour
 		_atomManager.atomPrefab = atomPrefab;
 		_atomManager.hydrogenData = hydrogenData;
 		_atomManager.oxygenData = oxygenData;
+		_atomManager.carbonData = carbonData;
+		
 	}
 
 	// Update is called once per frame
@@ -45,6 +53,7 @@ public class MoleculeCreator : MonoBehaviour
 		if (moleculeCreated)
 		{
 			RequirementMetH2O();
+			RequirementMetCH4();
 			return;
 		}
 
@@ -62,6 +71,9 @@ public class MoleculeCreator : MonoBehaviour
 			atom1 = GameObject.Find("hydrogenAtom1");
 			atom2 = GameObject.Find("oxygenAtom");
 			atom3 = GameObject.Find("hydrogenAtom2");
+			atom4 = GameObject.Find("hydrogenAtom3");
+			atom5 = GameObject.Find("hydrogenAtom4");
+			atom6 = GameObject.Find("carbonAtom1");
 
 			//deactivate atoms
 			if (status == Status.NO_POSE && atom1 != null && _imageTargets[i].name.Contains("Hydrogen1"))
@@ -74,6 +86,24 @@ public class MoleculeCreator : MonoBehaviour
 			{
 				atom3.SetActive(false);
 				Destroy(atom3);
+			}
+			
+			if (status == Status.NO_POSE && atom4 != null && _imageTargets[i].name.Contains("Hydrogen3"))
+			{
+				atom4.SetActive(false);
+				Destroy(atom4);
+			}
+			
+			if (status == Status.NO_POSE && atom5 != null && _imageTargets[i].name.Contains("Hydrogen4"))
+			{
+				atom5.SetActive(false);
+				Destroy(atom5);
+			}
+			
+			if (status == Status.NO_POSE && atom6 != null && _imageTargets[i].name.Contains("Carbon1"))
+			{
+				atom6.SetActive(false);
+				Destroy(atom6);
 			}
 
 			if (status == Status.NO_POSE && atom2 != null && _imageTargets[i].name.Contains("Oxygen"))
@@ -100,18 +130,28 @@ public class MoleculeCreator : MonoBehaviour
 				SpawnAtom(_imageTargets[i]);
 				return;
 			}
+			
+			if (status == Status.TRACKED && atom4 == null && _imageTargets[i].name.Contains("Hydrogen3"))
+			{
+				SpawnAtom(_imageTargets[i]);
+				return;
+			}
+			
+			if (status == Status.TRACKED && atom5 == null && _imageTargets[i].name.Contains("Hydrogen4"))
+			{
+				SpawnAtom(_imageTargets[i]);
+				return;
+			}
+			
+			if (status == Status.TRACKED && atom6 == null && _imageTargets[i].name.Contains("Carbon1"))
+			{
+				SpawnAtom(_imageTargets[i]);
+				return;
+			}
 		}
 
-
-		////////////////////////////////////////////
-		//       molecule Logic	                  //
-		////////////////////////////////////////////
-
-
-		/**
-		 * check if water can be created
-		 */
 		RequirementMetH2O();
+		RequirementMetCH4();
 	}
 
 	private void SpawnAtom(GameObject imageTargetGameObject)
@@ -126,77 +166,10 @@ public class MoleculeCreator : MonoBehaviour
 		{
 			_atomManager.createAtoms(hydrogenData, imageTargetGameObject);
 		}
-	}
-
-	private void AssignAtom(GameObject atom)
-	{
-		String atomName = atom.name;
-
-		switch (atomName)
+		else if (imageTargetName.Contains("Carbon"))
 		{
-			case string a when a.Contains("Oxygen"):
-				AssignOxygenAtom(atom);
-				break;
-			case string a when a.Contains("Hydrogen"):
-				AssignHydrogenAtom(atom);
-				break;
-			case string a when a.Contains("Carbon"):
-				AssignCarbonAtom(atom);
-				break;
+			_atomManager.createAtoms(carbonData, imageTargetGameObject);
 		}
-	}
-
-	private void AssignCarbonAtom(GameObject atom)
-	{
-		if (carbonAtom != null)
-		{
-			carbonAtom = atom;
-		}
-		else if (carbonAtom1 != null)
-		{
-			carbonAtom1 = atom;
-		}
-		else if (carbonAtom2 != null)
-		{
-			carbonAtom2 = atom;
-		}
-	}
-
-	private void AssignHydrogenAtom(GameObject atom)
-	{
-		if (hydrogenAtom != null)
-		{
-			hydrogenAtom = atom;
-		}
-		else if (hydrogenAtom1 != null)
-		{
-			hydrogenAtom1 = atom;
-		}
-		else if (hydrogenAtom2 != null)
-		{
-			hydrogenAtom2 = atom;
-		}
-	}
-
-	private void AssignOxygenAtom(GameObject atom)
-	{
-		if (oxygenAtom != null)
-		{
-			oxygenAtom = atom;
-		}
-		else if (oxygenAtom1 != null)
-		{
-			oxygenAtom1 = atom;
-		}
-		else if (oxygenAtom2 != null)
-		{
-			oxygenAtom2 = atom;
-		}
-	}
-
-	public IEnumerable<WaitForSeconds> sleep()
-	{
-		yield return new WaitForSeconds(1);
 	}
 
 	private void RequirementMetH2O()
@@ -250,6 +223,70 @@ public class MoleculeCreator : MonoBehaviour
 			waterMolecule.SetActive(false);
 		}
 	}
+	
+	private void RequirementMetCH4()
+	{
+		bool haveC = false;
+		bool haveH1 = false;
+		bool haveH2 = false;
+		bool haveH3 = false;
+		bool haveH4 = false;
+
+		_imageTargets = GameObject.FindGameObjectsWithTag("ImageTarget");
+		_trackedImageTargets = new List<GameObject>();
+
+		for (int i = 0; i < _imageTargets.Length; i++)
+		{
+			var trackable = _imageTargets[i].GetComponent<TrackableBehaviour>();
+			var status = trackable.CurrentStatus;
+			Debug.Log(_imageTargets[i].name + status);
+
+			if (status == Status.TRACKED)
+			{
+				_trackedImageTargets.Add(_imageTargets[i]);
+			}
+		}
+
+		for (int i = 0; i < _trackedImageTargets.Count; i++)
+		{
+			if (_trackedImageTargets[i].name.Contains("Carbon1"))
+			{
+				haveC = true;
+			}
+
+			if (_trackedImageTargets[i].name.Contains("Hydrogen1"))
+			{
+				haveH1 = true;
+			}
+
+			if (_trackedImageTargets[i].name.Contains("Hydrogen2"))
+			{
+				haveH2 = true;
+			}
+			
+			if (_trackedImageTargets[i].name.Contains("Hydrogen3"))
+			{
+				haveH3 = true;
+			}
+			
+			if (_trackedImageTargets[i].name.Contains("Hydrogen4"))
+			{
+				haveH4 = true;
+			}
+		}
+
+		if (haveC && haveH1 && haveH2 && haveH3 && haveH4)
+		{
+			moleculeCreated = true;
+			methanMolecule.SetActive(true);
+			DeactivateAllAtoms();
+		}
+		else
+		{
+			moleculeCreated = false;
+			methanMolecule.SetActive(false);
+		}
+	}
 
 	private void DeactivateAllAtoms()
 	{
@@ -259,5 +296,11 @@ public class MoleculeCreator : MonoBehaviour
 		Destroy(atom2);
 		atom3.SetActive(false);
 		Destroy(atom3);
+		atom4.SetActive(false);
+		Destroy(atom4);
+		atom5.SetActive(false);
+		Destroy(atom5);
+		atom6.SetActive(false);
+		Destroy(atom6);
 	}
 }
