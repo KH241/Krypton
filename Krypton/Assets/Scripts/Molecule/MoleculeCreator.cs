@@ -181,7 +181,7 @@ public class MoleculeCreator : MonoBehaviour
 		}
 		else if (oxygenAtom2 != null)
 		{
-			oxygenAtom2 = atom;
+			//oxygenAtom2 = atom;
 		}
 	}
 
