@@ -17,7 +17,7 @@ public class TestAtom : MonoBehaviour
 			OnVisible();
 		}
 	}
-	private bool used;
+	private bool used = false;
 
 	private void OnVisible()
 	{
@@ -30,11 +30,14 @@ public class TestAtom : MonoBehaviour
 
 		switch (atom.ID)
 		{
-			case 8:
-				mesh.material.color = Color.red;
+			case 1:
+				mesh.material.color = Color.white;
 				break;
 			case 6:
-				mesh.material.color = Color.black;
+            	mesh.material.color = Color.black;
+            	break;
+			case 8:
+				mesh.material.color = Color.red;
 				break;
 			default:
 				mesh.material.color = Color.cyan;
