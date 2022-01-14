@@ -15,4 +15,8 @@ MonoBehaviour:
   ID: 3
   Name: Ethyne
   Formula: C2H2
-  Atoms: []
+  Atoms:
+  - {fileID: 11400000, guid: a8bf669a7b2a5604bb592af4ec1262ab, type: 2}
+  - {fileID: 11400000, guid: a8bf669a7b2a5604bb592af4ec1262ab, type: 2}
+  - {fileID: 11400000, guid: 3306dd1132d8b1540a2cd42e96045510, type: 2}
+  - {fileID: 11400000, guid: 3306dd1132d8b1540a2cd42e96045510, type: 2}
