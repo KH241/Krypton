@@ -1,9 +1,8 @@
-using System;
+using System.Collections.Generic;
+using System.Linq;
+using DefaultNamespace;
 using UnityEngine;
 using Vuforia;
-using System.Collections;
-using System.Collections.Generic;
-using Vuforia.EditorClasses;
 
 public class TestManager : MonoBehaviour
 {
@@ -23,13 +22,13 @@ public class TestManager : MonoBehaviour
 	private Dictionary<MoleculeSO, Dictionary<TrackableBehaviour, TestAtom>> trackedMolecules;
 
 	//All References
-	private Dictionary<MoleculeSO, GameObject> trackedMoleculesObjects;
+	private Dictionary<MoleculeSO, TestMolecule> trackedMoleculesObjects;
 
 	private void Start()
 	{
 		trackedImageTargets = new Dictionary<TrackableBehaviour, TestAtom>();
 		trackedMolecules = new Dictionary<MoleculeSO, Dictionary<TrackableBehaviour, TestAtom>>();
-		trackedMoleculesObjects = new Dictionary<MoleculeSO, GameObject>();
+		trackedMoleculesObjects = new Dictionary<MoleculeSO, TestMolecule>();
 
 		ImageTargets = gameObject.GetComponentsInChildren<TrackableBehaviour>();
 	}
@@ -93,9 +92,12 @@ public class TestManager : MonoBehaviour
 				}
 				
 				//If the targets forming the molecule are too far away from each other + the molecule hasnt been destroyed yet
-				if (!AllTargetsInsideRange(trackedMolecules[molecule]) && trackedMolecules.ContainsKey(molecule))
+				if (trackedMolecules.ContainsKey(molecule))
 				{
-					DestroyMolecule(molecule);
+					if (!AllTargetsInsideRange(trackedMolecules[molecule]))
+					{
+						DestroyMolecule(molecule);
+					}					
 				}
 			}
 			
@@ -103,7 +105,7 @@ public class TestManager : MonoBehaviour
 			
 			//Contains a list of Imagetargets that could form the Molecule
 			Dictionary<TrackableBehaviour, TestAtom> possibleMolecule = new Dictionary<TrackableBehaviour, TestAtom>();
-			
+
 			//Iterate over all Atoms needed to form Molecule
 			foreach (AtomSO atom in molecule.Atoms)
 			{
@@ -138,7 +140,10 @@ public class TestManager : MonoBehaviour
 			if (moleculeCanBeCreated && AllTargetsInsideRange(possibleMolecule))
 			{
 				//Create the molecule + save references
-				trackedMoleculesObjects[molecule] = Instantiate(MoleculeObject);
+				GameObject moleculeObject = Instantiate(MoleculeObject,possibleMolecule.First().Value.transform);
+				trackedMoleculesObjects[molecule] = moleculeObject.GetComponent<TestMolecule>();
+				// trackedMoleculesObjects[molecule].Spawn(molecule);
+				moleculeObject.GetComponent<TestMolecule>().Spawn(molecule);
 				trackedMolecules[molecule] = possibleMolecule;
 				
 				//Hide all atoms used to display molecule
