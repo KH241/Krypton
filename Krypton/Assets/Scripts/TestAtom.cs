@@ -21,7 +21,7 @@ public class TestAtom : MonoBehaviour
 
 	private void OnVisible()
 	{
-		mesh.enabled = Used;
+		mesh.enabled = !Used;
 	}
 
 	public void Spawn(AtomSO atom)
