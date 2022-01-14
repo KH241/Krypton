@@ -16,17 +16,19 @@ public class TaskMenu : MonoBehaviour
 	private void Start()
 	{
 		FillTaskListSelection();
+		if (TaskModeManger.Singleton.Active)
+		{
+			Idle.SetActive(false);
+			TaskMode.SetActive(true);
+		}
 	}
 
 	private void FillTaskListSelection()
 	{
 		TaskListSelectionDropdown.ClearOptions();
 		
-		TaskListSelectionDropdown.options.Add(new TMP_Dropdown.OptionData(""));
-		
 		foreach (TaskList taskLists in TaskModeManger.Singleton.AvailableTaskLists)
 		{
-			Debug.Log(taskLists.Name);
 			TaskListSelectionDropdown.options.Add(new TMP_Dropdown.OptionData(taskLists.Name));
 		}
 	}
@@ -49,13 +51,16 @@ public class TaskMenu : MonoBehaviour
 	}
 
 	/**
-	 * Starts the Task Mode - started from the Task Selection Dropdown
+	 * Starts the Task Mode - started from the Task Selection Button "Start Task"
+	 * It starts the Task Selected in the Dropdown
 	 */
 	public void StartTaskMode()
 	{
-		int id = TaskListSelectionDropdown.value - 1;
-
-		TaskModeManger.Singleton.StartTaskMode(id);
+		TaskModeManger.Singleton.StartTaskMode(TaskListSelectionDropdown.value);
+		
+		TaskMode.SetActive(true);
+		TaskListSelection.SetActive(false);
+		Idle.SetActive(false);
 	}
 
 	/**
@@ -88,6 +93,8 @@ public class TaskMenu : MonoBehaviour
 	public void OnExitTask()
 	{
 		TaskModeManger.Singleton.FinishTaskMode();
+		Idle.SetActive(true);
+		TaskMode.SetActive(false);
 	}
 
 	/**

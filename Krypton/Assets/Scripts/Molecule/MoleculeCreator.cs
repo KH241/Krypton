@@ -150,6 +150,15 @@ public class MoleculeCreator : MonoBehaviour
 			}
 		}
 
+
+		////////////////////////////////////////////
+		//       molecule Logic	                  //
+		////////////////////////////////////////////
+
+
+		/**
+		 * check if water can be created
+		 */
 		RequirementMetH2O();
 		RequirementMetCH4();
 	}
@@ -170,6 +179,15 @@ public class MoleculeCreator : MonoBehaviour
 		{
 			_atomManager.createAtoms(carbonData, imageTargetGameObject);
 		}
+		else if (oxygenAtom2 != null)
+		{
+			oxygenAtom2 = atom;
+		}
+	}
+
+	public IEnumerable<WaitForSeconds> sleep()
+	{
+		yield return new WaitForSeconds(1);
 	}
 
 	private void RequirementMetH2O()

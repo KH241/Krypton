@@ -11,8 +11,8 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	public delegate void TaskModeEvent(bool success=true);
 	public event TaskModeEvent TasksChanged;
 	public event TaskModeEvent TasksDone;
-	
-	private bool active = false;
+
+	public bool Active { get; private set; } = false;
 
 	public TaskList[] AvailableTaskLists => TaskListsSaver.LoadTaskLists();
 
@@ -21,14 +21,14 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	public void StartTaskMode(int id)
 	{
 		tasks = AvailableTaskLists[id];
-		active = true;
+		Active = true;
 	}	
 	
 	public void FinishTaskMode()
 	{
-		if (!active) { return; }
+		if (!Active) { return; }
 		
-		active = false;
+		Active = false;
 		
 		TasksDone?.Invoke(tasks.Done);
 	}

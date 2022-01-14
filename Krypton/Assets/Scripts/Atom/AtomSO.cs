@@ -11,6 +11,7 @@ public class AtomSO : ScriptableObject
 	public float Weight;
 	public int Neutrons;
 	public List<int> Shells;
+	public Color32 atomColor;
 
 	public string ToString()
 	{
