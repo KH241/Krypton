@@ -16,5 +16,4 @@ MonoBehaviour:
   Formula: H20
   Atoms:
   - {fileID: 11400000, guid: 3306dd1132d8b1540a2cd42e96045510, type: 2}
-  - {fileID: 11400000, guid: 3306dd1132d8b1540a2cd42e96045510, type: 2}
   - {fileID: 11400000, guid: 6135f5fcac9cc7945815681e34c1db7b, type: 2}
