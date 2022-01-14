@@ -118,7 +118,7 @@ public class TestManager : MonoBehaviour
 				{
 					//If the Atom is already used to form the/a molecule
 					if (possibleMolecule.ContainsKey(tracked)) { continue; }
-					if (trackedImageTargets[tracked].Used) { Debug.Log("used");continue; }
+					if (trackedImageTargets[tracked].Used) { continue; }
 
 					//If the tracked Imagetargets is the atom needed
 					AtomSO data = tracked.gameObject.GetComponentInChildren<ImageTarget>().Atom;

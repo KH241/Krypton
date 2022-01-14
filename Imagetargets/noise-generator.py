@@ -1,22 +1,26 @@
 from PIL import Image
 import random
 
-imageSize = 1000
-patternSize = 100
-steps = int(imageSize/patternSize)
+def generate(name):
+    imageSize = 1000
+    patternSize = 100
+    steps = int(imageSize/patternSize)
 
-pattern = [[random.randint(0,1) for j in range(patternSize)] for i in range(patternSize)]
+    pattern = [[random.randint(0,1) for j in range(patternSize)] for i in range(patternSize)]
 
-imageData = [[0 for j in range(imageSize)] for i in range(imageSize)]
-for i in range(imageSize):
-    for j in range(imageSize):
-        imageData[i][j] = pattern[i//steps][j//steps]
+    imageData = [[0 for j in range(imageSize)] for i in range(imageSize)]
+    for i in range(imageSize):
+        for j in range(imageSize):
+            imageData[i][j] = pattern[i//steps][j//steps]
 
-dataStream = []
-for i in range(imageSize):
-    for j in range(imageSize):
-        dataStream += [imageData[i][j]]
+    dataStream = []
+    for i in range(imageSize):
+        for j in range(imageSize):
+            dataStream += [imageData[i][j]]
 
-img = Image.new("1", (imageSize, imageSize))
-img.putdata(dataStream)
-img.save("E:\\Uni\HTW\\Semester 4\\EMM\\Krypton\\Imagetargets\\noise.png")
+    img = Image.new("1", (imageSize, imageSize))
+    img.putdata(dataStream)
+    img.save("E:\\Uni\HTW\\Semester 4\\EMM\\Krypton\\Imagetargets\\"+name+".png")
+
+for i in range(16):
+    generate("noise"+str(i))
