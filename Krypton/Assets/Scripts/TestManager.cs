@@ -2,11 +2,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Vuforia;
 
 public class TestManager : MonoBehaviour
 {
+
+	public GameObject IdleUI;
+	public GameObject ViewUI;
+	public GameObject ToggleInfo;
+	private bool tryToSpawn = false;
+	private bool toggleInfo = false;
+	
+	
+	public TextMeshProUGUI moleculeName;
+	public TextMeshProUGUI moleculeText;
+	
+	
 	[Range(0, 10)] public float MoleculeRange;
 	public MoleculeSO[] Molecules;
 
@@ -32,13 +46,23 @@ public class TestManager : MonoBehaviour
 		trackedMoleculesObjects = new Dictionary<MoleculeSO, TestMolecule>();
 
 		ImageTargets = gameObject.GetComponentsInChildren<TrackableBehaviour>();
+		
+		
+		
 	}
 
 	private void Update()
 	{
+		toggleUI();
+		setMoleculeInfo();
+
 		UpdateImageTargets();
 
-		UpdateMolecules();
+		if (tryToSpawn)
+		{
+			UpdateMolecules();
+		}
+		
 	}
 	
 	private void UpdateImageTargets()
@@ -89,7 +113,11 @@ public class TestManager : MonoBehaviour
 				foreach (var target in trackedMolecules[molecule])
 				{
 					//If the target is not tracked anymore, destoy the molecule
-					if (!trackedImageTargets.ContainsKey(target.Key)) { DestroyMolecule(molecule); }
+					if (!trackedImageTargets.ContainsKey(target.Key))
+					{
+						DestroyMolecule(molecule);
+						tryToSpawn = false;
+					}
 				}
 				
 				//If the targets forming the molecule are too far away from each other + the molecule hasnt been destroyed yet
@@ -98,6 +126,7 @@ public class TestManager : MonoBehaviour
 					if (!AllTargetsInsideRange(trackedMolecules[molecule]))
 					{
 						DestroyMolecule(molecule);
+						tryToSpawn = false;
 					}					
 				}
 			}
@@ -110,7 +139,7 @@ public class TestManager : MonoBehaviour
 			//Iterate over all Atoms needed to form Molecule
 			foreach (AtomSO atom in molecule.Atoms)
 			{
-				
+
 				bool atomInScene = false;
 				
 				//Iterate over all tracked Imagetargets to check if the atom needed is in the scene
@@ -139,7 +168,7 @@ public class TestManager : MonoBehaviour
 				}
 			}
 			
-			if (moleculeCanBeCreated && AllTargetsInsideRange(possibleMolecule))
+			if (moleculeCanBeCreated && AllTargetsInsideRange(possibleMolecule) && tryToSpawn)
 			{
 				Debug.Log(possibleMolecule.First());
 				//Create the molecule + save references
@@ -151,6 +180,10 @@ public class TestManager : MonoBehaviour
 				
 				//Hide all atoms used to display molecule
 				foreach (var atom in possibleMolecule) { atom.Value.Used = true; }
+				
+				//Sets Text and Title for Molecule Info Panel
+				moleculeName.SetText(molecule.Name);
+				moleculeText.SetText("Test");
 			}
 		}
 	}
@@ -190,5 +223,71 @@ public class TestManager : MonoBehaviour
 		Destroy(trackedMoleculesObjects[molecule]);
 		trackedMoleculesObjects.Remove(molecule);
 		trackedMolecules.Remove(molecule);
+	}
+
+	/**
+	 * sets MoleculeSpawn on true
+	 */
+	public void spawnsMolecule()
+	{
+		tryToSpawn = true;
+	}
+
+	/**
+	 * destroys capsule gameobject
+	 */
+	public void destroysMolecule()
+	{
+		tryToSpawn = false;
+		foreach (var mole in trackedMoleculesObjects)
+		{
+			if (mole.Value != null)
+			{
+				//DestroyMolecule(mole.Key);
+				Destroy(GameObject.Find("Capsule(Clone)"));
+			}
+				
+		}
+		
+	}
+
+	/**
+	 * toggle for UIs
+	 */
+	private void toggleUI()
+	{
+		if (tryToSpawn)
+		{
+			IdleUI.SetActive(false);
+			ViewUI.SetActive(true);
+		}
+		else
+		{
+			IdleUI.SetActive(true);
+			ViewUI.SetActive(false);
+		}
+	}
+
+	/**
+	 * toggle for Molecule Info
+	 */
+	public void toggleMoleculeInfo()
+	{
+		if (toggleInfo)
+		{
+			toggleInfo = false;
+		}
+		else
+		{
+			toggleInfo = true;
+		}
+	}
+
+	/**
+	 * activates Panel for Molecule Info
+	 */
+	private void setMoleculeInfo()
+	{
+		ToggleInfo.SetActive(toggleInfo);
 	}
 }
