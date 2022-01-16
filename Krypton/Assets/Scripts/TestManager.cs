@@ -139,13 +139,11 @@ public class TestManager : MonoBehaviour
 				}
 			}
 			
-			if (moleculeCanBeCreated && AllTargetsInsideRange(possibleMolecule))
+			if (moleculeCanBeCreated && AllTargetsInsideRange(possibleMolecule) && possibleMolecule.Count > 0)
 			{
-				Debug.Log(possibleMolecule.First());
 				//Create the molecule + save references
 				GameObject moleculeObject = Instantiate(MoleculeObject, possibleMolecule.First().Value.transform);
 				trackedMoleculesObjects[molecule] = moleculeObject.GetComponent<TestMolecule>();
-				// trackedMoleculesObjects[molecule].Spawn(molecule);
 				moleculeObject.GetComponent<TestMolecule>().Spawn(molecule);
 				trackedMolecules[molecule] = possibleMolecule;
 				
@@ -180,14 +178,10 @@ public class TestManager : MonoBehaviour
 		//Show all atoms formerly used to create molecule (that are still in the scene)		
 		foreach (var atom in trackedMolecules[molecule])
 		{
-			if (trackedImageTargets.ContainsKey(atom.Key))
-			{
-				atom.Value.Used = false;
-			}
+			if (trackedImageTargets.ContainsKey(atom.Key)) { atom.Value.Used = false; }
 		}
 
 		//Destroy the Molecule + remove all references to it
-		Destroy(trackedMoleculesObjects[molecule]);
 		trackedMoleculesObjects.Remove(molecule);
 		trackedMolecules.Remove(molecule);
 	}
