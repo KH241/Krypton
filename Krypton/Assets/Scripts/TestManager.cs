@@ -188,7 +188,7 @@ public class TestManager : MonoBehaviour
 			atom.Value.Used = true;
 		}
 		
-		//TaskModeManger.Singleton.MoleculeCreated(molecule);
+		TaskModeManger.Singleton.MoleculeCreated(molecule);
 	}
 
 	private bool AllTargetsInsideRange(Dictionary<TrackableBehaviour, TestAtom> targets)

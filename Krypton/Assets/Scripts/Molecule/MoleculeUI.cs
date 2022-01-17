@@ -44,7 +44,7 @@ public class MoleculeUI : MonoBehaviour
 	    info.SetActive(!info.activeSelf);
 	    if (info.activeSelf)
 	    {
-		    //TaskModeManger.Singleton.MoleculeViewed(tm.activeMolecule);
+		    TaskModeManger.Singleton.MoleculeViewed(tm.activeMolecule);
 	    }
     }
 
