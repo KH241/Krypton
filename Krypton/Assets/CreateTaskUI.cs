@@ -1,31 +1,121 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CreateTaskUI : MonoBehaviour
 {
 	public TMP_Text TaskName;
 	public TMP_Text TaskList;
-	public GameObject TaskButtonGrid;
+	
+	public GameObject CreateAtomGrid;
+	public GameObject ViewAtomGrid;
+	public GameObject CreateMoleculeGrid;
+	public GameObject ViewMoleculeGrid;
+
+	public GameObject TaskButtonPrefab;
+
+	private void Start()
+	{
+		GameObject TaskButton;
+		
+		foreach (AtomSO atom in SOList.AtomList)
+		{
+			TaskButton = Instantiate(TaskButtonPrefab, CreateAtomGrid.transform);
+			TaskButton.GetComponent<Button>().onClick.AddListener(delegate { AddCreateAtom(atom); });
+			TaskButton.GetComponentInChildren<TMP_Text>().text = "Create " + atom.name;
+			
+			TaskButton = Instantiate(TaskButtonPrefab, ViewAtomGrid.transform);
+			TaskButton.GetComponent<Button>().onClick.AddListener(delegate { AddViewAtom(atom); });
+			TaskButton.GetComponentInChildren<TMP_Text>().text = "Info " + atom.name;
+		}
+		
+		foreach (MoleculeSO molecule in SOList.MoleculeList)
+		{
+			TaskButton = Instantiate(TaskButtonPrefab, CreateMoleculeGrid.transform);
+			TaskButton.GetComponent<Button>().onClick.AddListener(delegate { AddCreateMolecule(molecule); });
+			TaskButton.GetComponentInChildren<TMP_Text>().text = "Create " + molecule.name;
+			
+			TaskButton = Instantiate(TaskButtonPrefab, ViewMoleculeGrid.transform);
+			TaskButton.GetComponent<Button>().onClick.AddListener(delegate { AddViewMolecule(molecule); });
+			TaskButton.GetComponentInChildren<TMP_Text>().text = "Info " + molecule.name;
+		}
+	}
+
+	#region TaskButtonsToggle
+
+	public void OnCreateAtom()
+	{
+		CreateAtomGrid.SetActive(true);
+		ViewAtomGrid.SetActive(false);
+		CreateMoleculeGrid.SetActive(false);
+		ViewMoleculeGrid.SetActive(false);
+	}
+	public void OnViewAtom()
+	{
+		CreateAtomGrid.SetActive(false);
+		ViewAtomGrid.SetActive(true);
+		CreateMoleculeGrid.SetActive(false);
+		ViewMoleculeGrid.SetActive(false);
+	}
+	public void OnCreateMolecule()
+	{
+		CreateAtomGrid.SetActive(false);
+		ViewAtomGrid.SetActive(false);
+		CreateMoleculeGrid.SetActive(true);
+		ViewMoleculeGrid.SetActive(false);
+	}
+	public void OnViewMolecule()
+	{
+		CreateAtomGrid.SetActive(false);
+		ViewAtomGrid.SetActive(false);
+		CreateMoleculeGrid.SetActive(false);
+		ViewMoleculeGrid.SetActive(true);
+	}
+	
+	#endregion
+
+	#region Task Adding
 
 	public void AddCreateAtom(AtomSO atom)
+    {
+    	Debug.Log($"Create {atom.name}");
+    }
+
+    public void AddViewAtom(AtomSO atom)
+    {
+    	Debug.Log($"View {atom.name}");
+    }
+
+    public void AddCreateMolecule(MoleculeSO molecule)
+    {
+    	Debug.Log($"Create {molecule.name}");
+    }
+
+    public void AddViewMolecule(MoleculeSO molecule)
+    {
+    	Debug.Log($"View {molecule.name}");
+    }
+
+	#endregion
+
+	#region Control Buttons
+
+	public void OnSave()
 	{
-		Debug.Log($"Create {atom.name}");
+		Debug.Log("Save");
+	}	
+	public void OnSaveStart()
+	{
+		Debug.Log("Save + Start");
+	}	
+	public void OnCancel()
+	{
+		SceneManager.LoadScene(SceneList.TaskMenu);
 	}
 
-	public void AddViewAtom(AtomSO atom)
-	{
-		Debug.Log($"View {atom.name}");
-	}
-
-	public void AddCreateMolecule(MoleculeSO molecule)
-	{
-		Debug.Log($"Create {molecule.name}");
-	}
-
-	public void AddViewMolecule(MoleculeSO molecule)
-	{
-		Debug.Log($"View {molecule.name}");
-	}
+	#endregion
 }
