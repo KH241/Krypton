@@ -8,9 +8,11 @@ using UnityEngine.UI;
 
 public class CreateTaskUI : MonoBehaviour
 {
+	public TaskListCreator Creator;
+
 	public TMP_Text TaskName;
 	public TMP_Text TaskList;
-	
+
 	public GameObject CreateAtomGrid;
 	public GameObject ViewAtomGrid;
 	public GameObject CreateMoleculeGrid;
@@ -21,24 +23,24 @@ public class CreateTaskUI : MonoBehaviour
 	private void Start()
 	{
 		GameObject TaskButton;
-		
+
 		foreach (AtomSO atom in SOList.AtomList)
 		{
 			TaskButton = Instantiate(TaskButtonPrefab, CreateAtomGrid.transform);
 			TaskButton.GetComponent<Button>().onClick.AddListener(delegate { AddCreateAtom(atom); });
 			TaskButton.GetComponentInChildren<TMP_Text>().text = "Create " + atom.name;
-			
+
 			TaskButton = Instantiate(TaskButtonPrefab, ViewAtomGrid.transform);
 			TaskButton.GetComponent<Button>().onClick.AddListener(delegate { AddViewAtom(atom); });
 			TaskButton.GetComponentInChildren<TMP_Text>().text = "Info " + atom.name;
 		}
-		
+
 		foreach (MoleculeSO molecule in SOList.MoleculeList)
 		{
 			TaskButton = Instantiate(TaskButtonPrefab, CreateMoleculeGrid.transform);
 			TaskButton.GetComponent<Button>().onClick.AddListener(delegate { AddCreateMolecule(molecule); });
 			TaskButton.GetComponentInChildren<TMP_Text>().text = "Create " + molecule.name;
-			
+
 			TaskButton = Instantiate(TaskButtonPrefab, ViewMoleculeGrid.transform);
 			TaskButton.GetComponent<Button>().onClick.AddListener(delegate { AddViewMolecule(molecule); });
 			TaskButton.GetComponentInChildren<TMP_Text>().text = "Info " + molecule.name;
@@ -54,6 +56,7 @@ public class CreateTaskUI : MonoBehaviour
 		CreateMoleculeGrid.SetActive(false);
 		ViewMoleculeGrid.SetActive(false);
 	}
+
 	public void OnViewAtom()
 	{
 		CreateAtomGrid.SetActive(false);
@@ -61,6 +64,7 @@ public class CreateTaskUI : MonoBehaviour
 		CreateMoleculeGrid.SetActive(false);
 		ViewMoleculeGrid.SetActive(false);
 	}
+
 	public void OnCreateMolecule()
 	{
 		CreateAtomGrid.SetActive(false);
@@ -68,6 +72,7 @@ public class CreateTaskUI : MonoBehaviour
 		CreateMoleculeGrid.SetActive(true);
 		ViewMoleculeGrid.SetActive(false);
 	}
+
 	public void OnViewMolecule()
 	{
 		CreateAtomGrid.SetActive(false);
@@ -75,30 +80,30 @@ public class CreateTaskUI : MonoBehaviour
 		CreateMoleculeGrid.SetActive(false);
 		ViewMoleculeGrid.SetActive(true);
 	}
-	
+
 	#endregion
 
 	#region Task Adding
 
 	public void AddCreateAtom(AtomSO atom)
-    {
-    	Debug.Log($"Create {atom.name}");
-    }
+	{
+		Creator.AddCreateAtom(atom);
+	}
 
-    public void AddViewAtom(AtomSO atom)
-    {
-    	Debug.Log($"View {atom.name}");
-    }
+	public void AddViewAtom(AtomSO atom)
+	{
+		Creator.AddViewAtom(atom);
+	}
 
-    public void AddCreateMolecule(MoleculeSO molecule)
-    {
-    	Debug.Log($"Create {molecule.name}");
-    }
+	public void AddCreateMolecule(MoleculeSO molecule)
+	{
+		Creator.AddCreateMolecule(molecule);
+	}
 
-    public void AddViewMolecule(MoleculeSO molecule)
-    {
-    	Debug.Log($"View {molecule.name}");
-    }
+	public void AddViewMolecule(MoleculeSO molecule)
+	{
+		Creator.AddViewMolecule(molecule);
+	}
 
 	#endregion
 
@@ -106,16 +111,31 @@ public class CreateTaskUI : MonoBehaviour
 
 	public void OnSave()
 	{
-		Debug.Log("Save");
-	}	
+		Creator.Save();
+	}
+
 	public void OnSaveStart()
 	{
-		Debug.Log("Save + Start");
-	}	
+		int id = Creator.Save();
+		TaskModeManger.Singleton.StartTaskMode(id);
+		SceneManager.LoadScene(SceneList.TaskMenu);
+	}
+
 	public void OnCancel()
 	{
 		SceneManager.LoadScene(SceneList.TaskMenu);
 	}
 
 	#endregion
+
+	public void UpdateTaskList()
+	{
+		TaskName.text = $"{Creator.TaskList.Name}";
+
+		TaskList.text = "";
+		foreach (Task task in Creator.TaskList)
+		{
+			TaskList.text += task.Name + "\n";
+		}
+	}
 }

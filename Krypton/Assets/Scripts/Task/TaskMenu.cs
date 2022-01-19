@@ -27,7 +27,7 @@ public class TaskMenu : MonoBehaviour
 	{
 		TaskListSelectionDropdown.ClearOptions();
 		
-		foreach (TaskList taskLists in TaskModeManger.Singleton.AvailableTaskLists)
+		foreach (TaskList taskLists in TaskListsSaver.TaskLists)
 		{
 			TaskListSelectionDropdown.options.Add(new TMP_Dropdown.OptionData(taskLists.Name));
 		}

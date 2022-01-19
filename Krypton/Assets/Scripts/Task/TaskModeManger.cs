@@ -14,13 +14,11 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 
 	public bool Active { get; private set; } = false;
 
-	public TaskList[] AvailableTaskLists => TaskListsSaver.LoadTaskLists();
-
 	#region Start + Finish Task Mode
 	
 	public void StartTaskMode(int id)
 	{
-		tasks = AvailableTaskLists[id];
+		tasks = TaskListsSaver.TaskLists[id];
 		Active = true;
 	}	
 	
