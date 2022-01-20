@@ -9,7 +9,7 @@ public class TaskListCreator : MonoBehaviour
 
 	private void Start()
 	{
-		string name = DateTime.Now.ToString("dd/MM/yyyy");
+		string name = DateTime.Now.ToString("dd/MM/yy HH:mm:ss");
 		TaskList = new TaskList(name);
 		UI.UpdateTaskList();
 	}

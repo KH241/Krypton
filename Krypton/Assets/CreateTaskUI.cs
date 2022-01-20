@@ -85,25 +85,10 @@ public class CreateTaskUI : MonoBehaviour
 
 	#region Task Adding
 
-	public void AddCreateAtom(AtomSO atom)
-	{
-		Creator.AddCreateAtom(atom);
-	}
-
-	public void AddViewAtom(AtomSO atom)
-	{
-		Creator.AddViewAtom(atom);
-	}
-
-	public void AddCreateMolecule(MoleculeSO molecule)
-	{
-		Creator.AddCreateMolecule(molecule);
-	}
-
-	public void AddViewMolecule(MoleculeSO molecule)
-	{
-		Creator.AddViewMolecule(molecule);
-	}
+	public void AddCreateAtom(AtomSO atom) { Creator.AddCreateAtom(atom); }
+	public void AddViewAtom(AtomSO atom) { Creator.AddViewAtom(atom); }
+	public void AddCreateMolecule(MoleculeSO molecule) { Creator.AddCreateMolecule(molecule); }
+	public void AddViewMolecule(MoleculeSO molecule) { Creator.AddViewMolecule(molecule); }
 
 	#endregion
 

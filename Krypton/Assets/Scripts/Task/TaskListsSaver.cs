@@ -1,21 +1,28 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public static class TaskListsSaver
 {
-	public static TaskList[] TaskLists => list.ToArray();
-	private static List<TaskList> list = new List<TaskList>();
-	
+	private const string FILEPATH = "Assets/Resources/taskLists.txt";
+
+	public static TaskList[] TaskLists => LoadTaskLists();
+
 	/**
 	 * Returns all saved TaskLists from local Storage
 	 */
 	public static TaskList[] LoadTaskLists()
 	{
-		List<TaskList> output = new List<TaskList>();
+		StreamReader reader = new StreamReader(FILEPATH);
+        string json = reader.ReadToEnd();
+        reader.Close();
 
-		//TODO implement task loading
+		TaskList[] output = JsonUtility.FromJson<ListWrapper>(json).TaskLists;
 
-		return output.ToArray();
+		if (output == null) { return new TaskList[0]; }
+		
+        return output;
 	}
 
 	/**
@@ -24,17 +31,24 @@ public static class TaskListsSaver
 	 */
 	public static int SaveTask(TaskList taskList)
 	{
+		//TODO unique task saving
 		int id = TaskLists.Length;
 		
-		/*foreach (TaskList list in TaskLists)
-		{
-			if (list.Name == taskList.Name) { return -1; }
-		}*/
+		List<TaskList> lists = TaskLists.ToList();
+		lists.Add(taskList);
+
+		ListWrapper wrapper = new ListWrapper();
+		wrapper.TaskLists = lists.ToArray();
 		
-		list.Add(taskList);
-		
-		Debug.LogError("Need to implement Task saving"); //TODO implement task saving
+		StreamWriter writer = new StreamWriter(FILEPATH, false);
+		writer.Write(JsonUtility.ToJson(wrapper, true));
+		writer.Close();
 		
 		return id;
+	}
+	
+	private class ListWrapper
+	{
+		public TaskList[] TaskLists;
 	}
 }

@@ -1,25 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 
+[Serializable]
 public class TaskList : IEnumerable<Task>
 {
-	private List<Task> tasks = new List<Task>();
+	public List<Task> tasks = new List<Task>();
 	public int CountTotal => tasks.Count;
 	public int CountDone => getCountDone();
 	public bool Done => CountDone == CountTotal;
 	public string Name;
-
-	public TaskList(string name, List<Task> tasks = null)
+	
+	public TaskList(string name) { Name = name; }
+	public TaskList(string name, List<Task> tasks) : this(name, tasks.ToArray()) { }
+	public TaskList(string name, Task[] tasks)
 	{
 		Name = name;
-		if (tasks != null)
-		{
-			foreach (Task task in tasks)
-			{
-				this.tasks.Add(task);
-			}
-		}
+		foreach (Task task in tasks) { this.tasks.Add(task); }
 	}
 
 	private int getCountDone()
