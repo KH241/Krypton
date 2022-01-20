@@ -1,30 +1,24 @@
 {
     "TaskLists": [
         {
-            "tasks": [
-                {
-                    "Done": false,
-                    "Name": "Create Carbon"
-                },
-                {
-                    "Done": false,
-                    "Name": "Create Hydrogen"
-                },
-                {
-                    "Done": false,
-                    "Name": "Create Nitrogen"
-                }
-            ],
-            "Name": "20.01.22 17:44:14"
+            "tasks": [],
+            "Name": "20.01.22 18:59:23"
         },
         {
             "tasks": [
                 {
+                    "Type": 2,
+                    "Molecule": {
+                        "instanceID": 21830
+                    },
+                    "Atom": {
+                        "instanceID": 0
+                    },
                     "Done": false,
                     "Name": "Create Water"
                 }
             ],
-            "Name": "20.01.22 18:00:02"
+            "Name": "20.01.22 19:22:43"
         }
     ]
 }

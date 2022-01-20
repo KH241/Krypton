@@ -31,6 +31,7 @@ public class TaskListUI : MonoBehaviour
 	{
 		Heading.text = $"{TaskModeManger.Singleton.Tasks.CountDone}/{TaskModeManger.Singleton.Tasks.CountTotal} Tasks Done";
 
+		//TODO show tasks that are done
 		List.text = "";
 		foreach (Task task in TaskModeManger.Singleton.Tasks)
 		{

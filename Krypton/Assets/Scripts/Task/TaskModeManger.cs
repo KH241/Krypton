@@ -38,9 +38,9 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	 */
 	public void AtomCreated(AtomSO atom)
 	{
-		foreach (CreateAtomTask task in tasks.OfType<CreateAtomTask>())
+		foreach (Task task in tasks)
 		{
-			if (task.Atom == atom)
+			if (task.Type == TaskType.CreateAtom && task.Atom == atom)
 			{
 				task.Done = true;
 				
@@ -55,9 +55,9 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	 */
 	public void AtomViewed(AtomSO atom)
 	{
-		foreach (ViewAtomTask task in tasks.OfType<ViewAtomTask>())
+		foreach (Task task in tasks)
 		{
-			if (task.Atom == atom)
+			if (task.Type == TaskType.ViewAtom && task.Atom == atom)
 			{
 				task.Done = true;
 				
@@ -72,9 +72,9 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	 */
 	public void MoleculeCreated(MoleculeSO molecule)
 	{
-		foreach (CreateMoleculeTask task in tasks.OfType<CreateMoleculeTask>())
+		foreach (Task task in tasks)
 		{
-			if (task.Molecule == molecule)
+			if (task.Type == TaskType.CreateMolecule && task.Molecule == molecule)
 			{
 				task.Done = true;
 				
@@ -89,12 +89,11 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	 */
 	public void MoleculeViewed(MoleculeSO molecule)
 	{
-		foreach (ViewMoleculeTask task in tasks.OfType<ViewMoleculeTask>())
+		foreach (Task task in tasks)
 		{
-			if (task.Molecule == molecule)
+			if (task.Type == TaskType.ViewMolecule && task.Molecule == molecule)
 			{
 				task.Done = true;
-				
 				TasksChanged?.Invoke();
 			}
 		}

@@ -18,32 +18,28 @@ public class TaskListCreator : MonoBehaviour
 
 	public void AddCreateAtom(AtomSO atom)
 	{
-		CreateAtomTask task;
-		task = new CreateAtomTask(atom);
+		Task task = new Task(TaskType.CreateAtom, atom);
 		TaskList.AddTask(task);
 		UI.UpdateTaskList();
 	}
 
 	public void AddViewAtom(AtomSO atom)
 	{
-		ViewAtomTask task;
-		task = new ViewAtomTask(atom);
+		Task task = new Task(TaskType.ViewAtom, atom);
 		TaskList.AddTask(task);
 		UI.UpdateTaskList();
 	}
 
 	public void AddCreateMolecule(MoleculeSO molecule)
 	{
-		CreateMoleculeTask task;
-		task = new CreateMoleculeTask(molecule);
+		Task task = new Task(TaskType.CreateMolecule, molecule);
 		TaskList.AddTask(task);
 		UI.UpdateTaskList();
 	}
 
 	public void AddViewMolecule(MoleculeSO molecule)
 	{
-		ViewMoleculeTask task;
-		task = new ViewMoleculeTask(molecule);
+		Task task = new Task(TaskType.ViewMolecule, molecule);
 		TaskList.AddTask(task);
 		UI.UpdateTaskList();
 	}

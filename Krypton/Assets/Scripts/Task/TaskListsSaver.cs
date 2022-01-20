@@ -18,11 +18,24 @@ public static class TaskListsSaver
         string json = reader.ReadToEnd();
         reader.Close();
 
-		TaskList[] output = JsonUtility.FromJson<ListWrapper>(json)?.TaskLists;
-
-		if (output == null) { return new TaskList[0]; }
 		
-        return output;
+		TaskList[] output = JsonUtility.FromJson<ListWrapper>(json)?.TaskLists;
+		if (output == null) { return new TaskList[0]; }
+
+		foreach (var taskList in output)
+		{
+			foreach (Task task in taskList)
+			{
+				Debug.Log(task);
+				Debug.Log(task.Name);
+				Debug.Log(task.Done);
+				Debug.Log(task.Molecule);
+			}
+		}
+		//List<TaskList> output = wrapper.TaskLists.ToList();
+		//output.Add(new TaskList("test", new Task[]{new CreateMoleculeTask(SOList.MoleculeList[4])}));
+		
+        return output.ToArray();
 	}
 
 	/**
