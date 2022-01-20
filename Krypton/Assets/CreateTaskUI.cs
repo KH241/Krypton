@@ -85,6 +85,7 @@ public class CreateTaskUI : MonoBehaviour
 
 	#region Task Adding
 
+	//TODO remove option that is already in task list
 	public void AddCreateAtom(AtomSO atom) { Creator.AddCreateAtom(atom); }
 	public void AddViewAtom(AtomSO atom) { Creator.AddViewAtom(atom); }
 	public void AddCreateMolecule(MoleculeSO molecule) { Creator.AddCreateMolecule(molecule); }

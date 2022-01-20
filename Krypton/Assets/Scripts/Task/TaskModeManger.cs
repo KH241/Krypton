@@ -10,7 +10,6 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	
 	public delegate void TaskModeEvent(bool success=true);
 	public event TaskModeEvent TasksChanged;
-	public event TaskModeEvent TasksDone;
 
 	public bool Active { get; private set; } = false;
 
@@ -27,8 +26,6 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 		if (!Active) { return; }
 		
 		Active = false;
-		
-		TasksDone?.Invoke(tasks.Done);
 	}
 	
 	#endregion

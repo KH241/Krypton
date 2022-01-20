@@ -18,7 +18,7 @@ public static class TaskListsSaver
         string json = reader.ReadToEnd();
         reader.Close();
 
-		TaskList[] output = JsonUtility.FromJson<ListWrapper>(json).TaskLists;
+		TaskList[] output = JsonUtility.FromJson<ListWrapper>(json)?.TaskLists;
 
 		if (output == null) { return new TaskList[0]; }
 		
