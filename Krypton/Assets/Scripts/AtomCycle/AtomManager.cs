@@ -48,6 +48,8 @@ public class AtomManager : MonoBehaviour
     public TextMeshProUGUI atomShells;
     public Image atomColor;
 
+    TaskModeManger modeManager;
+
 	// Start is called before the first frame update
     void Start()
     {
@@ -92,9 +94,12 @@ public class AtomManager : MonoBehaviour
         atomElectron.SetText(valenceElectrons);
 
         atomColor.color = Oxygen.atomColor;
-        
 
-}
+        TaskModeManger.Singleton.AtomCreated(Oxygen);
+        TaskModeManger.Singleton.AtomViewed(Oxygen);
+
+
+    }
 
     public void spawnCarbonAtoms()
     {
@@ -118,6 +123,9 @@ public class AtomManager : MonoBehaviour
         atomElectron.SetText(valenceElectrons);
 
         atomColor.color = Carbon.atomColor;
+
+        TaskModeManger.Singleton.AtomCreated(Carbon);
+        TaskModeManger.Singleton.AtomViewed(Carbon);
     }
 
     public void spawnHydrogenAtoms()
@@ -143,6 +151,9 @@ public class AtomManager : MonoBehaviour
 
         atomColor.color = Hydrogen.atomColor;
 
+        TaskModeManger.Singleton.AtomCreated(Hydrogen);
+        TaskModeManger.Singleton.AtomViewed(Hydrogen);
+
     }
 
     public void spawnSodiumAtom()
@@ -163,6 +174,7 @@ public class AtomManager : MonoBehaviour
         Destroy(HydrogenModel);
         atomCanvas.SetActive(false);
 
+        
     }
 
     public void destroyCarbon()
