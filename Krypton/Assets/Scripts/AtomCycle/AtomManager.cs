@@ -77,91 +77,13 @@ public class AtomManager : MonoBehaviour
 		SceneManager.LoadScene(SceneList.MainMenu);
 	}
 
-    public void spawnOxygenAtoms()
-    { 
-        Debug.Log("Found the oxygen imageTarget");
-        OxygenModel = createAtoms(Oxygen, oxygenTarget);
+    
 
-        atomCanvas.SetActive(true);
-        string number = Oxygen.ID.ToString();
-        string weight = Oxygen.Weight.ToString();
-        string neutron = Oxygen.Neutrons.ToString();
-        string shells = Oxygen.Shells.Count.ToString();
-        string valenceElectrons = Oxygen.Shells[Oxygen.Shells.Count - 1].ToString();
 
-        atomNumber.SetText(number);
-        atomSymbol.SetText(Oxygen.Symbol);
-        atomName.SetText(Oxygen.Name);
-        atomWieght.SetText(weight);
-        atomProton.SetText(number);
-        atomNeutron.SetText(neutron);
-        atomShells.SetText(shells);
-        atomElectron.SetText(valenceElectrons);
 
-        atomColor.color = Oxygen.atomColor;
-        
+    
 
-}
-
-    public void spawnCarbonAtoms()
-    {
-        CarbonModel = createAtoms(Carbon, carbonTarget);
-        Debug.Log("Found the carbon imageTarget");
-
-        atomCanvas.SetActive(true);
-        string number = Carbon.ID.ToString();
-        string weight = Carbon.Weight.ToString();
-        string neutron = Carbon.Neutrons.ToString();
-        string shells = Carbon.Shells.Count.ToString();
-        string valenceElectrons = Carbon.Shells[Carbon.Shells.Count - 1].ToString();
-
-        atomNumber.SetText(number);
-        atomSymbol.SetText(Carbon.Symbol);
-        atomName.SetText(Carbon.Name);
-        atomWieght.SetText(weight);
-        atomProton.SetText(number);
-        atomNeutron.SetText(neutron);
-        atomShells.SetText(shells);
-        atomElectron.SetText(valenceElectrons);
-
-        atomColor.color = Carbon.atomColor;
-    }
-
-    public void spawnHydrogenAtoms()
-    {
-        Debug.Log("Found the hydrogen imageTarget");
-        HydrogenModel = createAtoms(Hydrogen, hydrogenTarget);
-
-        atomCanvas.SetActive(true);
-        string number = Hydrogen.ID.ToString();
-        string weight = Hydrogen.Weight.ToString();
-        string neutron = Hydrogen.Neutrons.ToString();
-        string shells = Hydrogen.Shells.Count.ToString();
-        string valenceElectrons = Hydrogen.Shells[Hydrogen.Shells.Count - 1].ToString();
-
-        atomNumber.SetText(number);
-        atomSymbol.SetText(Hydrogen.Symbol);
-        atomName.SetText(Hydrogen.Name);
-        atomWieght.SetText(weight);
-        atomProton.SetText(number);
-        atomNeutron.SetText(neutron);
-        atomShells.SetText(shells);
-        atomElectron.SetText(valenceElectrons);
-
-        atomColor.color = Hydrogen.atomColor;
-
-    }
-
-    public void spawnSodiumAtom()
-    {
-        
-        //createAtom(sodiumParam, new Vector3(0f, 1f, 0f));
-    }
-
-    public void spawnChlorineAtom()
-    {
-        
-    }
+  
 
     public void destroyHydrogen()
     {
@@ -188,9 +110,11 @@ public class AtomManager : MonoBehaviour
 
     }
 
-    public GameObject createAtoms(AtomSO atom, GameObject parent)
+    public void createAtoms(GameObject parent)
     {
         
+        AtomSO atom = parent.GetComponent<ImageTarget>().Atom;
+
         atomCenter = parent.transform.position;
 
         protonCount = atom.ID;
@@ -229,7 +153,7 @@ public class AtomManager : MonoBehaviour
                 MoveToLayer(myAtom.transform.GetChild(0), 8);
             }
 
-        return atomModel;
+       // return atomModel;
     }
     
     
@@ -274,6 +198,14 @@ public class AtomManager : MonoBehaviour
         root.gameObject.layer = layer;
         foreach (Transform child in root)
             MoveToLayer(child, layer);
+    }
+
+    public void destroyAtom(GameObject target)
+    {
+        foreach (Transform child in target.transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
 }
