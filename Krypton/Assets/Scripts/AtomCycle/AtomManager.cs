@@ -206,7 +206,7 @@ public class AtomManager : MonoBehaviour
         GameObject atomModel = Instantiate(atomPrefab, atomCenter, new Quaternion());
         atomModel.transform.parent = parent.transform;
 
-        atomModel.name = assigneName(atom.ID, parent.name);
+        // atomModel.name = assigneName(atom.ID, parent.name);
         
             Atom myAtom = atomModel.GetComponent<Atom>();
 
