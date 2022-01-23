@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class TaskListUI : MonoBehaviour
@@ -40,11 +42,8 @@ public class TaskListUI : MonoBehaviour
 		
 		foreach (Task task in TaskModeManger.Singleton.Tasks)
 		{
-			TMP_Text taskEntry = Instantiate(TaskPrefab, List.transform).GetComponent<TMP_Text>();
-			
-			taskEntry.text += " " + task.Name + " ";
-			
-			if (task.Done) { taskEntry.fontStyle = FontStyles.Strikethrough; }
+			TaskListTask taskEntry = Instantiate(TaskPrefab, List.transform).GetComponent<TaskListTask>();
+			taskEntry.Initialize(task);
 		}
 	}
 }
