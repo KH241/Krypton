@@ -84,13 +84,15 @@ MonoBehaviour:
   protonCount: 0
   protonColor:
     serializedVersion: 2
-    rgba: 4294915840
+    rgba: 4285071591
   neutronCount: 0
   neutronColor:
     serializedVersion: 2
-    rgba: 4280032511
+    rgba: 4282598211
+  electronColor:
+    serializedVersion: 2
+    rgba: 4280090619
   electronConfiguration: 
   electronShellSpacing: 0.5
   spinElectrons: 1
-  freezeNucleusMovementAfter5Seconds: 0
   freezeNucleus: 0

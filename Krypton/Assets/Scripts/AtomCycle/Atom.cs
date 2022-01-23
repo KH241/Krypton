@@ -32,6 +32,8 @@ public class Atom : MonoBehaviour
     public int neutronCount;
     public Color32 neutronColor = new Color32(255, 28, 28, 255);
 
+    public Color32 electronColor = new Color32(255, 28, 28, 255);
+
     //Electrons
     public int[] electronConfiguration;
     public float electronShellSpacing = .5f;
@@ -248,7 +250,7 @@ public class Atom : MonoBehaviour
         proton.transform.position = pos;
         proton.AddComponent<Rigidbody>().useGravity = false;
         proton.GetComponent<Rigidbody>().mass = 1f;
-        proton.GetComponent<Renderer>().material.SetColor("_Color", new Color32(229, 79, 10, 255));
+        proton.GetComponent<Renderer>().material.SetColor("_Color", protonColor);
        
         //proton.GetComponent<Nucleon>().center = this.center;
 
@@ -270,7 +272,7 @@ public class Atom : MonoBehaviour
         neutron.AddComponent<Rigidbody>().useGravity = false;
         neutron.GetComponent<Rigidbody>().mass = 1f;
 
-        neutron.GetComponent<Renderer>().material.SetColor("_Color", new Color32(51, 46, 46, 255));
+        neutron.GetComponent<Renderer>().material.SetColor("_Color", neutronColor);
         
 
         neutron.transform.SetParent(nucleus);
@@ -324,6 +326,7 @@ public class Atom : MonoBehaviour
         e.radius = r;
         e.centre = transform;
         e.rotationSpeed = 40 + (10 * shell);
+        electron.GetComponent<Renderer>().material.SetColor("_Color", electronColor);
 
     }
 
