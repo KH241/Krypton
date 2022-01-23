@@ -5,15 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class MoleculeMenu : MonoBehaviour
 {
-	
-	/**
-     * Opens the Atom-View - called from the Menu-Button "Atom"
-     */
-	public void OnAtom()
-	{
-		SceneManager.LoadScene(SceneList.AtomView);
-	}
-	
 	/**
      * Exits the MoleculeScene - called from the Menu-Button "Exit"
      */

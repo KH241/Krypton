@@ -38,6 +38,7 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	 */
 	public void AtomCreated(AtomSO atom)
 	{
+		if (!Active) { return; }
 		foreach (Task task in tasks)
 		{
 			if (task.Type == TaskType.CreateAtom && task.Atom == atom)
@@ -55,6 +56,7 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	 */
 	public void AtomViewed(AtomSO atom)
 	{
+		if (!Active) { return; }
 		foreach (Task task in tasks)
 		{
 			if (task.Type == TaskType.ViewAtom && task.Atom == atom)
@@ -72,6 +74,7 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	 */
 	public void MoleculeCreated(MoleculeSO molecule)
 	{
+		if (!Active) { return; }
 		foreach (Task task in tasks)
 		{
 			if (task.Type == TaskType.CreateMolecule && task.Molecule == molecule)
@@ -89,6 +92,7 @@ public class TaskModeManger : DontDestroySingleton<TaskModeManger>
 	 */
 	public void MoleculeViewed(MoleculeSO molecule)
 	{
+		if (!Active) { return; }
 		foreach (Task task in tasks)
 		{
 			if (task.Type == TaskType.ViewMolecule && task.Molecule == molecule)

@@ -10,33 +10,12 @@ public class AtomSpawner : MonoBehaviour
 
     private GameObject atomModel;
     private List<Atom> spawnedAtoms = new List<Atom>();
-    public GameObject atomCanvas;
-    public TextMeshProUGUI atomNumber;
-    public TextMeshProUGUI atomSymbol;
-    public TextMeshProUGUI atomName;
-    public TextMeshProUGUI atomWieght;
-    public TextMeshProUGUI atomProton;
-    public TextMeshProUGUI atomNeutron;
-    public TextMeshProUGUI atomElectron;
-    public TextMeshProUGUI atomShells;
-    public Image atomColor;
+	public AtomUI UI;
+	
+	public GameObject atomPrefab;
 
 
-    public GameObject atomPrefab;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
-    /**
+	/**
 	 * Create the atom based off info passed from Scriptable object AtomSO
 	 * 
 	 */
@@ -74,12 +53,11 @@ public class AtomSpawner : MonoBehaviour
             //MoveToLayer(myAtom.transform.GetChild(0), 8);
         }
 
+		Debug.Log(atom);
         TaskModeManger.Singleton.AtomCreated(atom);
-        // updateAtomInfo(atom);
-
-
-
-    }
+		
+		UI.AtomTracked(atom);
+	}
 
     /**
 	 * Delete all objects of type atom
@@ -94,12 +72,9 @@ public class AtomSpawner : MonoBehaviour
         {
             Destroy(atom.transform.gameObject);
         }
-            
-            if(atomCanvas != null)
-            {
-            atomCanvas.SetActive(false);
-            }
-    }
+		
+		UI.NoAtomTracked();
+	}
 
 
     /**
@@ -110,56 +85,18 @@ public class AtomSpawner : MonoBehaviour
         
         yield return new WaitForSeconds(1f);
         createAtoms(parent);
-        updateAtomInfo(parent.GetComponent<ImageTarget>().Atom);
        // TaskModeManger.Singleton.AtomCreated(parent.GetComponent<ImageTarget>().Atom);
        // TaskModeManger.Singleton.AtomViewed(parent.GetComponent<ImageTarget>().Atom);
 
     }
 
-    public void OnMainMenu()
-    {
-        SceneManager.LoadScene(SceneList.MainMenu);
-    }
 
-
-    /**
+	/**
     * Spawn Function
     */
     public void spawn(GameObject parent)
     {
          this.StartCoroutine(TimeDelayedSpawn(parent));
-    }
-
-
- /**
- * Activate and Update the info for atom ui canvas. 
- */
-    public void updateAtomInfo(AtomSO atom)
-    {
-        if (atomCanvas != null)
-        {
-            Debug.Log("Activating canvas");
-            atomCanvas.SetActive(true);
-            string number = atom.ID.ToString();
-            string weight = atom.Weight.ToString();
-            string neutron = atom.Neutrons.ToString();
-            string shells = atom.Shells.Count.ToString();
-            string valenceElectrons = atom.Shells[atom.Shells.Count - 1].ToString();
-
-            atomNumber.SetText(number);
-            atomSymbol.SetText(atom.Symbol);
-            atomName.SetText(atom.Name);
-            atomWieght.SetText(weight);
-            atomProton.SetText(number);
-            atomNeutron.SetText(neutron);
-            atomShells.SetText(shells);
-            atomElectron.SetText(valenceElectrons);
-
-            atomColor.color = atom.atomColor;
-
-        }
-        TaskModeManger.Singleton.AtomViewed(atom);
-
     }
 }
 

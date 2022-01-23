@@ -1,24 +1,151 @@
 {
     "TaskLists": [
         {
-            "tasks": [],
-            "Name": "20.01.22 18:59:23"
-        },
-        {
             "tasks": [
+                {
+                    "Type": 0,
+                    "Molecule": {
+                        "instanceID": 0
+                    },
+                    "Atom": {
+                        "instanceID": 21834
+                    },
+                    "Done": false,
+                    "Name": "Create Carbon"
+                },
+                {
+                    "Type": 1,
+                    "Molecule": {
+                        "instanceID": 0
+                    },
+                    "Atom": {
+                        "instanceID": 21834
+                    },
+                    "Done": false,
+                    "Name": "Look at the Info sheet for Carbon"
+                },
                 {
                     "Type": 2,
                     "Molecule": {
-                        "instanceID": 21830
+                        "instanceID": 21826
                     },
                     "Atom": {
                         "instanceID": 0
                     },
                     "Done": false,
                     "Name": "Create Water"
+                },
+                {
+                    "Type": 3,
+                    "Molecule": {
+                        "instanceID": 21826
+                    },
+                    "Atom": {
+                        "instanceID": 0
+                    },
+                    "Done": false,
+                    "Name": "Look at the Info sheet for Water"
                 }
             ],
-            "Name": "20.01.22 19:22:43"
+            "Name": "23.01.22 15:51:37"
+        },
+        {
+            "tasks": [
+                {
+                    "Type": 2,
+                    "Molecule": {
+                        "instanceID": 21822
+                    },
+                    "Atom": {
+                        "instanceID": 0
+                    },
+                    "Done": false,
+                    "Name": "Create Ethyne"
+                },
+                {
+                    "Type": 2,
+                    "Molecule": {
+                        "instanceID": 21826
+                    },
+                    "Atom": {
+                        "instanceID": 0
+                    },
+                    "Done": false,
+                    "Name": "Create Water"
+                },
+                {
+                    "Type": 3,
+                    "Molecule": {
+                        "instanceID": 21826
+                    },
+                    "Atom": {
+                        "instanceID": 0
+                    },
+                    "Done": false,
+                    "Name": "Look at the Info sheet for Water"
+                },
+                {
+                    "Type": 0,
+                    "Molecule": {
+                        "instanceID": 0
+                    },
+                    "Atom": {
+                        "instanceID": 21838
+                    },
+                    "Done": false,
+                    "Name": "Create Hydrogen"
+                },
+                {
+                    "Type": 1,
+                    "Molecule": {
+                        "instanceID": 0
+                    },
+                    "Atom": {
+                        "instanceID": 21838
+                    },
+                    "Done": false,
+                    "Name": "Look at the Info sheet for Hydrogen"
+                }
+            ],
+            "Name": "23.01.22 17:14:24"
+        },
+        {
+            "tasks": [
+                {
+                    "Type": 0,
+                    "Molecule": {
+                        "instanceID": 0
+                    },
+                    "Atom": {
+                        "instanceID": 21834
+                    },
+                    "Done": false,
+                    "Name": "Create Carbon"
+                },
+                {
+                    "Type": 3,
+                    "Molecule": {
+                        "instanceID": 21836
+                    },
+                    "Atom": {
+                        "instanceID": 0
+                    },
+                    "Done": false,
+                    "Name": "Look at the Info sheet for Ethan"
+                },
+                {
+                    "Type": 2,
+                    "Molecule": {
+                        "instanceID": 21824
+                    },
+                    "Atom": {
+                        "instanceID": 0
+                    },
+                    "Done": false,
+                    "Name": "Create ammonia"
+                }
+            ],
+            "Name": "23.01.22 17:32:17"
         }
     ]
 }

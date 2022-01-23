@@ -14,13 +14,15 @@ public class MoleculeUI : MonoBehaviour
 	public GameObject info;
 	public TestManager tm;
 
+	public GameObject TaskList;
+
 	public Button spawnButton;
 
 	// Start is called before the first frame update
     void Start()
-    {
-        
-    }
+	{
+		TaskList.SetActive(TaskModeManger.Singleton.Active);
+	}
 
     // Update is called once per frame
     void Update()

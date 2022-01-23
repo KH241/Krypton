@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TaskListUI : MonoBehaviour
 {
 	public TMP_Text Heading;
-	public TMP_Text List;
+	public GridLayoutGroup List;
+	public GameObject TaskPrefab;
 
 	private void Awake()
 	{
@@ -29,13 +31,20 @@ public class TaskListUI : MonoBehaviour
 	 */
 	private void UpdateList(bool success=true)
 	{
+		if (!TaskModeManger.Singleton.Active) { return; }
+		
 		Heading.text = $"{TaskModeManger.Singleton.Tasks.CountDone}/{TaskModeManger.Singleton.Tasks.CountTotal} Tasks Done";
 
-		//TODO show tasks that are done
-		List.text = "";
+		//Clear the List
+		foreach (Transform child in List.transform) { Destroy(child.gameObject); }
+		
 		foreach (Task task in TaskModeManger.Singleton.Tasks)
 		{
-			List.text += task.Name + "\n";
+			TMP_Text taskEntry = Instantiate(TaskPrefab, List.transform).GetComponent<TMP_Text>();
+			
+			taskEntry.text += " " + task.Name + " ";
+			
+			if (task.Done) { taskEntry.fontStyle = FontStyles.Strikethrough; }
 		}
 	}
 }

@@ -11,8 +11,10 @@ public class CreateTaskUI : MonoBehaviour
 	public TaskListCreator Creator;
 
 	public TMP_Text TaskName;
-	public TMP_Text TaskList;
+	public GridLayoutGroup TaskList;
 
+	public GameObject TaskPrefab;
+	
 	public GameObject CreateAtomGrid;
 	public GameObject ViewAtomGrid;
 	public GameObject CreateMoleculeGrid;
@@ -118,10 +120,16 @@ public class CreateTaskUI : MonoBehaviour
 	{
 		TaskName.text = $"{Creator.TaskList.Name}";
 
-		TaskList.text = "";
+		//Clear the List
+		foreach (Transform child in TaskList.transform) { Destroy(child.gameObject); }
+		
 		foreach (Task task in Creator.TaskList)
 		{
-			TaskList.text += task.Name + "\n";
+			TMP_Text taskEntry = Instantiate(TaskPrefab, TaskList.transform).GetComponent<TMP_Text>();
+			
+			taskEntry.text += " " + task.Name + " ";
+			
+			if (task.Done) { taskEntry.fontStyle = FontStyles.Strikethrough; }
 		}
 	}
 }
