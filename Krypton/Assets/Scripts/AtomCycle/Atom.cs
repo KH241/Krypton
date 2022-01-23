@@ -112,10 +112,10 @@ public class Atom : MonoBehaviour
 
     public IEnumerator freezePos()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.25f);
 
         freezeNucleus = true;
-        yield return new WaitForSeconds(.1f);
+        //yield return new WaitForSeconds(.25f);
 
         
     }
@@ -243,12 +243,13 @@ public class Atom : MonoBehaviour
     public GameObject generateProton(Vector3 pos)
     {
         GameObject proton = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        proton.AddComponent<Nucleon>().center = this.center;
         proton.name = "Proton";
         proton.transform.position = pos;
         proton.AddComponent<Rigidbody>().useGravity = false;
         proton.GetComponent<Rigidbody>().mass = 1f;
         proton.GetComponent<Renderer>().material.SetColor("_Color", new Color32(229, 79, 10, 255));
-        proton.AddComponent<Nucleon>().center = this.center;
+       
         //proton.GetComponent<Nucleon>().center = this.center;
 
         proton.transform.SetParent(nucleus);
@@ -261,14 +262,16 @@ public class Atom : MonoBehaviour
     //Neutron GameObject Generator
     public GameObject generateNeutron(Vector3 pos)
     {
+        
         GameObject neutron = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        neutron.AddComponent<Nucleon>().center = this.center;
         neutron.name = "Neutron";
         neutron.transform.position = pos;
         neutron.AddComponent<Rigidbody>().useGravity = false;
         neutron.GetComponent<Rigidbody>().mass = 1f;
 
         neutron.GetComponent<Renderer>().material.SetColor("_Color", new Color32(51, 46, 46, 255));
-        neutron.AddComponent<Nucleon>().center = this.center;
+        
 
         neutron.transform.SetParent(nucleus);
         neutron.transform.localScale = new Vector3(atomScale, atomScale, atomScale);

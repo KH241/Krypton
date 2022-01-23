@@ -25,9 +25,11 @@ public class Nucleon : MonoBehaviour
         {
             //If nucleoid movement not yet ended
             if (gameObject.GetComponent<Rigidbody>() != null)
-            {                            
+            {
                 //Pull GameObject to the center
-               gameObject.GetComponent<Rigidbody>().AddForce((center - transform.position).normalized * 1000 * Time.smoothDeltaTime);
+                gameObject.GetComponent<Rigidbody>().AddForce((center - transform.position).normalized * 1000 * Time.smoothDeltaTime);
+               // gameObject.GetComponent<Rigidbody>().AddForce((transform.position).normalized * 3000 * Time.smoothDeltaTime);
+
             }
         }
 
