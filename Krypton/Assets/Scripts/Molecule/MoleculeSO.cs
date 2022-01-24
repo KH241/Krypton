@@ -25,7 +25,7 @@ public class MoleculeSO : ScriptableObject
 
 	public override string ToString()
 	{
-		string atoms = Environment.NewLine + "This molecule contains of:" + Environment.NewLine + Environment.NewLine;
+		string atoms = Environment.NewLine + "This molecule consists of:" + Environment.NewLine + Environment.NewLine;
 		
 		foreach (AtomSO atom in Atoms)
 		{

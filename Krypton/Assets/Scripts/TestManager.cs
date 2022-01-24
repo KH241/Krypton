@@ -46,6 +46,9 @@ public class TestManager : MonoBehaviour
 		UpdateMolecules();
 	}
 
+	/**
+	 * scan the scene for image targets
+	 */
 	private void UpdateImageTargets()
 	{
 		//Loop trough all imagetargets and check if they are tracked
@@ -82,6 +85,9 @@ public class TestManager : MonoBehaviour
 		}
 	}
 
+	/**
+	 * handle molecules logic, create molecules when possible and destroy when requirement not met anymore
+	 */
 	private void UpdateMolecules()
 	{
 		
@@ -168,6 +174,9 @@ public class TestManager : MonoBehaviour
 		}
 	}
 
+	/**
+	 * spawn molecule at an image target and hide atoms in the scene
+	 */
 	public void SpawnMolecule(MoleculeSO molecule)
 	{
 		if (!possibleMolecules.ContainsKey(molecule))
@@ -191,6 +200,9 @@ public class TestManager : MonoBehaviour
 		TaskModeManger.Singleton.MoleculeCreated(molecule);
 	}
 
+	/**
+	 * check distance between image targets
+	 */
 	private bool AllTargetsInsideRange(Dictionary<TrackableBehaviour, TestAtom> targets)
 	{
 		List<Vector3> positions = new List<Vector3>();
@@ -214,6 +226,9 @@ public class TestManager : MonoBehaviour
 		return true;
 	}
 
+	/**
+	 * destroy molecule
+	 */
 	public void DestroyMolecule()
 	{
 		//Show all atoms formerly used to create molecule (that are still in the scene)		

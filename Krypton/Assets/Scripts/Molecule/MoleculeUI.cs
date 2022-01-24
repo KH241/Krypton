@@ -41,6 +41,9 @@ public class MoleculeUI : MonoBehaviour
 	    
     }
 
+    /**
+     * show information about the created molecule
+     */
     public void toggleMoleculeInfo()
     {
 	    info.SetActive(!info.activeSelf);
@@ -52,12 +55,18 @@ public class MoleculeUI : MonoBehaviour
 	    }
     }
 
+    /**
+     * destroy the molecule and return to Idle mode
+     */
     public void destroyOnClick()
     {
 	    tm.DestroyMolecule();
 	    toggleView();
     }
     
+    /**
+     * create the molecule. This can only be clicked when it is possible to create a molecule
+     */
     public void spawnMole()
     {
 	    tm.SpawnMolecule(tm.PossibleMolecules[0]);
