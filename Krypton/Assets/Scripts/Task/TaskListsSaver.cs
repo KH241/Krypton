@@ -1,51 +1,67 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 
-public static class TaskListsSaver
+namespace TaskMode
 {
-	/**
-	 * Returns all saved TaskLists from local Storage
-	 */
-	public static TaskList[] LoadTaskLists()
+	public static class TaskListsSaver
 	{
-		List<TaskList> output = new List<TaskList>();
+		private const string FILEPATH = "Assets/Resources/taskLists.txt";
 
-		//TODO implement task loading
+		public static TaskList[] TaskLists => LoadTaskLists();
 
-		foreach (AtomSO atom in SOList.AtomList)
+		/**
+		 * Returns all saved TaskLists from local Storage
+		 */
+		public static TaskList[] LoadTaskLists()
 		{
-			TaskList temp = new TaskList("Task " + atom.Name);
-            temp.AddTask(new CreateAtomTask(atom));
-			temp.AddTask(new ViewAtomTask(atom));
-    
-            output.Add(temp);
+			StreamReader reader = new StreamReader(FILEPATH);
+	        string json = reader.ReadToEnd();
+	        reader.Close();
+
+			
+			TaskList[] output = JsonUtility.FromJson<ListWrapper>(json)?.TaskLists;
+			if (output == null) { return new TaskList[0]; }
+
+			return output.ToArray();
+		}
+
+		/**
+		 * Saves given Tasklist into local Storage
+		 * @param taskList needs to be unique, otherwise the old tasklist will be overriden
+		 * @return The Id of the Task inside TaskLists
+		 */
+		public static int SaveTask(TaskList taskList)
+		{
+			int id;
+			
+			List<TaskList> lists = TaskLists.ToList();
+			
+			//Override the old Tasklist, if the name is already in TaskLists
+			for (int i=0;i < lists.Count; i++)
+			{
+				if (lists[i].Name == taskList.Name) { lists.RemoveAt(i); }
+			}
+			
+			id = lists.Count;
+			
+			//Add the new Tasklist
+			lists.Add(taskList);
+
+			//Put the list inside a wrapper, so it can be serialized by JSONUtility
+			ListWrapper wrapper = new ListWrapper();
+			wrapper.TaskLists = lists.ToArray();
+			
+			//Write to file
+			StreamWriter writer = new StreamWriter(FILEPATH, false);
+			writer.Write(JsonUtility.ToJson(wrapper, true));
+			writer.Close();
+			
+			return id;
 		}
 		
-		foreach (MoleculeSO molecule in SOList.MoleculeList)
-		{
-			TaskList temp = new TaskList("Task " + molecule.Name);
-			temp.AddTask(new CreateMoleculeTask(molecule));
-			temp.AddTask(new ViewMoleculeTask(molecule));
-    
-			output.Add(temp);
-		}
-		
-		return output.ToArray();
-	}
-
-	/**
-	 * Saves given Tasklist into local Storage
-	 * The Name of the Task list must be unique
-	 */
-	public static bool SaveTask(TaskList taskList)
-	{
-		foreach (TaskList list in LoadTaskLists())
-		{
-			if (list.Name == taskList.Name) { return false; }
-		}
-		
-		Debug.LogError("Need to implement Task saving"); //TODO implement task saving
-		
-		return true;
-	}
+		//TasklistWrapper (for JSONUtility)
+		private class ListWrapper { public TaskList[] TaskLists; }
+	}	
 }
