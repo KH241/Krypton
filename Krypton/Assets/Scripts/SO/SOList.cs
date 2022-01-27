@@ -14,13 +14,6 @@ public static class SOList
 		laodMolecules();
 	}
 
-	private static void loadAtoms()
-	{
-		atoms = Resources.LoadAll<AtomSO>("Atoms/");
-	}
-
-	private static void laodMolecules()
-	{
-		molecules = Resources.LoadAll<MoleculeSO>("Molecules/");
-	}
+	private static void loadAtoms() { atoms = Resources.LoadAll<AtomSO>("Atoms/"); }
+	private static void laodMolecules() { molecules = Resources.LoadAll<MoleculeSO>("Molecules/"); }
 }

@@ -1,5 +1,65 @@
 ﻿using System;
 
+namespace TaskMode
+{
+	[Serializable]
+	public class Task
+	{
+		//This can be done very differently
+		public TaskType Type;
+		public MoleculeSO Molecule;
+		public AtomSO Atom;
+		
+		public bool Done;
+		public string Name;
+
+		public Task(TaskType type, AtomSO atom)
+		{
+			Type = type;
+			Atom = atom;
+			Done = false;
+			switch (Type)
+			{
+				case TaskType.CreateAtom:
+					Name = "Create " + atom.Name;
+					break;
+				case TaskType.ViewAtom:
+					Name = "Look at the Info sheet for " + atom.Name;
+					break;
+				default:
+					throw new DataMisalignedException("Please select a valid atom task type (you put in a AtomSO)");
+			}
+		}
+		
+		public Task(TaskType type, MoleculeSO molecule)
+		{
+			Type = type;
+			Molecule = molecule;
+			Done = false;
+			switch (Type)
+			{
+				case TaskType.CreateMolecule:
+					Name = "Create " + molecule.Name;
+					break;
+				case TaskType.ViewMolecule:
+					Name = "Look at the Info sheet for " + molecule.Name;
+					break;
+				default:
+					throw new DataMisalignedException("Please select a valid molecule task type (you put in a MoleculeSO)");
+			}
+		}
+	}
+
+	public enum TaskType
+	{
+		CreateAtom,
+		ViewAtom,
+		CreateMolecule,
+		ViewMolecule
+	}
+	
+}
+
 /* Task apparently needs to be one class instead of inherited,
  because unity's JsonUtility cant deal with inheritance (and its too late to change the library for json parsing)
 [Serializable]
@@ -61,60 +121,3 @@ public class Task
 	public bool Done;
 	public string Name;
 }*/
-
-[Serializable]
-public class Task
-{
-	//This can be done very differently
-	//TODO do it differently
-	public TaskType Type;
-	public MoleculeSO Molecule;
-	public AtomSO Atom;
-	
-	public bool Done;
-	public string Name;
-
-	public Task(TaskType type, AtomSO atom)
-	{
-		Type = type;
-		Atom = atom;
-		Done = false;
-		switch (Type)
-		{
-			case TaskType.CreateAtom:
-				Name = "Create " + atom.Name;
-				break;
-			case TaskType.ViewAtom:
-				Name = "Look at the Info sheet for " + atom.Name;
-				break;
-			default:
-				throw new DataMisalignedException("Please select a valid atom task type (you put in a AtomSO)");
-		}
-	}
-	
-	public Task(TaskType type, MoleculeSO molecule)
-	{
-		Type = type;
-		Molecule = molecule;
-		Done = false;
-		switch (Type)
-		{
-			case TaskType.CreateMolecule:
-				Name = "Create " + molecule.Name;
-				break;
-			case TaskType.ViewMolecule:
-				Name = "Look at the Info sheet for " + molecule.Name;
-				break;
-			default:
-				throw new DataMisalignedException("Please select a valid molecule task type (you put in a MoleculeSO)");
-		}
-	}
-}
-
-public enum TaskType
-{
-	CreateAtom,
-	ViewAtom,
-	CreateMolecule,
-	ViewMolecule
-}

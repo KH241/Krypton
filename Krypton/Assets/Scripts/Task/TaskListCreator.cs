@@ -1,53 +1,56 @@
 ﻿using System;
 using UnityEngine;
 
-public class TaskListCreator : MonoBehaviour
+namespace TaskMode
 {
-	public CreateTaskUI UI;
-
-	public TaskList TaskList { get; private set; }
-
-	private void Start()
+	public class TaskListCreator : MonoBehaviour
 	{
-		string name = DateTime.Now.ToString("dd/MM/yy HH:mm:ss");
-		TaskList = new TaskList(name);
-		UI.UpdateTaskList();
-	}
+		public CreateTaskUI UI;
 
-	#region TaskAdder
+		public TaskList TaskList { get; private set; }
 
-	public void AddCreateAtom(AtomSO atom)
-	{
-		Task task = new Task(TaskType.CreateAtom, atom);
-		TaskList.AddTask(task);
-		UI.UpdateTaskList();
-	}
+		private void Start()
+		{
+			string name = DateTime.Now.ToString("dd/MM/yy HH:mm:ss");
+			TaskList = new TaskList(name);
+			UI.UpdateTaskList();
+		}
 
-	public void AddViewAtom(AtomSO atom)
-	{
-		Task task = new Task(TaskType.ViewAtom, atom);
-		TaskList.AddTask(task);
-		UI.UpdateTaskList();
-	}
+		#region TaskAdder
 
-	public void AddCreateMolecule(MoleculeSO molecule)
-	{
-		Task task = new Task(TaskType.CreateMolecule, molecule);
-		TaskList.AddTask(task);
-		UI.UpdateTaskList();
-	}
+		public void AddCreateAtom(AtomSO atom)
+		{
+			Task task = new Task(TaskType.CreateAtom, atom);
+			TaskList.AddTask(task);
+			UI.UpdateTaskList();
+		}
 
-	public void AddViewMolecule(MoleculeSO molecule)
-	{
-		Task task = new Task(TaskType.ViewMolecule, molecule);
-		TaskList.AddTask(task);
-		UI.UpdateTaskList();
-	}
-	
-	#endregion
+		public void AddViewAtom(AtomSO atom)
+		{
+			Task task = new Task(TaskType.ViewAtom, atom);
+			TaskList.AddTask(task);
+			UI.UpdateTaskList();
+		}
 
-	public int Save()
-	{
-		return TaskListsSaver.SaveTask(TaskList);
-	}
+		public void AddCreateMolecule(MoleculeSO molecule)
+		{
+			Task task = new Task(TaskType.CreateMolecule, molecule);
+			TaskList.AddTask(task);
+			UI.UpdateTaskList();
+		}
+
+		public void AddViewMolecule(MoleculeSO molecule)
+		{
+			Task task = new Task(TaskType.ViewMolecule, molecule);
+			TaskList.AddTask(task);
+			UI.UpdateTaskList();
+		}
+		
+		#endregion
+
+		/*
+		 * @return The Id of the created tasklist inside TaskListsSaver.TaskLists
+		 */
+		public int Save() { return TaskListsSaver.SaveTask(TaskList); }
+	}	
 }

@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 
-namespace DefaultNamespace
+namespace Molecule
 {
-	public class TestMolecule : MonoBehaviour
+	public class MoleculeObject : MonoBehaviour
 	{
-		public MoleculeSO MoleculeData;
 		public GameObject H2OGameObject;
 		public GameObject CH4GameObject;
 		public GameObject CO2GameObject;
@@ -31,7 +30,7 @@ namespace DefaultNamespace
 					Instantiate(NH3GameObject, transform);
 					break;
 				default:
-					Debug.Log("default reached");
+					Debug.LogError("Molecule given has now model");
 					break;
 			}
 		}

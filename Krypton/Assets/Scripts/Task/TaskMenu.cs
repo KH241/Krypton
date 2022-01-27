@@ -5,104 +5,107 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class TaskMenu : MonoBehaviour
+namespace TaskMode
 {
-	public GameObject Idle;
-	public GameObject TaskMode;
-	public GameObject TaskListSelection;
-	
-	public TMP_Dropdown TaskListSelectionDropdown;
-
-	private void Start()
+	public class TaskMenu : MonoBehaviour
 	{
-		FillTaskListSelection();
-		if (TaskModeManger.Singleton.Active)
+		public GameObject Idle;
+		public GameObject TaskMode;
+		public GameObject TaskListSelection;
+		
+		public TMP_Dropdown TaskListSelectionDropdown;
+
+		private void Start()
 		{
-			Idle.SetActive(false);
+			FillTaskListSelection();
+			if (TaskModeManger.Singleton.Active)
+			{
+				Idle.SetActive(false);
+				TaskMode.SetActive(true);
+			}
+		}
+
+		private void FillTaskListSelection()
+		{
+			TaskListSelectionDropdown.ClearOptions();
+			
+			foreach (TaskList taskLists in TaskListsSaver.TaskLists)
+			{
+				TaskListSelectionDropdown.options.Add(new TMP_Dropdown.OptionData(taskLists.Name));
+			}
+		}
+		
+		#region Buttons
+		/**
+	     * Opens the Task Selection Dropdown
+	     */
+		public void ShowTaskListSelection()
+		{
+			TaskListSelection.SetActive(true);
+		}
+
+		/**
+		 * Closes the Task Selection Dropdown
+		 */
+		public void CloseTaskListSelection()
+		{
+			TaskListSelection.SetActive(false);
+		}
+
+		/**
+		 * Starts the Task Mode - started from the Task Selection Button "Start Task"
+		 * It starts the Task Selected in the Dropdown
+		 */
+		public void StartTaskMode()
+		{
+			TaskModeManger.Singleton.StartTaskMode(TaskListSelectionDropdown.value);
+			
 			TaskMode.SetActive(true);
+			TaskListSelection.SetActive(false);
+			Idle.SetActive(false);
 		}
-	}
 
-	private void FillTaskListSelection()
-	{
-		TaskListSelectionDropdown.ClearOptions();
-		
-		foreach (TaskList taskLists in TaskListsSaver.TaskLists)
+		/**
+	     * Navigates to Task-Creation - called from the TaskMenu-Button "Create Task"
+	     */
+		public void OnCreate()
 		{
-			TaskListSelectionDropdown.options.Add(new TMP_Dropdown.OptionData(taskLists.Name));
+			SceneManager.LoadScene(SceneList.TaskCreate);
 		}
-	}
-	
-	#region Buttons
-	/**
-     * Opens the Task Selection Dropdown
-     */
-	public void ShowTaskListSelection()
-	{
-		TaskListSelection.SetActive(true);
-	}
 
-	/**
-	 * Closes the Task Selection Dropdown
-	 */
-	public void CloseTaskListSelection()
-	{
-		TaskListSelection.SetActive(false);
-	}
+		/**
+	     * Opens the Atom-View - called from the TaskMenu-Button "Atom"
+	     */
+		public void OnAtom()
+		{
+			SceneManager.LoadScene(SceneList.AtomView);
+		}
 
-	/**
-	 * Starts the Task Mode - started from the Task Selection Button "Start Task"
-	 * It starts the Task Selected in the Dropdown
-	 */
-	public void StartTaskMode()
-	{
-		TaskModeManger.Singleton.StartTaskMode(TaskListSelectionDropdown.value);
+		/**
+	     * Opens the Molecule-View - called from the TaskMenu-Button "Molecule"
+	     */
+		public void OnMolecule()
+		{
+			SceneManager.LoadScene(SceneList.MoleculeView);
+		}
 		
-		TaskMode.SetActive(true);
-		TaskListSelection.SetActive(false);
-		Idle.SetActive(false);
-	}
+		/**
+	     * Exits the Task-Mode - called from the TaskMenu-Buttons "Finish Task"/"Cancel Task"
+	     */
+		public void OnExitTask()
+		{
+			TaskModeManger.Singleton.FinishTaskMode();
+			Idle.SetActive(true);
+			TaskMode.SetActive(false);
+		}
 
-	/**
-     * Navigates to Task-Creation - called from the TaskMenu-Button "Create Task"
-     */
-	public void OnCreate()
-	{
-		SceneManager.LoadScene(SceneList.TaskCreate);
+		/**
+	     * Navigates back to the Main-Menu - called from the TaskMenu-Button "Back"
+	     */
+		public void OnMainMenu()
+		{
+			SceneManager.LoadScene(SceneList.MainMenu);
+		}	
+		#endregion
 	}
-
-	/**
-     * Opens the Atom-View - called from the TaskMenu-Button "Atom"
-     */
-	public void OnAtom()
-	{
-		SceneManager.LoadScene(SceneList.AtomView);
-	}
-
-	/**
-     * Opens the Molecule-View - called from the TaskMenu-Button "Molecule"
-     */
-	public void OnMolecule()
-	{
-		SceneManager.LoadScene(SceneList.MoleculeView);
-	}
-	
-	/**
-     * Exits the Task-Mode - called from the TaskMenu-Buttons "Finish Task"/"Cancel Task"
-     */
-	public void OnExitTask()
-	{
-		TaskModeManger.Singleton.FinishTaskMode();
-		Idle.SetActive(true);
-		TaskMode.SetActive(false);
-	}
-
-	/**
-     * Navigates back to the Main-Menu - called from the TaskMenu-Button "Back"
-     */
-	public void OnMainMenu()
-	{
-		SceneManager.LoadScene(SceneList.MainMenu);
-	}	
-	#endregion
 }

@@ -1,74 +1,72 @@
-using System.Collections;
-using System.Collections.Generic;
+using TaskMode;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MoleculeUI : MonoBehaviour
+namespace Molecule
 {
-	public TMP_Text mainText;
-	public TMP_Text subText;
-
-	public GameObject idle;
-	public GameObject view;
-	public GameObject info;
-	public TestManager tm;
-
-	public GameObject TaskList;
-
-	public Button spawnButton;
-
-	// Start is called before the first frame update
-    void Start()
+	public class MoleculeUI : MonoBehaviour
 	{
-		TaskList.SetActive(TaskModeManger.Singleton.Active);
+		public TMP_Text mainText;
+		public TMP_Text subText;
+
+		public GameObject idle;
+		public GameObject view;
+		public GameObject info;
+		public MoleculeManager manager;
+
+		public GameObject TaskList;
+
+		public Button spawnButton;
+
+	    void Start() { TaskList.SetActive(TaskModeManger.Singleton.Active); }
+
+	    void Update()
+	    {
+		    if (manager.activeMolecule == null && view.activeSelf) { toggleView(); }
+		    
+		    if (manager.activeMolecule != null && idle.activeSelf) { toggleView(); }
+
+		    spawnButton.interactable = manager.PossibleMolecules.Length > 0;
+		}
+
+	    public void toggleMoleculeInfo()
+	    {
+		    info.SetActive(!info.activeSelf);
+		    if (info.activeSelf)
+		    {
+			    mainText.text = manager.PossibleMolecules[0].Name;
+			    subText.text = manager.PossibleMolecules[0].ToString();
+			    TaskModeManger.Singleton.MoleculeViewed(manager.activeMolecule);
+		    }
+	    }
+
+	    public void destroyOnClick()
+	    {
+		    manager.DestroyMolecule();
+		    toggleView();
+	    }
+	    
+	    public void spawnMole()
+	    {
+		    manager.SpawnMolecule(manager.PossibleMolecules[0]);
+		    toggleView();
+		    
+	    }
+
+	    private void toggleView()
+	    {
+		    idle.SetActive(!idle.activeSelf);
+		    view.SetActive(!view.activeSelf);
+	    }
+	    
+		/*
+	     * Exits the MoleculeScene - called from the Menu-Button "Exit"
+	     */
+		public void OnExit()
+		{
+			SceneManager.LoadScene(SceneList.MainMenu);
+		}
 	}
-
-    // Update is called once per frame
-    void Update()
-    {
-	    if (tm.activeMolecule == null && view.activeSelf)
-	    {
-		    toggleView();
-	    }
-	    
-	    if (tm.activeMolecule != null && idle.activeSelf)
-	    {
-		    toggleView();
-	    }
-
-	    spawnButton.interactable = tm.PossibleMolecules.Length > 0;
-	    
-    }
-
-    public void toggleMoleculeInfo()
-    {
-	    info.SetActive(!info.activeSelf);
-	    if (info.activeSelf)
-	    {
-		    mainText.text = tm.PossibleMolecules[0].Name;
-		    subText.text = tm.PossibleMolecules[0].ToString();
-		    TaskModeManger.Singleton.MoleculeViewed(tm.activeMolecule);
-	    }
-    }
-
-    public void destroyOnClick()
-    {
-	    tm.DestroyMolecule();
-	    toggleView();
-    }
-    
-    public void spawnMole()
-    {
-	    tm.SpawnMolecule(tm.PossibleMolecules[0]);
-	    toggleView();
-	    
-    }
-
-    private void toggleView()
-    {
-	    idle.SetActive(!idle.activeSelf);
-	    view.SetActive(!view.activeSelf);
-    }
-    
 }

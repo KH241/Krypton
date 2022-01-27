@@ -3,52 +3,65 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-public static class TaskListsSaver
+namespace TaskMode
 {
-	private const string FILEPATH = "Assets/Resources/taskLists.txt";
-
-	public static TaskList[] TaskLists => LoadTaskLists();
-
-	/**
-	 * Returns all saved TaskLists from local Storage
-	 */
-	public static TaskList[] LoadTaskLists()
+	public static class TaskListsSaver
 	{
-		StreamReader reader = new StreamReader(FILEPATH);
-        string json = reader.ReadToEnd();
-        reader.Close();
+		private const string FILEPATH = "Assets/Resources/taskLists.txt";
 
-		
-		TaskList[] output = JsonUtility.FromJson<ListWrapper>(json)?.TaskLists;
-		if (output == null) { return new TaskList[0]; }
+		public static TaskList[] TaskLists => LoadTaskLists();
 
-		return output.ToArray();
-	}
+		/**
+		 * Returns all saved TaskLists from local Storage
+		 */
+		public static TaskList[] LoadTaskLists()
+		{
+			StreamReader reader = new StreamReader(FILEPATH);
+	        string json = reader.ReadToEnd();
+	        reader.Close();
 
-	/**
-	 * Saves given Tasklist into local Storage
-	 * The Name of the Task list must be unique
-	 */
-	public static int SaveTask(TaskList taskList)
-	{
-		//TODO unique task saving
-		int id = TaskLists.Length;
-		
-		List<TaskList> lists = TaskLists.ToList();
-		lists.Add(taskList);
+			
+			TaskList[] output = JsonUtility.FromJson<ListWrapper>(json)?.TaskLists;
+			if (output == null) { return new TaskList[0]; }
 
-		ListWrapper wrapper = new ListWrapper();
-		wrapper.TaskLists = lists.ToArray();
+			return output.ToArray();
+		}
+
+		/**
+		 * Saves given Tasklist into local Storage
+		 * @param taskList needs to be unique, otherwise the old tasklist will be overriden
+		 * @return The Id of the Task inside TaskLists
+		 */
+		public static int SaveTask(TaskList taskList)
+		{
+			int id;
+			
+			List<TaskList> lists = TaskLists.ToList();
+			
+			//Override the old Tasklist, if the name is already in TaskLists
+			for (int i=0;i < lists.Count; i++)
+			{
+				if (lists[i].Name == taskList.Name) { lists.RemoveAt(i); }
+			}
+			
+			id = lists.Count;
+			
+			//Add the new Tasklist
+			lists.Add(taskList);
+
+			//Put the list inside a wrapper, so it can be serialized by JSONUtility
+			ListWrapper wrapper = new ListWrapper();
+			wrapper.TaskLists = lists.ToArray();
+			
+			//Write to file
+			StreamWriter writer = new StreamWriter(FILEPATH, false);
+			writer.Write(JsonUtility.ToJson(wrapper, true));
+			writer.Close();
+			
+			return id;
+		}
 		
-		StreamWriter writer = new StreamWriter(FILEPATH, false);
-		writer.Write(JsonUtility.ToJson(wrapper, true));
-		writer.Close();
-		
-		return id;
-	}
-	
-	private class ListWrapper
-	{
-		public TaskList[] TaskLists;
-	}
+		//TasklistWrapper (for JSONUtility)
+		private class ListWrapper { public TaskList[] TaskLists; }
+	}	
 }

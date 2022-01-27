@@ -2,45 +2,45 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[Serializable]
-public class TaskList : IEnumerable<Task>
+namespace TaskMode
 {
-	public List<Task> tasks = new List<Task>();
-	public int CountTotal => tasks.Count;
-	public int CountDone => getCountDone();
-	public bool Done => CountDone == CountTotal;
-	public string Name;
-	
-	public TaskList(string name) { Name = name; }
-	public TaskList(string name, List<Task> tasks) : this(name, tasks.ToArray()) { }
-	public TaskList(string name, Task[] tasks)
+	[Serializable]
+	public class TaskList : IEnumerable<Task>
 	{
-		Name = name;
-		foreach (Task task in tasks) { this.tasks.Add(task); }
-	}
-
-	private int getCountDone()
-	{
-		int output = 0;
+		public List<Task> tasks = new List<Task>();
+		public int CountTotal => tasks.Count;
+		public int CountDone => getCountDone();
+		public bool Done => CountDone == CountTotal;
+		public string Name;
 		
-		foreach (Task task in tasks)
+		//Constructors
+		public TaskList(string name) { Name = name; }
+		public TaskList(string name, List<Task> tasks) : this(name, tasks.ToArray()) { }
+		public TaskList(string name, Task[] tasks)
 		{
-			if (task.Done) { output++; }
+			Name = name;
+			foreach (Task task in tasks) { this.tasks.Add(task); }
 		}
 
-		return output;
-	}
+		//The enumerator returns the List<Task>, so it is easy to loop over a tasklist
+		public IEnumerator<Task> GetEnumerator() { return tasks.GetEnumerator(); }
+		IEnumerator IEnumerable.GetEnumerator() { return GetEnumerator(); }
 
-	public IEnumerator<Task> GetEnumerator()
-	{
-		return tasks.GetEnumerator();
-	}
+		//Adding + Removing
+		public void AddTask(Task task) { tasks.Add(task); }
+		public void RemoveTask(Task task) { tasks.Remove(task); }
 
-	IEnumerator IEnumerable.GetEnumerator()
-	{
-		return GetEnumerator();
-	}
+		
+		private int getCountDone()
+		{
+			int output = 0;
+			
+			foreach (Task task in tasks)
+			{
+				if (task.Done) { output++; }
+			}
 
-	public void AddTask(Task task) { tasks.Add(task); }
-	public void RemoveTask(Task task) { tasks.Remove(task); }
+			return output;
+		}
+	}	
 }
