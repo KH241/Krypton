@@ -31,6 +31,9 @@ namespace Molecule
 		    spawnButton.interactable = manager.PossibleMolecules.Length > 0;
 		}
 
+		/*
+		 * Toggles visibility of the Info sheet for the Molecule
+		 */
 	    public void toggleMoleculeInfo()
 	    {
 		    info.SetActive(!info.activeSelf);
@@ -42,12 +45,18 @@ namespace Molecule
 		    }
 	    }
 
+		/*
+		 * Destroys the active Molecule + returns to idle mode
+		 */
 	    public void destroyOnClick()
 	    {
 		    manager.DestroyMolecule();
 		    toggleView();
 	    }
 	    
+		/*
+		 * Spawns possible Molecule 
+		 */
 	    public void spawnMole()
 	    {
 		    manager.SpawnMolecule(manager.PossibleMolecules[0]);

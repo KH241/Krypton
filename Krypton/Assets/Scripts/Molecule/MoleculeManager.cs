@@ -48,6 +48,9 @@ namespace Molecule
 			UpdateMolecules();
 		}
 		
+		/*
+		 * Checks the scene for active imageTargets and spawns atoms ontop
+		 */
 		private void UpdateImageTargets()
 		{
 			//Loop trough all imagetargets and check if they are tracked
@@ -84,6 +87,10 @@ namespace Molecule
 			}
 		}
 
+		/*
+		 * Molecule Logic (called each frame)
+		 * Creates molecules when possible and destroys them when requirements are not met anymore
+		 */
 		private void UpdateMolecules()
 		{
 			if (activeMolecule != null)
@@ -170,7 +177,7 @@ namespace Molecule
 		}
 
 		/*
-		 * Spawns the molecule given (if possible)
+		 * Spawns the molecule given (if possible) and hides all the atoms used to build it
 		 */
 		public void SpawnMolecule(MoleculeSO molecule)
 		{
