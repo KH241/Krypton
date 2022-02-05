@@ -14,7 +14,7 @@ namespace TaskMode
 
 		#region Start + Finish Task Mode
 		
-		/*
+		/**
 		 * Starts the Task Mode
 		 * @param id The index of the tasklist in TaskListsSaver.TaskLists
 		 */
@@ -24,7 +24,7 @@ namespace TaskMode
 			Active = true;
 		}	
 		
-		/*
+		/**
 		 * Exits the TaskMode
 		 */
 		public void FinishTaskMode()

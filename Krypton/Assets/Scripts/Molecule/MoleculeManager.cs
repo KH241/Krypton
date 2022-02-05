@@ -48,7 +48,7 @@ namespace Molecule
 			UpdateMolecules();
 		}
 		
-		/*
+		/**
 		 * Checks the scene for active imageTargets and spawns atoms ontop
 		 */
 		private void UpdateImageTargets()
@@ -87,7 +87,7 @@ namespace Molecule
 			}
 		}
 
-		/*
+		/**
 		 * Molecule Logic (called each frame)
 		 * Creates molecules when possible and destroys them when requirements are not met anymore
 		 */
@@ -176,7 +176,7 @@ namespace Molecule
 			}
 		}
 
-		/*
+		/**
 		 * Spawns the molecule given (if possible) and hides all the atoms used to build it
 		 */
 		public void SpawnMolecule(MoleculeSO molecule)
@@ -199,7 +199,7 @@ namespace Molecule
 			TaskModeManger.Singleton.MoleculeCreated(molecule);
 		}
 
-		/*
+		/**
 		 * Returns true, if all targets are inside the Range (Range is a param of MoleculeManager
 		 */
 		private bool AllTargetsInsideRange(Dictionary<TrackableBehaviour, MoleculeAtom> targets)
@@ -225,7 +225,7 @@ namespace Molecule
 			return true;
 		}
 
-		/*
+		/**
 		 * Destroys the Active Molecule
 		 */
 		public void DestroyMolecule()

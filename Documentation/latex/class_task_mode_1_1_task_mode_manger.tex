@@ -1,0 +1,130 @@
+\hypertarget{class_task_mode_1_1_task_mode_manger}{}\doxysection{Task\+Mode.\+Task\+Mode\+Manger Class Reference}
+\label{class_task_mode_1_1_task_mode_manger}\index{TaskMode.TaskModeManger@{TaskMode.TaskModeManger}}
+Inheritance diagram for Task\+Mode.\+Task\+Mode\+Manger\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_task_mode_1_1_task_mode_manger}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+delegate void \mbox{\hyperlink{class_task_mode_1_1_task_mode_manger_ab91ba3963f377796c43db128b3a571c3}{Task\+Mode\+Event}} (bool success=true)
+\item 
+void \mbox{\hyperlink{class_task_mode_1_1_task_mode_manger_a6fe0645bd73d23c66092e6a2e8faf162}{Start\+Task\+Mode}} (int id)
+\item 
+void \mbox{\hyperlink{class_task_mode_1_1_task_mode_manger_a17e3af8b9c1d41a841f639368299294f}{Finish\+Task\+Mode}} ()
+\item 
+void \mbox{\hyperlink{class_task_mode_1_1_task_mode_manger_ac134e6387699a21728dccd1789315b41}{Atom\+Created}} (\mbox{\hyperlink{class_atom_s_o}{Atom\+SO}} atom)
+\item 
+void \mbox{\hyperlink{class_task_mode_1_1_task_mode_manger_a68e6ad96f8b39643c72d31b8d136c7c8}{Atom\+Viewed}} (\mbox{\hyperlink{class_atom_s_o}{Atom\+SO}} atom)
+\item 
+void \mbox{\hyperlink{class_task_mode_1_1_task_mode_manger_a591e092165cb79cb183dfbf687de7d26}{Molecule\+Created}} (\mbox{\hyperlink{class_molecule_s_o}{Molecule\+SO}} molecule)
+\item 
+void \mbox{\hyperlink{class_task_mode_1_1_task_mode_manger_a0b251f04e0e0227f71b9566f5680a67f}{Molecule\+Viewed}} (\mbox{\hyperlink{class_molecule_s_o}{Molecule\+SO}} molecule)
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_task_mode_1_1_task_list}{Task\+List}} \mbox{\hyperlink{class_task_mode_1_1_task_mode_manger_acb2d32551e5a65388c9154f5672c2cc7}{Tasks}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+bool \mbox{\hyperlink{class_task_mode_1_1_task_mode_manger_a1648083e7e916dc4593508c4c99e0f9d}{Active}} = false\hspace{0.3cm}{\ttfamily  \mbox{[}getprivate set\mbox{]}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Events}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_task_mode_1_1_task_mode_manger_ab91ba3963f377796c43db128b3a571c3}{Task\+Mode\+Event}} \mbox{\hyperlink{class_task_mode_1_1_task_mode_manger_a762b21b14194b0aeb77d289c52397135}{Tasks\+Changed}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_task_mode_1_1_task_list}{Task\+List}} \mbox{\hyperlink{class_task_mode_1_1_task_mode_manger_a6a11138c2662d9300be374c4c5469648}{tasks}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_task_mode_1_1_task_mode_manger_ac134e6387699a21728dccd1789315b41}\label{class_task_mode_1_1_task_mode_manger_ac134e6387699a21728dccd1789315b41}} 
+\index{TaskMode.TaskModeManger@{TaskMode.TaskModeManger}!AtomCreated@{AtomCreated}}
+\index{AtomCreated@{AtomCreated}!TaskMode.TaskModeManger@{TaskMode.TaskModeManger}}
+\doxysubsubsection{\texorpdfstring{AtomCreated()}{AtomCreated()}}
+{\footnotesize\ttfamily void Task\+Mode.\+Task\+Mode\+Manger.\+Atom\+Created (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_atom_s_o}{Atom\+SO}}}]{atom }\end{DoxyParamCaption})}
+
+Call if Atom was created If atom created matches a task -\/ the task is considered \char`\"{}done\char`\"{} \mbox{\Hypertarget{class_task_mode_1_1_task_mode_manger_a68e6ad96f8b39643c72d31b8d136c7c8}\label{class_task_mode_1_1_task_mode_manger_a68e6ad96f8b39643c72d31b8d136c7c8}} 
+\index{TaskMode.TaskModeManger@{TaskMode.TaskModeManger}!AtomViewed@{AtomViewed}}
+\index{AtomViewed@{AtomViewed}!TaskMode.TaskModeManger@{TaskMode.TaskModeManger}}
+\doxysubsubsection{\texorpdfstring{AtomViewed()}{AtomViewed()}}
+{\footnotesize\ttfamily void Task\+Mode.\+Task\+Mode\+Manger.\+Atom\+Viewed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_atom_s_o}{Atom\+SO}}}]{atom }\end{DoxyParamCaption})}
+
+Call if Atom Description was viewed If atom description viewed matches a task -\/ the task is considered \char`\"{}done\char`\"{} \mbox{\Hypertarget{class_task_mode_1_1_task_mode_manger_a17e3af8b9c1d41a841f639368299294f}\label{class_task_mode_1_1_task_mode_manger_a17e3af8b9c1d41a841f639368299294f}} 
+\index{TaskMode.TaskModeManger@{TaskMode.TaskModeManger}!FinishTaskMode@{FinishTaskMode}}
+\index{FinishTaskMode@{FinishTaskMode}!TaskMode.TaskModeManger@{TaskMode.TaskModeManger}}
+\doxysubsubsection{\texorpdfstring{FinishTaskMode()}{FinishTaskMode()}}
+{\footnotesize\ttfamily void Task\+Mode.\+Task\+Mode\+Manger.\+Finish\+Task\+Mode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Exits the \mbox{\hyperlink{namespace_task_mode}{Task\+Mode}} \mbox{\Hypertarget{class_task_mode_1_1_task_mode_manger_a591e092165cb79cb183dfbf687de7d26}\label{class_task_mode_1_1_task_mode_manger_a591e092165cb79cb183dfbf687de7d26}} 
+\index{TaskMode.TaskModeManger@{TaskMode.TaskModeManger}!MoleculeCreated@{MoleculeCreated}}
+\index{MoleculeCreated@{MoleculeCreated}!TaskMode.TaskModeManger@{TaskMode.TaskModeManger}}
+\doxysubsubsection{\texorpdfstring{MoleculeCreated()}{MoleculeCreated()}}
+{\footnotesize\ttfamily void Task\+Mode.\+Task\+Mode\+Manger.\+Molecule\+Created (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_molecule_s_o}{Molecule\+SO}}}]{molecule }\end{DoxyParamCaption})}
+
+Call if \mbox{\hyperlink{namespace_molecule}{Molecule}} was created If \mbox{\hyperlink{namespace_molecule}{Molecule}} created matches a task -\/ the task is considered \char`\"{}done\char`\"{} \mbox{\Hypertarget{class_task_mode_1_1_task_mode_manger_a0b251f04e0e0227f71b9566f5680a67f}\label{class_task_mode_1_1_task_mode_manger_a0b251f04e0e0227f71b9566f5680a67f}} 
+\index{TaskMode.TaskModeManger@{TaskMode.TaskModeManger}!MoleculeViewed@{MoleculeViewed}}
+\index{MoleculeViewed@{MoleculeViewed}!TaskMode.TaskModeManger@{TaskMode.TaskModeManger}}
+\doxysubsubsection{\texorpdfstring{MoleculeViewed()}{MoleculeViewed()}}
+{\footnotesize\ttfamily void Task\+Mode.\+Task\+Mode\+Manger.\+Molecule\+Viewed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_molecule_s_o}{Molecule\+SO}}}]{molecule }\end{DoxyParamCaption})}
+
+Call if \mbox{\hyperlink{namespace_molecule}{Molecule}} Description was viewed If molecule description viewed matches a task -\/ the task is considered \char`\"{}done\char`\"{} \mbox{\Hypertarget{class_task_mode_1_1_task_mode_manger_a6fe0645bd73d23c66092e6a2e8faf162}\label{class_task_mode_1_1_task_mode_manger_a6fe0645bd73d23c66092e6a2e8faf162}} 
+\index{TaskMode.TaskModeManger@{TaskMode.TaskModeManger}!StartTaskMode@{StartTaskMode}}
+\index{StartTaskMode@{StartTaskMode}!TaskMode.TaskModeManger@{TaskMode.TaskModeManger}}
+\doxysubsubsection{\texorpdfstring{StartTaskMode()}{StartTaskMode()}}
+{\footnotesize\ttfamily void Task\+Mode.\+Task\+Mode\+Manger.\+Start\+Task\+Mode (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})}
+
+Starts the \mbox{\hyperlink{class_task_mode_1_1_task}{Task}} Mode 
+\begin{DoxyParams}{Parameters}
+{\em id} & The index of the tasklist in Task\+Lists\+Saver.\+Task\+Lists \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_task_mode_1_1_task_mode_manger_ab91ba3963f377796c43db128b3a571c3}\label{class_task_mode_1_1_task_mode_manger_ab91ba3963f377796c43db128b3a571c3}} 
+\index{TaskMode.TaskModeManger@{TaskMode.TaskModeManger}!TaskModeEvent@{TaskModeEvent}}
+\index{TaskModeEvent@{TaskModeEvent}!TaskMode.TaskModeManger@{TaskMode.TaskModeManger}}
+\doxysubsubsection{\texorpdfstring{TaskModeEvent()}{TaskModeEvent()}}
+{\footnotesize\ttfamily delegate void Task\+Mode.\+Task\+Mode\+Manger.\+Task\+Mode\+Event (\begin{DoxyParamCaption}\item[{bool}]{success = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_task_mode_1_1_task_mode_manger_a6a11138c2662d9300be374c4c5469648}\label{class_task_mode_1_1_task_mode_manger_a6a11138c2662d9300be374c4c5469648}} 
+\index{TaskMode.TaskModeManger@{TaskMode.TaskModeManger}!tasks@{tasks}}
+\index{tasks@{tasks}!TaskMode.TaskModeManger@{TaskMode.TaskModeManger}}
+\doxysubsubsection{\texorpdfstring{tasks}{tasks}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_task_mode_1_1_task_list}{Task\+List}} Task\+Mode.\+Task\+Mode\+Manger.\+tasks\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{class_task_mode_1_1_task_mode_manger_a1648083e7e916dc4593508c4c99e0f9d}\label{class_task_mode_1_1_task_mode_manger_a1648083e7e916dc4593508c4c99e0f9d}} 
+\index{TaskMode.TaskModeManger@{TaskMode.TaskModeManger}!Active@{Active}}
+\index{Active@{Active}!TaskMode.TaskModeManger@{TaskMode.TaskModeManger}}
+\doxysubsubsection{\texorpdfstring{Active}{Active}}
+{\footnotesize\ttfamily bool Task\+Mode.\+Task\+Mode\+Manger.\+Active = false\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [private set]}}
+
+\mbox{\Hypertarget{class_task_mode_1_1_task_mode_manger_acb2d32551e5a65388c9154f5672c2cc7}\label{class_task_mode_1_1_task_mode_manger_acb2d32551e5a65388c9154f5672c2cc7}} 
+\index{TaskMode.TaskModeManger@{TaskMode.TaskModeManger}!Tasks@{Tasks}}
+\index{Tasks@{Tasks}!TaskMode.TaskModeManger@{TaskMode.TaskModeManger}}
+\doxysubsubsection{\texorpdfstring{Tasks}{Tasks}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_task_mode_1_1_task_list}{Task\+List}} Task\+Mode.\+Task\+Mode\+Manger.\+Tasks\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+\doxysubsection{Event Documentation}
+\mbox{\Hypertarget{class_task_mode_1_1_task_mode_manger_a762b21b14194b0aeb77d289c52397135}\label{class_task_mode_1_1_task_mode_manger_a762b21b14194b0aeb77d289c52397135}} 
+\index{TaskMode.TaskModeManger@{TaskMode.TaskModeManger}!TasksChanged@{TasksChanged}}
+\index{TasksChanged@{TasksChanged}!TaskMode.TaskModeManger@{TaskMode.TaskModeManger}}
+\doxysubsubsection{\texorpdfstring{TasksChanged}{TasksChanged}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_task_mode_1_1_task_mode_manger_ab91ba3963f377796c43db128b3a571c3}{Task\+Mode\+Event}} Task\+Mode.\+Task\+Mode\+Manger.\+Tasks\+Changed}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Krypton/\+Assets/\+Scripts/\+Task/\mbox{\hyperlink{_task_mode_manger_8cs}{Task\+Mode\+Manger.\+cs}}\end{DoxyCompactItemize}
