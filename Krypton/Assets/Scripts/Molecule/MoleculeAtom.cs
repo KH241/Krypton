@@ -6,6 +6,7 @@ namespace Molecule
 	{
 		public AtomSO Atom;
 		public MeshRenderer mesh;
+		private bool used = false;
 
 		public bool Used
 		{
@@ -16,13 +17,19 @@ namespace Molecule
 				OnVisible();
 			}
 		}
-		private bool used = false;
+		
 
+		/**
+		 * Toggles MeshRenderer
+		 */
 		private void OnVisible()
 		{
 			mesh.enabled = !Used;
 		}
 
+		/**
+		 * Spawns Atom on Imagetarget with color depending on the ID
+		 */
 		public void Spawn(AtomSO atom)
 		{
 			Atom = atom;

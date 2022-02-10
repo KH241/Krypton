@@ -10,6 +10,9 @@ namespace Molecule
 		public GameObject C2H2GameObject;
 		public GameObject NH3GameObject;
 		
+		/**
+		 * Spawns an Instance of a Molecule Object
+		 */
 		public void Spawn(MoleculeSO molecule)
 		{
 			switch (molecule.ID)
