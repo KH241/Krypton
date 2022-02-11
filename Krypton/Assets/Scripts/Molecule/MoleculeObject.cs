@@ -2,6 +2,9 @@
 
 namespace Molecule
 {
+	/**
+	 * Molecule Class Component
+	 */
 	public class MoleculeObject : MonoBehaviour
 	{
 		public GameObject H2OGameObject;

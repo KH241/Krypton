@@ -7,6 +7,9 @@ using TaskMode;
 
 namespace Molecule
 {
+	/**
+	 * Molecule Controller and Generator class 
+	 */
 	public class MoleculeManager : MonoBehaviour
 	{
 		[Range(0, 10)] public float MoleculeRange;

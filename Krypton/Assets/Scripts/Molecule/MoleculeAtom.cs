@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace Molecule
 {
+	/**
+	 * Atom Controller and Generator class 
+	 */
 	public class MoleculeAtom : MonoBehaviour
 	{
 		public AtomSO Atom;

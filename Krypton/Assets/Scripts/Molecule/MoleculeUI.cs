@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 namespace Molecule
 {
+	/**
+	* Class Controls UI elements for Molecule Scene 
+	*/
 	public class MoleculeUI : MonoBehaviour
 	{
 		public TMP_Text mainText;

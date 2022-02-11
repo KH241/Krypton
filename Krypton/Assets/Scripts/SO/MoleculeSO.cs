@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+* Scriptable object containing relevant information for Molecule Objects 
+*/
 [CreateAssetMenu(fileName = "MoleculeSO", menuName = "ScriptableObjects/MoleculeSO", order = 1)]
 public class MoleculeSO : ScriptableObject
 {
@@ -14,9 +17,12 @@ public class MoleculeSO : ScriptableObject
 	public override string ToString()
 	{
 		string atoms = Environment.NewLine + "This molecule consists of:" + Environment.NewLine + Environment.NewLine;
-		
-		foreach (AtomSO atom in Atoms) { atoms = atoms + atom.Name + Environment.NewLine; }
-		
+
+		foreach (AtomSO atom in Atoms)
+		{
+			atoms = atoms + atom.Name + Environment.NewLine;
+		}
+
 		return atoms;
 	}
 }
