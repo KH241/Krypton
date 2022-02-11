@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-/*
+/**
 * Scriptable object containing relevant information for Atom Objects 
 */
 [CreateAssetMenu(fileName = "AtomSO", menuName = "ScriptableObjects/AtomSO", order = 1)]

@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace TaskMode
 {
+	/**
+	 * Handles the Tasklist - Window
+	 */
 	public class TaskListUI : MonoBehaviour
 	{
 		public TMP_Text Heading;
@@ -17,7 +20,7 @@ namespace TaskMode
 		
 		private void OnEnable() { UpdateList(); }
 
-		/*
+		/**
 		 * Writes the whole TaskList from TaskModeManager.Singleton.Tasks
 		 */
 		private void UpdateList(bool success=true)

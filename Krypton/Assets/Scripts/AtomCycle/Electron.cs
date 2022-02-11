@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace AtomCycle
 {
-	/*
+	/**
 	* Elecron Class Component 
 	*/
 	public class Electron : MonoBehaviour
@@ -15,7 +15,7 @@ namespace AtomCycle
 	    public float rotationSpeed = 40.0f;
 	    
 
-		/*
+		/**
 		 * set Initial Spawn Position  
 		 */
 	    public void Start()
@@ -25,7 +25,7 @@ namespace AtomCycle
 	        
 	    }
 
-		/*
+		/**
 		 * rotate around center position  
 		 */
 	    public void Update()

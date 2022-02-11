@@ -1,3 +1,6 @@
+/**
+ * Contains strings of all Scenes, for easy access
+ */
 public static class SceneList
 {
 	public static string MainMenu = "MainMenuScene";

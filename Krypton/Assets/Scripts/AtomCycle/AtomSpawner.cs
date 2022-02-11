@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace AtomCycle
 {
-	/*
+	/**
 	* Controls Game spawning of atoms 
 	*/
 	public class AtomSpawner : MonoBehaviour
@@ -20,7 +20,6 @@ namespace AtomCycle
 
 		/**
 		 * Create the atom based off info passed from Scriptable object AtomSO
-		 * 
 		 */
 	    public void createAtoms( GameObject parent)
 	    {

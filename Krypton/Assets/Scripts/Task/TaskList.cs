@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace TaskMode
 {
+	/**
+	 * Holds one List of Tasks
+	 */
 	[Serializable]
 	public class TaskList : IEnumerable<Task>
 	{
@@ -30,7 +33,9 @@ namespace TaskMode
 		public void AddTask(Task task) { tasks.Add(task); }
 		public void RemoveTask(Task task) { tasks.Remove(task); }
 
-		
+		/**
+		 * @return the count of Tasks that are done
+		 */
 		private int getCountDone()
 		{
 			int output = 0;

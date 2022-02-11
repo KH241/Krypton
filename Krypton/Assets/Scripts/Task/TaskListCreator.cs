@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace TaskMode
 {
+	/**
+	 * Handles the Task List Creation
+	 */
 	public class TaskListCreator : MonoBehaviour
 	{
 		public CreateTaskUI UI;
@@ -18,6 +21,9 @@ namespace TaskMode
 
 		#region TaskAdder
 
+		/**
+		 * Adds a Create - Atom - Task
+		 */
 		public void AddCreateAtom(AtomSO atom)
 		{
 			Task task = new Task(TaskType.CreateAtom, atom);
@@ -25,6 +31,9 @@ namespace TaskMode
 			UI.UpdateTaskList();
 		}
 
+		/**
+		 * Adds a View - Atom - Task
+		 */
 		public void AddViewAtom(AtomSO atom)
 		{
 			Task task = new Task(TaskType.ViewAtom, atom);
@@ -32,6 +41,9 @@ namespace TaskMode
 			UI.UpdateTaskList();
 		}
 
+		/**
+		 * Adds a Create - Molecule - Task
+		 */
 		public void AddCreateMolecule(MoleculeSO molecule)
 		{
 			Task task = new Task(TaskType.CreateMolecule, molecule);
@@ -39,6 +51,9 @@ namespace TaskMode
 			UI.UpdateTaskList();
 		}
 
+		/**
+		 * Adds a View - Molecule - Task
+		 */
 		public void AddViewMolecule(MoleculeSO molecule)
 		{
 			Task task = new Task(TaskType.ViewMolecule, molecule);
@@ -48,7 +63,7 @@ namespace TaskMode
 		
 		#endregion
 
-		/*
+		/**
 		 * @return The Id of the created tasklist inside TaskListsSaver.TaskLists
 		 */
 		public int Save() { return TaskListsSaver.SaveTask(TaskList); }

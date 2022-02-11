@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace AtomCycle
 {
-	/*
+	/**
 	* Class Controls UI elements for Atom Scene 
 	*/
 	public class AtomUI : MonoBehaviour
@@ -26,14 +26,16 @@ namespace AtomCycle
 		public TMP_Text atomShells;
 		public Image atomColor;
 
-		// Start is called before the first frame update
+		/**
+		 * Start is called before the first frame update
+		 */
 		void Start()
 		{
 			TaskList.SetActive(TaskModeManger.Singleton.Active);
 			NoAtomTracked();
 		}
 
-		/*
+		/**
 		 * Toggle Atom Info screen visibility  
 		 */
 		public void ToggleInfo()
@@ -45,7 +47,7 @@ namespace AtomCycle
 			}
 		}
 
-		/*
+		/**
 		 * Extract Atom info from AtomSo and update Atom info Canvas  
 		 */
 		public void AtomTracked(AtomSO atom)
@@ -73,7 +75,7 @@ namespace AtomCycle
 			atomColor.color = atom.atomColor;
 		}
 
-		/*
+		/**
 		 * Disable atom Info  
 		 */
 		public void NoAtomTracked()
@@ -83,7 +85,7 @@ namespace AtomCycle
 			AtomInfo.SetActive(false);
 		}
 		
-		/*
+		/**
 		 * Load Main Menu  
 		 */
 		public void OnMainMenu()

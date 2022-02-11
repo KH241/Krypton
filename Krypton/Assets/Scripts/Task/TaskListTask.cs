@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace TaskMode
 {
+	/**
+	 * Task Entry in the Tasklist - UI
+	 */
 	public class TaskListTask : MonoBehaviour
 	{
 		public GameObject TaskHelp;
@@ -18,7 +21,9 @@ namespace TaskMode
 			if (task.Done) { Text.fontStyle = FontStyles.Strikethrough; }
 		}
 
-		//Opens the TaskHelp for the Task
+		/**
+		 * Opens the TaskHelp for the Task
+		 */
 		public void OnClick()
 		{
 			GameObject help = Instantiate(TaskHelp, gameObject.GetComponentInParent<TaskListUI>().transform);

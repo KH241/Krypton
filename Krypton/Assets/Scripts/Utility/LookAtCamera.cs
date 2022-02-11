@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * Looks at Camera
+ */
 public class LookAtCamera : MonoBehaviour
 {
 	private Transform target;

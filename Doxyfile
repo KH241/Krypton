@@ -489,13 +489,13 @@ EXTRACT_PRIVATE        = YES
 # methods of a class will be included in the documentation.
 # The default value is: NO.
 
-EXTRACT_PRIV_VIRTUAL   = NO
+EXTRACT_PRIV_VIRTUAL   = YES
 
 # If the EXTRACT_PACKAGE tag is set to YES, all members with package or internal
 # scope will be included in the documentation.
 # The default value is: NO.
 
-EXTRACT_PACKAGE        = NO
+EXTRACT_PACKAGE        = YES
 
 # If the EXTRACT_STATIC tag is set to YES, all static members of a file will be
 # included in the documentation.

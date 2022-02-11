@@ -53,7 +53,7 @@ namespace AtomCycle
 
 		}
 
-		/*
+		/**
 		 * Create each individual atom component
 		 */
 		public void createAtom(Vector3 center)
@@ -121,7 +121,7 @@ namespace AtomCycle
 		}
 
 
-		/*
+		/**
 		 * Freeze the physics of atom
 		 */
 		public IEnumerator freezePos()
@@ -134,7 +134,7 @@ namespace AtomCycle
 
 		}
 
-		/*
+		/**
 		 * Create given number of proton and nuetron objects  
 		 */
 		string createNucleons(int nPoints, float scale, int protonsToBeCreated, int neutronsToBeCreated)
@@ -205,7 +205,7 @@ namespace AtomCycle
 
 			return npc + "," + nnc;
 		}
-		/*
+		/**
 		* Control spinning of electrons 
 		*/
 		public void Update()
@@ -233,7 +233,9 @@ namespace AtomCycle
 			}
 		}
 
-		//Draw Electron Shells
+		/**
+		* Draw Electron Shells
+		*/
 		public void drawCircle(float radius, LineRenderer lr)
 		{
 			lr.positionCount = 360;
@@ -255,7 +257,7 @@ namespace AtomCycle
 			}
 		}
 
-		/*
+		/**
 		 * Proton gameObject generator  
 		 */
 		public GameObject generateProton(Vector3 pos)
@@ -277,7 +279,7 @@ namespace AtomCycle
 		}
 
 
-		/*
+		/**
 		 * Neutron gameObject generator  
 		 */
 		public GameObject generateNeutron(Vector3 pos)
@@ -300,7 +302,7 @@ namespace AtomCycle
 			return neutron;
 		}
 
-		/*
+		/**
 		 * Electron Shell Generator  
 		 */
 		public GameObject[] generateElectronShells()
@@ -331,7 +333,7 @@ namespace AtomCycle
 			return shells.ToArray();
 		}
 
-		/*
+		/**
 		 * Electron gameObject generator  
 		 */
 		public void generateElectron(Vector3 pos, float r, int shell, GameObject shellGO)

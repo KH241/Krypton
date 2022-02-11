@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace AtomCycle
 {
-	/*
+	/**
 	* Nucleon Class Component  
 	*/
 	public class Nucleon : MonoBehaviour
@@ -11,7 +11,7 @@ namespace AtomCycle
 	    private bool stop = false;
 	    private Transform spawn;
 
-		/*
+		/**
 		 * Controls Physics on Nuecleon object  
 		 */
 	    void Update()
@@ -40,7 +40,7 @@ namespace AtomCycle
 	        
 	    }
 
-	   	/*
+	   	/**
 		 * Turns off all rigidbodys and colliders
 		 */
 	    public void Freeze()

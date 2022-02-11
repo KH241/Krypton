@@ -2,6 +2,9 @@
 
 namespace TaskMode
 {
+	/**
+	 * Describes a Task
+	 */
 	[Serializable]
 	public class Task
 	{

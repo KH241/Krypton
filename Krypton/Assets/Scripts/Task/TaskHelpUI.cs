@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace TaskMode
 {
+	/**
+	 * Handles the Task - Help - Popup window
+	 */
 	public class TaskHelpUI : MonoBehaviour
 	{
 		public TMP_Text Text;

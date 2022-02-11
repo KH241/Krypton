@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace TaskMode
 {
+	/**
+	 * Saves + Loads Tasklist from and to local Storage
+	 */
 	public static class TaskListsSaver
 	{
 		private const string FILEPATH = "Assets/Resources/taskLists.txt";

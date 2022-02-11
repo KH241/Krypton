@@ -7,6 +7,9 @@ using TMPro;
 
 namespace TaskMode
 {
+	/**
+	 * Handles the Menu for the Task Mode
+	 */
 	public class TaskMenu : MonoBehaviour
 	{
 		public GameObject Idle;
@@ -25,6 +28,9 @@ namespace TaskMode
 			}
 		}
 
+		/**
+		 * Fills the dropdown of available Task Lists
+		 */
 		private void FillTaskListSelection()
 		{
 			TaskListSelectionDropdown.ClearOptions();
