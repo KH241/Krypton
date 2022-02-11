@@ -10,7 +10,7 @@ namespace TaskMode
 	 */
 	public static class TaskListsSaver
 	{
-		private const string FILEPATH = "Assets/Resources/taskLists.txt";
+		private const string FILEPATH = "taskLists.json";
 
 		public static TaskList[] TaskLists => LoadTaskLists();
 
@@ -19,6 +19,9 @@ namespace TaskMode
 		 */
 		public static TaskList[] LoadTaskLists()
 		{
+			//Create File if it doesnt exist
+			if (!File.Exists(FILEPATH)) { File.Create(FILEPATH).Close(); }
+			
 			StreamReader reader = new StreamReader(FILEPATH);
 	        string json = reader.ReadToEnd();
 	        reader.Close();
@@ -55,6 +58,10 @@ namespace TaskMode
 			//Put the list inside a wrapper, so it can be serialized by JSONUtility
 			ListWrapper wrapper = new ListWrapper();
 			wrapper.TaskLists = lists.ToArray();
+			
+			//Create File if it doesnt exist
+			if (!File.Exists(FILEPATH)) { File.Create(FILEPATH).Close(); }
+			
 			
 			//Write to file
 			StreamWriter writer = new StreamWriter(FILEPATH, false);
