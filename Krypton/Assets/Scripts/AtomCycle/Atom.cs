@@ -205,7 +205,9 @@ namespace AtomCycle
 
 			return npc + "," + nnc;
 		}
-		
+		/*
+		* Control spinning of electrons 
+		*/
 		public void Update()
 		{
 			if (spinElectrons)
