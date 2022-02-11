@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace AtomCycle
 {
+
+	/*
+	*  Atom Controller and Generator class 
+	*/
 	public class Atom : MonoBehaviour
 	{
 		//Mats for shells and electrons
@@ -49,6 +53,9 @@ namespace AtomCycle
 
 		}
 
+		/*
+		 * Create each individual atom component
+		 */
 		public void createAtom(Vector3 center)
 		{
 			this.center = center;
@@ -114,6 +121,9 @@ namespace AtomCycle
 		}
 
 
+		/*
+		 * Freeze the physics of atom
+		 */
 		public IEnumerator freezePos()
 		{
 			yield return new WaitForSeconds(.25f);
@@ -124,7 +134,9 @@ namespace AtomCycle
 
 		}
 
-		//Create Nucleon ojects aka protons and neutrons
+		/*
+		 * Create given number of proton and nuetron objects  
+		 */
 		string createNucleons(int nPoints, float scale, int protonsToBeCreated, int neutronsToBeCreated)
 		{
 			int npc = 0;
@@ -241,7 +253,9 @@ namespace AtomCycle
 			}
 		}
 
-		//Proton gameObject generator
+		/*
+		 * Proton gameObject generator  
+		 */
 		public GameObject generateProton(Vector3 pos)
 		{
 			GameObject proton = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -261,7 +275,9 @@ namespace AtomCycle
 		}
 
 
-		//Neutron GameObject Generator
+		/*
+		 * Neutron gameObject generator  
+		 */
 		public GameObject generateNeutron(Vector3 pos)
 		{
 
@@ -282,7 +298,9 @@ namespace AtomCycle
 			return neutron;
 		}
 
-		//Electorn Shell Generator
+		/*
+		 * Electron Shell Generator  
+		 */
 		public GameObject[] generateElectronShells()
 		{
 			List<GameObject> shells = new List<GameObject>();
@@ -311,7 +329,9 @@ namespace AtomCycle
 			return shells.ToArray();
 		}
 
-		//Electron Gameobject Generator
+		/*
+		 * Electron gameObject generator  
+		 */
 		public void generateElectron(Vector3 pos, float r, int shell, GameObject shellGO)
 		{
 			GameObject electron = GameObject.CreatePrimitive(PrimitiveType.Sphere);

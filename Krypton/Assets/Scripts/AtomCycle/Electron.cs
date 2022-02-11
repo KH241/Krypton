@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace AtomCycle
 {
+	/*
+	* Elecron Class Component 
+	*/
 	public class Electron : MonoBehaviour
 	{
 
@@ -12,14 +15,19 @@ namespace AtomCycle
 	    public float rotationSpeed = 40.0f;
 	    
 
+		/*
+		 * set Initial Spawn Position  
+		 */
 	    public void Start()
 	    {
 	        //set initial spawn position 
 	        transform.position = (transform.position - centre.position).normalized * radius + centre.position;
-	        Debug.Log("Electron  Spawn Position: " + transform.position);
+	        
 	    }
 
-
+		/*
+		 * rotate around center position  
+		 */
 	    public void Update()
 	    {
 			transform.RotateAround(centre.position, transform.up, rotationSpeed * Time.deltaTime);

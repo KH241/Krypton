@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 namespace AtomCycle
 {
+	/*
+	* Class Controls UI elements for Atom Scene 
+	*/
 	public class AtomUI : MonoBehaviour
 	{
 		private AtomSO trackedAtom;
@@ -30,6 +33,9 @@ namespace AtomCycle
 			NoAtomTracked();
 		}
 
+		/*
+		 * Toggle Atom Info screen visibility  
+		 */
 		public void ToggleInfo()
 		{
 			AtomInfo.SetActive(!AtomInfo.activeSelf);
@@ -39,6 +45,9 @@ namespace AtomCycle
 			}
 		}
 
+		/*
+		 * Extract Atom info from AtomSo and update Atom info Canvas  
+		 */
 		public void AtomTracked(AtomSO atom)
 		{
 			trackedAtom = atom;
@@ -64,6 +73,9 @@ namespace AtomCycle
 			atomColor.color = atom.atomColor;
 		}
 
+		/*
+		 * Disable atom Info  
+		 */
 		public void NoAtomTracked()
 		{
 			trackedAtom = null;
@@ -71,7 +83,9 @@ namespace AtomCycle
 			AtomInfo.SetActive(false);
 		}
 		
-		
+		/*
+		 * Load Main Menu  
+		 */
 		public void OnMainMenu()
 		{
 			SceneManager.LoadScene(SceneList.MainMenu);

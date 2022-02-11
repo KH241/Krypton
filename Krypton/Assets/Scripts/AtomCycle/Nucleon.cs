@@ -2,12 +2,18 @@ using UnityEngine;
 
 namespace AtomCycle
 {
+	/*
+	* Nucleon Class Component  
+	*/
 	public class Nucleon : MonoBehaviour
 	{
 	    public Vector3 center;
 	    private bool stop = false;
 	    private Transform spawn;
 
+		/*
+		 * Controls Physics on Nuecleon object  
+		 */
 	    void Update()
 	    {
 	        if (center != null)
@@ -34,7 +40,9 @@ namespace AtomCycle
 	        
 	    }
 
-	    //Turn off all gameobject movement and colliders
+	   	/*
+		 * Turns off all rigidbodys and colliders
+		 */
 	    public void Freeze()
 	    {
 	        gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;

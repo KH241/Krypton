@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace AtomCycle
 {
+	/*
+	* Controls Game spawning of atoms 
+	*/
 	public class AtomSpawner : MonoBehaviour
 	{
 
