@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/**
+* Singleton Pattern / Wont be destroyed on scene switch
+*/
 public class DontDestroySingleton<T> : MonoBehaviour where T : Component
 {
 	public static T Singleton => singleton;

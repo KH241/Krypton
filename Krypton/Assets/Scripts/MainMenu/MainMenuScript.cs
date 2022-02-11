@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/**
+ * Contains the onlick functions for the main Menu
+ */
 public class MainMenuScript : MonoBehaviour
 {
 	#region Button Onclick
