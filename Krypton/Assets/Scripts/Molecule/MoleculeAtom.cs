@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Molecule
 {
 	/**
-	 * Atom Controller and Generator class 
+	 * Atom Controller class for creating atoms in the molecule scene
 	 */
 	public class MoleculeAtom : MonoBehaviour
 	{
