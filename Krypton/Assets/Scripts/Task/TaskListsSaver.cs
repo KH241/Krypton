@@ -10,8 +10,8 @@ namespace TaskMode
 	 */
 	public static class TaskListsSaver
 	{
-		private const string FILEPATH = "taskLists.json";
-
+		private static string FILEPATH = Application.persistentDataPath + "taskLists.json";
+		
 		public static TaskList[] TaskLists => LoadTaskLists();
 
 		/**

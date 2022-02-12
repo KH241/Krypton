@@ -1,0 +1,3 @@
+Die .apk des Projekts befindet sich in den GitHub-Releases
+Die Doxygen - Documentation befindet sich in /Documentation/html/ oder /Documentation/latex/
+Das Unity Projekt befindet sich in /Krypton/
